@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://byq65werapbc5"
+path="res://.godot/imported/Kasane Teto - Teto territory [JALbemLw3G4].mp3-f9f07f954d51d7fe7cccf5e2d8e4fecf.mp3str"
+
+[deps]
+
+source_file="res://Kasane Teto - Teto territory [JALbemLw3G4].mp3"
+dest_files=["res://.godot/imported/Kasane Teto - Teto territory [JALbemLw3G4].mp3-f9f07f954d51d7fe7cccf5e2d8e4fecf.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
