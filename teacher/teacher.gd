@@ -58,7 +58,7 @@ func _ready():
 		var monster_count := get_tree().get_node_count_in_group('monster')
 		print(monster_count)
 		
-		if black_pixel_count > max_black_pixel_count:
+		if black_pixel_count > max_black_pixel_count and monster_count != 0:
 			get_tree().reload_current_scene()
 		
 		gameplay.teacher_look_timer.start()
