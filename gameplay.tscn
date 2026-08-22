@@ -7,12 +7,14 @@
 [ext_resource type="Script" uid="uid://ctwt4otx35jqx" path="res://eraser/eraser.gd" id="5_cbffv"]
 [ext_resource type="Texture2D" uid="uid://65tumjlxibgr" path="res://eraser/eraser.png" id="5_smepj"]
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_njsjv"]
+
 [node name="Gameplay" type="Node2D" unique_id=1976024019 node_paths=PackedStringArray("painter_image", "eraser")]
 top_level = true
 script = ExtResource("1_xuee5")
 painter_image = NodePath("PainterImage")
 bad_texts_dir = "res://bad_texts"
-eraser_size = 14
+eraser_size = 12
 eraser = NodePath("Eraser")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1077234380]
@@ -32,8 +34,28 @@ wait_time = 1.5
 autostart = true
 
 [node name="Eraser" type="Node2D" parent="." unique_id=44436766]
+show_behind_parent = true
 script = ExtResource("5_cbffv")
 speed = 12.0
+durability_decrease_rate = 3.0
 
 [node name="Sprite2D" type="Sprite2D" parent="Eraser" unique_id=1499735714]
+visible = false
 texture = ExtResource("5_smepj")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Eraser" unique_id=390784233]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+value = 100.0
+fill_mode = 3
+texture_under = SubResource("CompressedTexture2D_njsjv")
+texture_progress = ExtResource("5_smepj")

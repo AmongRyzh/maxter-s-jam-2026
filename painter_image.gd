@@ -31,9 +31,12 @@ func _spawn_bad_text():
 
 func _paint_tex(pos):
 	#print(Rect2i(pos, Vector2i(1, 1)).grow(eraser_size))
-	img.fill_rect(Rect2i(pos, Vector2i(1, 1)).grow(gameplay.eraser_size), Color.WHITE)
+	img.fill_rect(Rect2i(pos, Vector2i(1, 1)).grow(gameplay.eraser_size).grow_side(SIDE_TOP, gameplay.durability_shrink), Color.WHITE)
 
 func _input(event: InputEvent):
+	if gameplay.eraser == null:
+		return
+	
 	if event is InputEventMouseButton:
 		if event.pressed and not event.is_echo() and event.button_index == MOUSE_BUTTON_LEFT:
 			var local_pos = to_local(gameplay.eraser.position)

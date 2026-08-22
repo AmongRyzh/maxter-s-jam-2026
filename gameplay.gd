@@ -6,16 +6,16 @@ extends Node2D
 
 @export var eraser_size := 5
 @export var eraser: Node2D
-
-@export var draw_eraser_rect : bool = false
+var durability_shrink : float :
+	get():
+		return 0 if eraser == null else ((eraser.current_eraser_durability - eraser.eraser_durability) / 100) * eraser_size * 2
 
 func _ready():
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if draw_eraser_rect:
-		queue_redraw()
+	queue_redraw()
 
 func get_all_bad_texts() -> Array[Image]:
 	var output : Array[Image]
@@ -36,5 +36,7 @@ func get_all_bad_texts() -> Array[Image]:
 	
 	return output
 
-func _draw():
-	draw_rect(Rect2i(get_global_mouse_position(), Vector2i(1, 1)).grow(eraser_size), Color.AQUA)
+#func _draw():
+	#if eraser:
+		#draw_rect(Rect2(eraser.position, Vector2i(1, 1)).grow(eraser_size).grow_side(SIDE_TOP, durability_shrink), Color(0, 1, 0, 0.5))
+	#draw_rect(Rect2(get_global_mouse_position(), Vector2i(1, 1)).grow(eraser_size), Color(0, 1, 1, 0.5))
