@@ -34,10 +34,13 @@ func get_eraser_slowdown_factor_object_z_index() -> int:
 @export var eraser_prefab: PackedScene
 
 @export var bad_text_spawn_timer: Timer
-@export var begin_monster_spawn_timer: Timer
+@export var begin_random_event_timer: Timer
 @export var monster_spawn_timer: RandomTimer
+@export var danger_spawn_timer: RandomTimer
 
 @export var monster: PackedScene
+
+@export var dangers: Array[PackedScene]
 
 func _ready():
 	bad_texts = get_all_bad_texts()
@@ -45,13 +48,18 @@ func _ready():
 	bad_text_spawn_timer.timeout.connect(_spawn_bad_text)
 	bad_text_spawn_timer.timeout.emit()
 	
+	begin_random_event_timer.timeout.connect(func():
+		monster_spawn_timer.timeout.emit()
+		monster_spawn_timer.random_start()
+		danger_spawn_timer.random_start()
+		)
+	
 	monster_spawn_timer.timeout.connect(func():
 		spawn_packed_at_random_pos(monster)
 		)
 	
-	begin_monster_spawn_timer.timeout.connect(func():
-		monster_spawn_timer.timeout.emit()
-		monster_spawn_timer.random_start()
+	danger_spawn_timer.timeout.connect(func():
+		_spawn_danger()
 		)
 
 func _spawn_bad_text():
@@ -121,6 +129,10 @@ func spawn_packed_at_pos(packed: PackedScene, pos: Vector2):
 		add_child(new_packed)
 	else:
 		print("failed to instantiate ", packed, "!")
+
+func _spawn_danger():
+	var danger = dangers.pick_random()
+	
 
 #func _draw():
 	#if eraser:

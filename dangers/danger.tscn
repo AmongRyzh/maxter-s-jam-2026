@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://bfbmr3mjgd1fs"]
+
+[ext_resource type="Script" uid="uid://bm36orw1mffgd" path="res://dangers/danger.gd" id="1_5rr7t"]
+[ext_resource type="Texture2D" uid="uid://dclgstmi4mv7i" path="res://dangers/danger_shadow.png" id="2_25oqr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2gr5k"]
+size = Vector2(64, 64)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_njsjv"]
+size = Vector2(64, 64)
+
+[node name="Danger" type="Area2D" unique_id=1070415679]
+script = ExtResource("1_5rr7t")
+
+[node name="Shadow" type="Sprite2D" parent="." unique_id=1683475606]
+position = Vector2(0, 32)
+texture = ExtResource("2_25oqr")
+
+[node name="Projectile" type="CollisionShape2D" parent="." unique_id=350462484]
+shape = SubResource("RectangleShape2D_2gr5k")
+
+[node name="Sprite2D" type="Sprite2D" parent="Projectile" unique_id=321822552]
+texture = SubResource("PlaceholderTexture2D_njsjv")

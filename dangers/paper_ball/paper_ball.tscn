@@ -1,15 +1,15 @@
-[gd_scene format=3 uid="uid://bfbmr3mjgd1fs"]
+[gd_scene format=3 uid="uid://bgq7hkw7b1sxc"]
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_njsjv"]
-size = Vector2(64, 64)
+[ext_resource type="PackedScene" uid="uid://bfbmr3mjgd1fs" path="res://dangers/danger.tscn" id="1_6ggbv"]
+[ext_resource type="Texture2D" uid="uid://biwwtv4ht1cgd" path="res://dangers/paper_ball/paper_ball.png" id="2_s7qe7"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2gr5k"]
-size = Vector2(64, 64)
+[sub_resource type="CircleShape2D" id="CircleShape2D_kbfkw"]
+radius = 32.0
 
-[node name="PaperBall" type="Area2D" unique_id=1070415679]
+[node name="PaperBall" unique_id=1070415679 instance=ExtResource("1_6ggbv")]
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=321822552]
-texture = SubResource("PlaceholderTexture2D_njsjv")
+[node name="Projectile" parent="." index="1" unique_id=350462484]
+shape = SubResource("CircleShape2D_kbfkw")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=350462484]
-shape = SubResource("RectangleShape2D_2gr5k")
+[node name="Sprite2D" parent="Projectile" index="0" unique_id=321822552]
+texture = ExtResource("2_s7qe7")

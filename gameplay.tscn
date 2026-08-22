@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://ckgtcmnk3ywpg" path="res://pencil_case/pencil_case.tscn" id="7_fbudy"]
 [ext_resource type="Script" uid="uid://dr86d7jfmead5" path="res://random_timer.gd" id="8_0m7cd"]
 
-[node name="Gameplay" type="Node2D" unique_id=1976024019 node_paths=PackedStringArray("painter_image", "bad_text_spawn_timer", "begin_monster_spawn_timer", "monster_spawn_timer")]
+[node name="Gameplay" type="Node2D" unique_id=1976024019 node_paths=PackedStringArray("painter_image", "bad_text_spawn_timer", "begin_random_event_timer", "monster_spawn_timer", "danger_spawn_timer")]
 top_level = true
 script = ExtResource("1_xuee5")
 painter_image = NodePath("PainterImage")
@@ -17,8 +17,9 @@ bad_texts_dir = "res://bad_texts"
 eraser_size = 12
 eraser_prefab = ExtResource("5_cbffv")
 bad_text_spawn_timer = NodePath("Timers/BadTextSpawnTimer")
-begin_monster_spawn_timer = NodePath("Timers/BeginMonsterSpawnTimer")
+begin_random_event_timer = NodePath("Timers/BeginRandomEventTimer")
 monster_spawn_timer = NodePath("Timers/MonsterSpawnTimer")
+danger_spawn_timer = NodePath("Timers/DangerSpawnTimer")
 monster = ExtResource("7_0m7cd")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1077234380]
@@ -41,7 +42,7 @@ gameplay = NodePath("..")
 wait_time = 1.5999999999999999
 autostart = true
 
-[node name="BeginMonsterSpawnTimer" type="Timer" parent="Timers" unique_id=649961357]
+[node name="BeginRandomEventTimer" type="Timer" parent="Timers" unique_id=649961357]
 wait_time = 2.0
 one_shot = true
 autostart = true
@@ -50,6 +51,12 @@ autostart = true
 wait_time = 10.0
 script = ExtResource("8_0m7cd")
 random_range = 3.0
+pick_random_wait_time_again_on_restart = true
+
+[node name="DangerSpawnTimer" type="Timer" parent="Timers" unique_id=811568700]
+wait_time = 8.0
+script = ExtResource("8_0m7cd")
+random_range = 4.0
 pick_random_wait_time_again_on_restart = true
 
 [node name="Eraser" parent="." unique_id=76445507 instance=ExtResource("5_cbffv")]
