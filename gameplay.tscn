@@ -16,3 +16,7 @@ stamp = ExtResource("2_ej4tk")
 position = Vector2(583, 292)
 script = ExtResource("3_oe8ih")
 bad_texts_dir = "res://bad_texts"
+eraser_size = 7
+
+[node name="BadTextSpawnTimer" type="Timer" parent="." unique_id=1770689058]
+autostart = true

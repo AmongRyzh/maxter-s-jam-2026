@@ -4,6 +4,8 @@ extends Sprite2D
 
 @export_dir var bad_texts_dir : String
 
+@export var eraser_size := 5
+
 var bad_texts : Array[Image]
 
 var img : Image
@@ -16,15 +18,41 @@ func _ready():
 	
 	texture = ImageTexture.create_from_image(img)
 	
-	var bad_text = bad_texts.pick_random()
+	$"../BadTextSpawnTimer".timeout.connect(_spawn_bad_text)
 	
-	print(randf_range(0, img_size.x - bad_text.get_width()))
-	print(randf_range(0, img_size.y - bad_text.get_height()))
+	$"../BadTextSpawnTimer".timeout.emit()
+
+func _spawn_bad_text():
+	var bad_text = bad_texts.pick_random()
 	
 	img.blend_rect(bad_text, Rect2i(Vector2.ZERO, bad_text.get_size()), Vector2(randf_range(0, img_size.x - bad_text.get_width()), randf_range(0, img_size.y - bad_text.get_height())))
 	
 	texture.update(img)
 
+func _paint_tex(pos):
+	img.fill_rect(Rect2i(pos, Vector2i(1, 1)).grow(eraser_size), Color.WHITE)
+
+func _input(event: InputEvent):
+	if event is InputEventMouseButton:
+		if event.pressed and not event.is_echo() and event.button_index == MOUSE_BUTTON_LEFT:
+			var local_pos = to_local(event.position)
+			var local_image_pos = local_pos - offset + get_rect().size / 2.0
+			
+			_paint_tex(local_image_pos)
+			texture.update(img)
+	elif event is InputEventMouseMotion:
+		if event.button_mask == MOUSE_BUTTON_LEFT:
+			var local_pos = to_local(event.position)
+			var local_image_pos = local_pos - offset + get_rect().size / 2.0
+			
+			if event.relative.length_squared() > 0:
+				var num := ceili(event.relative.length())
+				var target_pos = local_image_pos - (event.relative)
+				for i in num:
+					local_image_pos = local_image_pos.move_toward(target_pos, 1.0)
+					_paint_tex(local_image_pos)
+			
+			texture.update(img)
 
 func get_all_bad_texts(directory_path: String) -> Array[Image]:
 	var output : Array[Image]
