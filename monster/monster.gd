@@ -16,7 +16,7 @@ func _ready():
 	$CooldownTimer.timeout.emit()
 
 func _physics_process(delta):
-	if global_position.distance_to(current_destination) > 5:
+	if global_position.distance_to(current_destination) > 30:
 		global_position += global_position.direction_to(current_destination) * speed * delta
 	else:
 		if $CooldownTimer.is_stopped():

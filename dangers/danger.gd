@@ -9,9 +9,14 @@ var throw_direction: Vector2
 
 var z_axis = 0.0 # simulate throwing the projectile on the z-axis by adding that z-axis to the y-axis
 var is_launch: bool = false
+var landed: bool = false
+
+var eraser : Eraser
 
 ## Called when the node enters the scene tree for the first time.
-#func _ready():
+func _ready():
+	body_entered.connect(_on_body_entered)
+	
 	#launch_projectile(global_position, Vector2(1, 1), 400, 45)
 
 func _process(delta):
@@ -26,6 +31,11 @@ func _process(delta):
 			global_position = initial_position + throw_direction * x_axis ## Move everything along the 'x-axis'
 			
 			$Projectile.position.y = -z_axis
+		else:
+			if !landed:
+				landed = true
+				if eraser:
+					eraser.current_eraser_durability = 0
 
 func launch_projectile(initial_pos: Vector2, direction: Vector2, desired_distance: float, desired_angle_deg: float):
 	initial_position = initial_pos
@@ -41,5 +51,9 @@ func launch_projectile(initial_pos: Vector2, direction: Vector2, desired_distanc
 	is_launch = true
 
 func _on_body_entered(body: Node2D):
-	if body is Eraser and z_axis <= 0:
-		body.current_eraser_durability = 0
+	if body is Eraser:
+		eraser = body
+
+func _on_body_exited(body: Node2D):
+	if body is Eraser:
+		eraser = null

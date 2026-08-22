@@ -16,7 +16,7 @@ var durability_shrink : float :
 var object_with_durability_decrease : PainterImage :
 	set(value):
 		object_with_durability_decrease = value
-		print("gameplay: set object_with_durability_decrease to ", value)
+		#print("gameplay: set object_with_durability_decrease to ", value)
 func get_additional_durability_decrease_rate() -> float:
 	return object_with_durability_decrease.additional_durability_decrease if object_with_durability_decrease else 0
 func get_additional_durability_object_z_index() -> int:
@@ -25,7 +25,7 @@ func get_additional_durability_object_z_index() -> int:
 var object_with_slowdown_factor : PainterImage :
 	set(value):
 		object_with_slowdown_factor = value
-		print("gameplay: set object_with_slowdown_factor to ", value)
+		#print("gameplay: set object_with_slowdown_factor to ", value)
 func get_eraser_slowdown_factor() -> float:
 	return object_with_slowdown_factor.eraser_slowdown_factor if object_with_slowdown_factor else 0
 func get_eraser_slowdown_factor_object_z_index() -> int:
@@ -37,6 +37,9 @@ func get_eraser_slowdown_factor_object_z_index() -> int:
 @export var begin_random_event_timer: Timer
 @export var monster_spawn_timer: RandomTimer
 @export var danger_spawn_timer: RandomTimer
+@export var teacher_cooldown_timer: Timer
+@export var teacher_walk_timer: Timer
+@export var teacher_look_timer: Timer
 
 @export var monster: PackedScene
 
@@ -63,6 +66,9 @@ func _ready():
 		)
 
 func _spawn_bad_text():
+	if teacher_cooldown_timer.is_stopped():
+		return
+	
 	var bad_text = bad_texts.pick_random()
 	
 	painter_image.fill_texture(bad_text, Rect2i(Vector2.ZERO, bad_text.get_size()),
@@ -118,8 +124,25 @@ func get_opaque_pixel_count(texture: Texture2D) -> int:
 	
 	return opaque_count
 
+func get_pixel_count_of_color(texture: Texture, color: Color) -> int:
+	var img: Image = texture.get_image()
+	if img.is_compressed():
+		img.decompress()
+		
+	# Gets a bounding box enclosing only the visible parts of the image
+	var used_rect: Rect2i = img.get_used_rect()
+	var color_count: int = 0
+	
+	# Only loop inside the bounding rectangle containing visible pixels
+	for y in range(used_rect.position.y, used_rect.end.y):
+		for x in range(used_rect.position.x, used_rect.end.x):
+			if img.get_pixel(x, y).is_equal_approx(color):
+				color_count += 1
+	
+	return color_count
+
 func spawn_packed_at_random_pos(packed: PackedScene):
-	var pos = Vector2(randf_range(100, 1052), randf_range(100, 548))
+	var pos = get_random_pos_in_viewport_with_offset(100)
 	spawn_packed_at_pos(packed, pos)
 
 func spawn_packed_at_pos(packed: PackedScene, pos: Vector2):
@@ -130,9 +153,26 @@ func spawn_packed_at_pos(packed: PackedScene, pos: Vector2):
 	else:
 		print("failed to instantiate ", packed, "!")
 
+func get_random_pos_in_viewport_with_offset(offset: float) -> Vector2:
+	return Vector2(randf_range(offset, get_viewport().get_visible_rect().size.x - offset), randf_range(offset, get_viewport().get_visible_rect().size.y - offset))
+
 func _spawn_danger():
-	var danger = dangers.pick_random()
+	var danger = dangers.pick_random().instantiate()
 	
+	var initial_pos : Vector2
+	initial_pos.x = -100 if randi_range(0, 1) == 0 else get_viewport().get_visible_rect().size.x + 100
+	initial_pos.y = randf_range(0, get_viewport().get_visible_rect().size.y)
+	
+	print(eraser)
+	
+	var target_pos = eraser.position if eraser != null else get_random_pos_in_viewport_with_offset(100)
+	
+	var direction : Vector2 = initial_pos.direction_to(target_pos)
+	var dist : float = initial_pos.distance_to(target_pos)
+	
+	add_child(danger)
+	
+	danger.launch_projectile(initial_pos, direction, dist, 45)
 
 #func _draw():
 	#if eraser:

@@ -4,12 +4,16 @@
 [ext_resource type="Script" uid="uid://db0hhb4dmtav6" path="res://gameplay.gd" id="1_xuee5"]
 [ext_resource type="Texture2D" uid="uid://g8vti6go8x6g" path="res://icon.svg" id="2_ej4tk"]
 [ext_resource type="Script" uid="uid://bjgg4hau4g8qm" path="res://painter_image.gd" id="3_oe8ih"]
+[ext_resource type="PackedScene" uid="uid://bgq7hkw7b1sxc" path="res://dangers/paper_ball/paper_ball.tscn" id="4_2ihbs"]
 [ext_resource type="PackedScene" uid="uid://d013mvwu2oiqi" path="res://eraser/eraser.tscn" id="5_cbffv"]
 [ext_resource type="PackedScene" uid="uid://dx0sj2up1lxh1" path="res://monster/monster.tscn" id="7_0m7cd"]
 [ext_resource type="PackedScene" uid="uid://ckgtcmnk3ywpg" path="res://pencil_case/pencil_case.tscn" id="7_fbudy"]
 [ext_resource type="Script" uid="uid://dr86d7jfmead5" path="res://random_timer.gd" id="8_0m7cd"]
+[ext_resource type="Texture2D" uid="uid://b3bj2a1schior" path="res://teacher/teacher_looking.png" id="10_1qy1k"]
+[ext_resource type="Script" uid="uid://syvtw10xqyxe" path="res://teacher/teacher.gd" id="11_3n40r"]
+[ext_resource type="Texture2D" uid="uid://b5ofoqnche52t" path="res://teacher/teacher_not_looking.png" id="12_45aep"]
 
-[node name="Gameplay" type="Node2D" unique_id=1976024019 node_paths=PackedStringArray("painter_image", "bad_text_spawn_timer", "begin_random_event_timer", "monster_spawn_timer", "danger_spawn_timer")]
+[node name="Gameplay" type="Node2D" unique_id=1976024019 node_paths=PackedStringArray("painter_image", "bad_text_spawn_timer", "begin_random_event_timer", "monster_spawn_timer", "danger_spawn_timer", "teacher_cooldown_timer", "teacher_walk_timer", "teacher_look_timer")]
 top_level = true
 script = ExtResource("1_xuee5")
 painter_image = NodePath("PainterImage")
@@ -20,7 +24,11 @@ bad_text_spawn_timer = NodePath("Timers/BadTextSpawnTimer")
 begin_random_event_timer = NodePath("Timers/BeginRandomEventTimer")
 monster_spawn_timer = NodePath("Timers/MonsterSpawnTimer")
 danger_spawn_timer = NodePath("Timers/DangerSpawnTimer")
+teacher_cooldown_timer = NodePath("Timers/TeacherCooldownTimer")
+teacher_walk_timer = NodePath("Timers/TeacherWalkTimer")
+teacher_look_timer = NodePath("Timers/TeacherLookTimer")
 monster = ExtResource("7_0m7cd")
+dangers = Array[PackedScene]([ExtResource("4_2ihbs")])
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1077234380]
 visible = false
@@ -39,11 +47,11 @@ gameplay = NodePath("..")
 [node name="Timers" type="Node2D" parent="." unique_id=1585624531]
 
 [node name="BadTextSpawnTimer" type="Timer" parent="Timers" unique_id=1770689058]
-wait_time = 1.5999999999999999
+wait_time = 1.5
 autostart = true
 
 [node name="BeginRandomEventTimer" type="Timer" parent="Timers" unique_id=649961357]
-wait_time = 2.0
+wait_time = 22.5
 one_shot = true
 autostart = true
 
@@ -54,13 +62,40 @@ random_range = 3.0
 pick_random_wait_time_again_on_restart = true
 
 [node name="DangerSpawnTimer" type="Timer" parent="Timers" unique_id=811568700]
-wait_time = 8.0
+wait_time = 7.0
 script = ExtResource("8_0m7cd")
 random_range = 4.0
 pick_random_wait_time_again_on_restart = true
 
+[node name="TeacherCooldownTimer" type="Timer" parent="Timers" unique_id=2019654275]
+wait_time = 15.0
+one_shot = true
+autostart = true
+
+[node name="TeacherWalkTimer" type="Timer" parent="Timers" unique_id=1905800822]
+wait_time = 15.0
+one_shot = true
+
+[node name="TeacherLookTimer" type="Timer" parent="Timers" unique_id=27168194]
+one_shot = true
+
 [node name="Eraser" parent="." unique_id=76445507 instance=ExtResource("5_cbffv")]
 durability_decrease_rate = 4.0
+
+[node name="Teacher" type="Sprite2D" parent="." unique_id=1773635809 node_paths=PackedStringArray("gameplay")]
+position = Vector2(1113, 980)
+texture = ExtResource("10_1qy1k")
+script = ExtResource("11_3n40r")
+pos_down = Vector2(1113, 980)
+pos_looking = Vector2(1113, 323)
+pos_up = Vector2(1113, -326)
+walking_duration = 6.0
+min_stop_time = 2.7
+max_stop_time = 4.1
+gameplay = NodePath("..")
+teacher_looking = ExtResource("10_1qy1k")
+teacher_not_looking = ExtResource("12_45aep")
+max_black_pixel_count = 150
 
 [node name="PencilCase" parent="." unique_id=653688394 instance=ExtResource("7_fbudy")]
 position = Vector2(1269.0001, 745.0001)

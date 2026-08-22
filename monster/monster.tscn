@@ -7,10 +7,10 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0g571"]
 size = Vector2(80, 64)
 
-[node name="Monster" type="AnimatableBody2D" unique_id=1435944760]
+[node name="Monster" type="AnimatableBody2D" unique_id=1435944760 groups=["monster"]]
 collision_layer = 2
 script = ExtResource("1_okp8s")
-speed = 650.0
+speed = 750.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=140659944]
 shape = SubResource("RectangleShape2D_0g571")
@@ -24,5 +24,5 @@ eraser_slowdown_factor = 8.5
 erase_color = Color(1, 1, 1, 0)
 
 [node name="CooldownTimer" type="Timer" parent="." unique_id=1794914289]
-wait_time = 0.3
+wait_time = 0.15
 one_shot = true

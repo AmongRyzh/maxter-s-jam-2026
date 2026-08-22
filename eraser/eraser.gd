@@ -9,6 +9,7 @@ var current_eraser_durability: float = 1.0 :
 		current_eraser_durability = value
 		$TextureProgressBar.value = current_eraser_durability
 		if current_eraser_durability <= 0.0:
+			#get_tree().current_scene.eraser = null
 			queue_free()
 
 @export var durability_decrease_rate: float = 2.0
