@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://dnphby1ketpt4"]
+
+[ext_resource type="Script" uid="uid://ryjvkttdyuw0" path="res://image_example.gd" id="1_n4psk"]
+[ext_resource type="Texture2D" uid="uid://g8vti6go8x6g" path="res://icon.svg" id="2_ej4tk"]
+[ext_resource type="Script" uid="uid://bjgg4hau4g8qm" path="res://painter_image.gd" id="3_oe8ih"]
+
+[node name="Gameplay" type="Node2D" unique_id=1976024019]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1077234380]
+visible = false
+position = Vector2(527, 346)
+script = ExtResource("1_n4psk")
+stamp = ExtResource("2_ej4tk")
+
+[node name="PainterImage" type="Sprite2D" parent="." unique_id=1908524790]
+position = Vector2(583, 292)
+script = ExtResource("3_oe8ih")
+bad_texts_dir = "res://bad_texts"
