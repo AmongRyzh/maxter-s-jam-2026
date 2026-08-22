@@ -14,7 +14,7 @@ func _process(delta):
 func _input(event):
 	if event is InputEventMouseButton:
 		if event.pressed and is_mouse_entered:
-			if $Cooldown.is_stopped():
+			if $Cooldown.is_stopped() and get_parent().opened:
 				$Cooldown.start()
 				slot_selected.emit()
 

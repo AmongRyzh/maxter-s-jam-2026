@@ -1,0 +1,19 @@
+extends Timer
+class_name RandomTimer
+
+@export var random_range : float
+
+@export var pick_random_wait_time_again_on_restart : bool
+
+func random_start(time := -1.0, range := -1.0) -> void:
+	var normal_wait_time = time if time > 0.0 else wait_time
+	var actual_range = range if random_range > 0.0 else random_range
+	var actual_wait_time = randf_range(normal_wait_time - actual_range, normal_wait_time + actual_range)
+	
+	if pick_random_wait_time_again_on_restart:
+		autostart = false
+		timeout.connect(func(): 
+			random_start()
+			)
+	
+	start(actual_wait_time)

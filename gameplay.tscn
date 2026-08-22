@@ -5,15 +5,21 @@
 [ext_resource type="Texture2D" uid="uid://g8vti6go8x6g" path="res://icon.svg" id="2_ej4tk"]
 [ext_resource type="Script" uid="uid://bjgg4hau4g8qm" path="res://painter_image.gd" id="3_oe8ih"]
 [ext_resource type="PackedScene" uid="uid://d013mvwu2oiqi" path="res://eraser/eraser.tscn" id="5_cbffv"]
+[ext_resource type="PackedScene" uid="uid://dx0sj2up1lxh1" path="res://monster/monster.tscn" id="7_0m7cd"]
 [ext_resource type="PackedScene" uid="uid://ckgtcmnk3ywpg" path="res://pencil_case/pencil_case.tscn" id="7_fbudy"]
+[ext_resource type="Script" uid="uid://dr86d7jfmead5" path="res://random_timer.gd" id="8_0m7cd"]
 
-[node name="Gameplay" type="Node2D" unique_id=1976024019 node_paths=PackedStringArray("painter_image")]
+[node name="Gameplay" type="Node2D" unique_id=1976024019 node_paths=PackedStringArray("painter_image", "bad_text_spawn_timer", "begin_monster_spawn_timer", "monster_spawn_timer")]
 top_level = true
 script = ExtResource("1_xuee5")
 painter_image = NodePath("PainterImage")
 bad_texts_dir = "res://bad_texts"
 eraser_size = 12
 eraser_prefab = ExtResource("5_cbffv")
+bad_text_spawn_timer = NodePath("Timers/BadTextSpawnTimer")
+begin_monster_spawn_timer = NodePath("Timers/BeginMonsterSpawnTimer")
+monster_spawn_timer = NodePath("Timers/MonsterSpawnTimer")
+monster = ExtResource("7_0m7cd")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1077234380]
 visible = false
@@ -25,14 +31,32 @@ stamp = ExtResource("2_ej4tk")
 show_behind_parent = true
 position = Vector2(583, 292)
 script = ExtResource("3_oe8ih")
+generate_img_on_ready = true
+img_size = Vector2i(684, 368)
 gameplay = NodePath("..")
 
-[node name="BadTextSpawnTimer" type="Timer" parent="." unique_id=1770689058]
+[node name="Timers" type="Node2D" parent="." unique_id=1585624531]
+
+[node name="BadTextSpawnTimer" type="Timer" parent="Timers" unique_id=1770689058]
 wait_time = 1.5999999999999999
 autostart = true
 
+[node name="BeginMonsterSpawnTimer" type="Timer" parent="Timers" unique_id=649961357]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[node name="MonsterSpawnTimer" type="Timer" parent="Timers" unique_id=289492501]
+wait_time = 10.0
+script = ExtResource("8_0m7cd")
+random_range = 3.0
+pick_random_wait_time_again_on_restart = true
+
 [node name="Eraser" parent="." unique_id=76445507 instance=ExtResource("5_cbffv")]
+durability_decrease_rate = 4.0
 
 [node name="PencilCase" parent="." unique_id=653688394 instance=ExtResource("7_fbudy")]
-position = Vector2(1230.0001, 713)
+position = Vector2(1269.0001, 745.0001)
 rotation = 0.6806784
+closed_position = Vector2(1269.0001, 745.0001)
+opened_position = Vector2(971.0001, 504)

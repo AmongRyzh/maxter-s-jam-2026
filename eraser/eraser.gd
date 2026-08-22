@@ -1,4 +1,4 @@
-extends Node2D
+extends CharacterBody2D
 class_name Eraser
 
 @export var speed: float = 5.0
@@ -10,6 +10,7 @@ var current_eraser_durability: float = 1.0 :
 		$TextureProgressBar.value = current_eraser_durability
 		if current_eraser_durability <= 0.0:
 			queue_free()
+
 @export var durability_decrease_rate: float = 2.0
 
 var pixels_moved_last_frame: float = 0.0 
@@ -26,11 +27,12 @@ func _ready():
 func _physics_process(delta):
 	var target_pos = get_global_mouse_position()
 	
-	global_position = global_position.lerp(target_pos, speed * delta)
+	global_position = global_position.lerp(target_pos, (speed - get_tree().current_scene.get_eraser_slowdown_factor()) * delta)
 	
 	pixels_moved_last_frame = global_position.distance_to(last_position)
 	
 	last_position = global_position
 	
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and !get_tree().current_scene.is_pencil_case_opened():
-		current_eraser_durability -= durability_decrease_rate * delta * (pixels_moved_last_frame / 15)
+		var durability : float = (durability_decrease_rate + get_tree().current_scene.get_additional_durability_decrease_rate())
+		current_eraser_durability -= durability * delta * (pixels_moved_last_frame / 15)

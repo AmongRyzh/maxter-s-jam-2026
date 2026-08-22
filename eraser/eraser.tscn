@@ -5,11 +5,14 @@
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_njsjv"]
 
-[node name="Eraser" type="Node2D" unique_id=76445507]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jwyhn"]
+size = Vector2(32, 32)
+
+[node name="Eraser" type="CharacterBody2D" unique_id=1277307090]
 show_behind_parent = true
+collision_mask = 3
 script = ExtResource("1_jwyhn")
 speed = 12.0
-durability_decrease_rate = 3.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=935766602]
 visible = false
@@ -31,3 +34,6 @@ value = 100.0
 fill_mode = 3
 texture_under = SubResource("CompressedTexture2D_njsjv")
 texture_progress = ExtResource("2_3cghv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=362372122]
+shape = SubResource("RectangleShape2D_jwyhn")

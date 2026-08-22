@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://ypr4pmqbbn3u" path="res://pencil_case/eraser_in_case_progress.png" id="2_pfa5j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_njsjv"]
-size = Vector2(96, 96)
+size = Vector2(144, 144)
 
 [node name="EraserSlot" type="Area2D" unique_id=1224825255]
 script = ExtResource("1_pfa5j")

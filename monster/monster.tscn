@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://dx0sj2up1lxh1"]
+
+[ext_resource type="Script" uid="uid://c5npsea3uwfeo" path="res://monster/monster.gd" id="1_okp8s"]
+[ext_resource type="Texture2D" uid="uid://dbrxfsvjk2q7l" path="res://monster/monster.png" id="2_2k2s0"]
+[ext_resource type="Script" uid="uid://bjgg4hau4g8qm" path="res://painter_image.gd" id="2_gsx7y"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0g571"]
+size = Vector2(80, 64)
+
+[node name="Monster" type="AnimatableBody2D" unique_id=1435944760]
+collision_layer = 2
+script = ExtResource("1_okp8s")
+speed = 650.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=140659944]
+shape = SubResource("RectangleShape2D_0g571")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1358224525]
+z_index = 1
+texture = ExtResource("2_2k2s0")
+script = ExtResource("2_gsx7y")
+additional_durability_decrease = 4.0
+eraser_slowdown_factor = 8.5
+erase_color = Color(1, 1, 1, 0)
+
+[node name="CooldownTimer" type="Timer" parent="." unique_id=1794914289]
+wait_time = 0.3
+one_shot = true
