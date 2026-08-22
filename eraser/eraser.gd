@@ -1,4 +1,5 @@
 extends Node2D
+class_name Eraser
 
 @export var speed: float = 5.0
 
@@ -16,6 +17,8 @@ var last_position: Vector2
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	get_tree().current_scene.eraser = self
+	
 	$TextureProgressBar.max_value = eraser_durability
 	current_eraser_durability = 100
 
@@ -29,5 +32,5 @@ func _physics_process(delta):
 	
 	last_position = global_position
 	
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and !get_tree().current_scene.is_pencil_case_opened():
 		current_eraser_durability -= durability_decrease_rate * delta * (pixels_moved_last_frame / 15)

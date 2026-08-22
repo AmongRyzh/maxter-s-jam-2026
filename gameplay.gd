@@ -1,4 +1,5 @@
 extends Node2D
+class_name Gameplay
 
 @export var painter_image: Sprite2D
 
@@ -9,6 +10,8 @@ extends Node2D
 var durability_shrink : float :
 	get():
 		return 0 if eraser == null else ((eraser.current_eraser_durability - eraser.eraser_durability) / 100) * eraser_size * 2
+
+@export var eraser_prefab: PackedScene
 
 func _ready():
 	pass
@@ -35,6 +38,16 @@ func get_all_bad_texts() -> Array[Image]:
 				output.append(img)
 	
 	return output
+
+func on_pencil_case_eraser_slot_selected():
+	if eraser:
+		eraser.queue_free()
+	
+	var new_eraser = eraser_prefab.instantiate()
+	add_child(new_eraser)
+
+func is_pencil_case_opened() -> bool:
+	return $PencilCase.opened
 
 #func _draw():
 	#if eraser:

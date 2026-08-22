@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://wws4a5y1njr4"]
+
+[ext_resource type="Script" uid="uid://bx2mx5055hmpn" path="res://pencil_case/eraser_slot.gd" id="1_pfa5j"]
+[ext_resource type="Texture2D" uid="uid://bqyi0pskv26fn" path="res://pencil_case/eraser_in_case_under.png" id="2_fvriv"]
+[ext_resource type="Texture2D" uid="uid://ypr4pmqbbn3u" path="res://pencil_case/eraser_in_case_progress.png" id="2_pfa5j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_njsjv"]
+size = Vector2(96, 96)
+
+[node name="EraserSlot" type="Area2D" unique_id=1224825255]
+script = ExtResource("1_pfa5j")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="." unique_id=1294423504]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -48.0
+offset_right = 48.0
+offset_bottom = 48.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+value = 100.0
+fill_mode = 3
+texture_under = ExtResource("2_pfa5j")
+texture_progress = ExtResource("2_fvriv")
+
+[node name="Cooldown" type="Timer" parent="." unique_id=202426793]
+wait_time = 15.0
+one_shot = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=163151701]
+shape = SubResource("RectangleShape2D_njsjv")
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://ckgtcmnk3ywpg"]
+
+[ext_resource type="Script" uid="uid://bkryo51qjb7og" path="res://pencil_case/pencil_case.gd" id="1_x7jfl"]
+[ext_resource type="PackedScene" uid="uid://wws4a5y1njr4" path="res://pencil_case/eraser_slot.tscn" id="2_6rdpm"]
+[ext_resource type="Texture2D" uid="uid://rayqfi7y1hpk" path="res://pencil_case/pencil_case.png" id="2_orb0r"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_njsjv"]
+size = Vector2(45.43921, 128.407)
+
+[node name="PencilCase" type="Node2D" unique_id=653688394 node_paths=PackedStringArray("eraser_slots")]
+script = ExtResource("1_x7jfl")
+closed_position = Vector2(1230.0001, 713)
+opened_position = Vector2(979.0001, 510)
+transition_type = 9
+ease_type = 1
+eraser_slots = [NodePath("EraserSlot1"), NodePath("EraserSlot2"), NodePath("EraserSlot3")]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1772163185]
+texture = ExtResource("2_orb0r")
+
+[node name="SwitcherArea2D" type="Area2D" parent="." unique_id=1124684487]
+position = Vector2(-170, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SwitcherArea2D" unique_id=1083909687]
+shape = SubResource("RectangleShape2D_njsjv")
+
+[node name="EraserSlot1" parent="." unique_id=484270672 instance=ExtResource("2_6rdpm")]
+position = Vector2(-78, 0)
+
+[node name="EraserSlot2" parent="." unique_id=1594967973 instance=ExtResource("2_6rdpm")]
+position = Vector2(18, 0)
+
+[node name="EraserSlot3" parent="." unique_id=829235173 instance=ExtResource("2_6rdpm")]
+position = Vector2(114, 0)
+
+[connection signal="mouse_entered" from="SwitcherArea2D" to="." method="_on_switcher_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="SwitcherArea2D" to="." method="_on_switcher_area_2d_mouse_exited"]

@@ -1,4 +1,5 @@
 extends Sprite2D
+class_name PainterImage
 
 @export var img_size := Vector2i(1024, 512)
 
@@ -34,7 +35,7 @@ func _paint_tex(pos):
 	img.fill_rect(Rect2i(pos, Vector2i(1, 1)).grow(gameplay.eraser_size).grow_side(SIDE_TOP, gameplay.durability_shrink), Color.WHITE)
 
 func _input(event: InputEvent):
-	if gameplay.eraser == null:
+	if gameplay.eraser == null or get_tree().current_scene.is_pencil_case_opened():
 		return
 	
 	if event is InputEventMouseButton:
