@@ -1,10 +1,19 @@
 [gd_scene format=3 uid="uid://dnphby1ketpt4"]
 
 [ext_resource type="Script" uid="uid://ryjvkttdyuw0" path="res://image_example.gd" id="1_n4psk"]
+[ext_resource type="Script" uid="uid://db0hhb4dmtav6" path="res://gameplay.gd" id="1_xuee5"]
 [ext_resource type="Texture2D" uid="uid://g8vti6go8x6g" path="res://icon.svg" id="2_ej4tk"]
 [ext_resource type="Script" uid="uid://bjgg4hau4g8qm" path="res://painter_image.gd" id="3_oe8ih"]
+[ext_resource type="Script" uid="uid://ctwt4otx35jqx" path="res://eraser/eraser.gd" id="5_cbffv"]
+[ext_resource type="Texture2D" uid="uid://65tumjlxibgr" path="res://eraser/eraser.png" id="5_smepj"]
 
-[node name="Gameplay" type="Node2D" unique_id=1976024019]
+[node name="Gameplay" type="Node2D" unique_id=1976024019 node_paths=PackedStringArray("painter_image", "eraser")]
+top_level = true
+script = ExtResource("1_xuee5")
+painter_image = NodePath("PainterImage")
+bad_texts_dir = "res://bad_texts"
+eraser_size = 14
+eraser = NodePath("Eraser")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1077234380]
 visible = false
@@ -12,11 +21,19 @@ position = Vector2(527, 346)
 script = ExtResource("1_n4psk")
 stamp = ExtResource("2_ej4tk")
 
-[node name="PainterImage" type="Sprite2D" parent="." unique_id=1908524790]
+[node name="PainterImage" type="Sprite2D" parent="." unique_id=1908524790 node_paths=PackedStringArray("gameplay")]
+show_behind_parent = true
 position = Vector2(583, 292)
 script = ExtResource("3_oe8ih")
-bad_texts_dir = "res://bad_texts"
-eraser_size = 7
+gameplay = NodePath("..")
 
 [node name="BadTextSpawnTimer" type="Timer" parent="." unique_id=1770689058]
+wait_time = 1.5
 autostart = true
+
+[node name="Eraser" type="Node2D" parent="." unique_id=44436766]
+script = ExtResource("5_cbffv")
+speed = 12.0
+
+[node name="Sprite2D" type="Sprite2D" parent="Eraser" unique_id=1499735714]
+texture = ExtResource("5_smepj")
