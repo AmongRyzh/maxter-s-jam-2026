@@ -6,4 +6,4 @@
 [node name="Mark" type="Sprite2D" unique_id=454067265]
 texture = ExtResource("1_nteux")
 script = ExtResource("2_s3c1k")
-destroy_time = 0.4
+destroy_time = 0.5
