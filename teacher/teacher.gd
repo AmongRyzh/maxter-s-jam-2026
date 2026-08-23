@@ -58,7 +58,7 @@ func _ready():
 		var monster_count := get_tree().get_node_count_in_group('monster')
 		print(monster_count)
 		
-		if black_pixel_count > max_black_pixel_count and monster_count != 0:
+		if black_pixel_count > max_black_pixel_count or monster_count != 0:
 			Engine.time_scale = 0
 			await get_tree().create_timer(0.3, true, false, true)
 			Engine.time_scale = 1

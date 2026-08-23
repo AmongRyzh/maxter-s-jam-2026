@@ -11,7 +11,7 @@ size = Vector2(80, 64)
 collision_layer = 2
 script = ExtResource("1_okp8s")
 speed = 575.0
-min_opaque_pixel_count = 150
+min_opaque_pixel_count = 130
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=140659944]
 shape = SubResource("RectangleShape2D_0g571")

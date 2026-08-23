@@ -33,6 +33,10 @@ func get_eraser_slowdown_factor_object_z_index() -> int:
 
 @export var eraser_prefab: PackedScene
 
+@export var game_finish_timer: Timer
+@export var game_finish_label: Label
+@export var game_finish_panel: Panel
+
 @export var bad_text_spawn_timer: RandomTimer
 @export var begin_random_event_timer: Timer
 @export var monster_spawn_timer: RandomTimer
@@ -46,6 +50,14 @@ func get_eraser_slowdown_factor_object_z_index() -> int:
 @export var dangers: Array[PackedScene]
 
 func _ready():
+	game_finish_panel.hide()
+	
+	game_finish_timer.timeout.connect(func():
+		Engine.time_scale = 0
+		game_finish_panel.show()
+		game_finish_panel.get_node("Peremena").play()
+		)
+	
 	bad_texts = get_all_bad_texts()
 	
 	bad_text_spawn_timer.timeout.connect(_spawn_bad_text)
@@ -79,6 +91,8 @@ func _spawn_bad_text():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	game_finish_label.text = "ПЕРЕМЕНА ЧЕРЕЗ: %d м. %02d сек." % [floori(game_finish_timer.time_left / 60), posmod(game_finish_timer.time_left, 60)]
+	
 	queue_redraw()
 
 func get_all_bad_texts() -> Array[Image]:
@@ -163,19 +177,33 @@ func _spawn_danger():
 	var danger = dangers.pick_random().instantiate()
 	
 	var initial_pos : Vector2
-	initial_pos.x = -100 if randi_range(0, 1) == 0 else get_viewport().get_visible_rect().size.x + 100
-	initial_pos.y = randf_range(0, get_viewport().get_visible_rect().size.y)
-	
-	print(eraser)
 	
 	var target_pos = eraser.position if eraser != null else get_random_pos_in_viewport_with_offset(100)
 	
-	var direction : Vector2 = initial_pos.direction_to(target_pos)
-	var dist : float = initial_pos.distance_to(target_pos)
+	if danger is PaperBall:
+		initial_pos.x = -100 if randi_range(0, 1) == 0 else get_viewport().get_visible_rect().size.x + 100
+		initial_pos.y = randf_range(0, get_viewport().get_visible_rect().size.y)
+		
+		var direction : Vector2 = initial_pos.direction_to(target_pos)
+		var dist : float = initial_pos.distance_to(target_pos)
+		
+		danger.launch_projectile(initial_pos, direction, dist, 45)
+	elif danger is PaperPlane:
+		var rand_1 = randi_range(0, 1)
+		var rand_2 = randi_range(0, 1)
+		
+		match rand_1:
+			0:
+				initial_pos.x = -100 if rand_2 == 0 else get_viewport().get_visible_rect().size.x + 100
+				initial_pos.y = randf_range(0, get_viewport().get_visible_rect().size.y)
+			1:
+				initial_pos.x = randf_range(0, get_viewport().get_visible_rect().size.x)
+				initial_pos.y = -100 if rand_2 == 0 else get_viewport().get_visible_rect().size.y + 100
+		
+		danger.global_position = initial_pos
+		danger.target_direction = initial_pos.direction_to(target_pos)
 	
 	add_child(danger)
-	
-	danger.launch_projectile(initial_pos, direction, dist, 45)
 
 #func _draw():
 	#if eraser:

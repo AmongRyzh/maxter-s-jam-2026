@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://dk7cjptcceqqb"]
+
+[ext_resource type="Script" uid="uid://chlht28lxh4qk" path="res://dangers/paper_plane/paper_plane.gd" id="1_mgh1e"]
+[ext_resource type="Texture2D" uid="uid://bytbsnsowauqw" path="res://dangers/paper_plane/paper_plane.png" id="2_c7bj2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mgh1e"]
+radius = 42.0119
+
+[node name="PaperPlane" type="Area2D" unique_id=150558746]
+script = ExtResource("1_mgh1e")
+speed = 700.0
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=344651925]
+texture = ExtResource("2_c7bj2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=591662745]
+shape = SubResource("CircleShape2D_mgh1e")
+
+[node name="QueueFreeTimer" type="Timer" parent="." unique_id=2031509817]

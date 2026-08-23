@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://biwwtv4ht1cgd" path="res://dangers/paper_ball/paper_ball.png" id="2_s7qe7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kbfkw"]
-radius = 32.0
+radius = 24.0
 
 [node name="PaperBall" unique_id=1070415679 instance=ExtResource("1_6ggbv")]
 
@@ -12,4 +12,5 @@ radius = 32.0
 shape = SubResource("CircleShape2D_kbfkw")
 
 [node name="Sprite2D" parent="Projectile" index="0" unique_id=321822552]
+show_behind_parent = true
 texture = ExtResource("2_s7qe7")

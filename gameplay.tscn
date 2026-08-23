@@ -12,14 +12,19 @@
 [ext_resource type="Texture2D" uid="uid://b3bj2a1schior" path="res://teacher/teacher_looking.png" id="10_1qy1k"]
 [ext_resource type="Script" uid="uid://syvtw10xqyxe" path="res://teacher/teacher.gd" id="11_3n40r"]
 [ext_resource type="Texture2D" uid="uid://b5ofoqnche52t" path="res://teacher/teacher_not_looking.png" id="12_45aep"]
+[ext_resource type="AudioStream" uid="uid://6d62qaxhox2c" path="res://sfx/peremena.ogg" id="13_tyrfw"]
+[ext_resource type="PackedScene" uid="uid://dk7cjptcceqqb" path="res://dangers/paper_plane/paper_plane.tscn" id="14_eod45"]
 
-[node name="Gameplay" type="Node2D" unique_id=1976024019 node_paths=PackedStringArray("painter_image", "bad_text_spawn_timer", "begin_random_event_timer", "monster_spawn_timer", "danger_spawn_timer", "teacher_cooldown_timer", "teacher_walk_timer", "teacher_look_timer")]
+[node name="Gameplay" type="Node2D" unique_id=1976024019 node_paths=PackedStringArray("painter_image", "game_finish_timer", "game_finish_label", "game_finish_panel", "bad_text_spawn_timer", "begin_random_event_timer", "monster_spawn_timer", "danger_spawn_timer", "teacher_cooldown_timer", "teacher_walk_timer", "teacher_look_timer")]
 top_level = true
 script = ExtResource("1_xuee5")
 painter_image = NodePath("PainterImage")
 bad_texts_dir = "res://bad_texts"
 eraser_size = 12
 eraser_prefab = ExtResource("5_cbffv")
+game_finish_timer = NodePath("Timers/GameFinishTimer")
+game_finish_label = NodePath("CanvasLayer/GameFinishLabel")
+game_finish_panel = NodePath("CanvasLayer/GameFinishPanel")
 bad_text_spawn_timer = NodePath("Timers/BadTextSpawnTimer")
 begin_random_event_timer = NodePath("Timers/BeginRandomEventTimer")
 monster_spawn_timer = NodePath("Timers/MonsterSpawnTimer")
@@ -28,7 +33,7 @@ teacher_cooldown_timer = NodePath("Timers/TeacherCooldownTimer")
 teacher_walk_timer = NodePath("Timers/TeacherWalkTimer")
 teacher_look_timer = NodePath("Timers/TeacherLookTimer")
 monster = ExtResource("7_0m7cd")
-dangers = Array[PackedScene]([ExtResource("4_2ihbs")])
+dangers = Array[PackedScene]([ExtResource("4_2ihbs"), ExtResource("14_eod45")])
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1077234380]
 visible = false
@@ -45,6 +50,11 @@ img_size = Vector2i(684, 368)
 gameplay = NodePath("..")
 
 [node name="Timers" type="Node2D" parent="." unique_id=1585624531]
+
+[node name="GameFinishTimer" type="Timer" parent="Timers" unique_id=501557436]
+wait_time = 120.0
+one_shot = true
+autostart = true
 
 [node name="BadTextSpawnTimer" type="Timer" parent="Timers" unique_id=1770689058]
 wait_time = 1.5999999999999999
@@ -64,9 +74,10 @@ random_range = 3.0
 pick_random_wait_time_again_on_restart = true
 
 [node name="DangerSpawnTimer" type="Timer" parent="Timers" unique_id=811568700]
-wait_time = 7.0
+wait_time = 6.5
 script = ExtResource("8_0m7cd")
 random_range = 4.0
+pick_random_wait_time_again_on_restart = true
 
 [node name="TeacherCooldownTimer" type="Timer" parent="Timers" unique_id=2019654275]
 wait_time = 15.0
@@ -99,7 +110,101 @@ teacher_not_looking = ExtResource("12_45aep")
 max_black_pixel_count = 150
 
 [node name="PencilCase" parent="." unique_id=653688394 instance=ExtResource("7_fbudy")]
+z_index = 1
 position = Vector2(1269.0001, 745.0001)
 rotation = 0.6806784
 closed_position = Vector2(1269.0001, 745.0001)
 opened_position = Vector2(971.0001, 504)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=974538232]
+
+[node name="GameFinishLabel" type="Label" parent="CanvasLayer" unique_id=1348736259]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -118.0
+offset_right = 118.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 23
+text = "ПЕРЕМЕНА ЧЕРЕЗ: 2 м. 00 сек."
+horizontal_alignment = 1
+
+[node name="GameFinishPanel" type="Panel" parent="CanvasLayer" unique_id=1906381748]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -461.0
+offset_top = -251.0
+offset_right = 461.0
+offset_bottom = 251.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Peremena" type="AudioStreamPlayer" parent="CanvasLayer/GameFinishPanel" unique_id=21225853]
+stream = ExtResource("13_tyrfw")
+
+[node name="Label" type="Label" parent="CanvasLayer/GameFinishPanel" unique_id=1640908773]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 64
+text = "Вы дожили до перемены!"
+
+[node name="Label2" type="Label" parent="CanvasLayer/GameFinishPanel" unique_id=652346670]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -427.0
+offset_top = -154.5
+offset_right = 427.0
+offset_bottom = 115.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 26
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="QuitButton" type="Button" parent="CanvasLayer/GameFinishPanel" unique_id=1878299837]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -126.0
+offset_top = 116.0
+offset_right = 126.0
+offset_bottom = 169.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "Выйти из игры"
+
+[node name="TryAgainButton" type="Button" parent="CanvasLayer/GameFinishPanel" unique_id=571704946]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -126.0
+offset_top = 174.0
+offset_right = 126.0
+offset_bottom = 227.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "Попробовать снова"

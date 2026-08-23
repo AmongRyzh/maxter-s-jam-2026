@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bfbmr3mjgd1fs"]
 
-[ext_resource type="Script" uid="uid://bm36orw1mffgd" path="res://dangers/danger.gd" id="1_5rr7t"]
+[ext_resource type="Script" uid="uid://bm36orw1mffgd" path="res://dangers/paper_ball/paper_ball.gd" id="1_5rr7t"]
 [ext_resource type="Texture2D" uid="uid://dclgstmi4mv7i" path="res://dangers/danger_shadow.png" id="2_25oqr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2gr5k"]

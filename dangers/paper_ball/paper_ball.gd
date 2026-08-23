@@ -1,4 +1,5 @@
 extends Area2D
+class_name PaperBall
 
 var initial_speed : float
 var throw_angle_degrees : float
@@ -34,7 +35,7 @@ func _process(delta):
 		else:
 			if !landed:
 				landed = true
-				if eraser:
+				if eraser and !get_tree().current_scene.is_pencil_case_opened():
 					eraser.current_eraser_durability = 0
 
 func launch_projectile(initial_pos: Vector2, direction: Vector2, desired_distance: float, desired_angle_deg: float):
