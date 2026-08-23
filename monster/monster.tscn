@@ -10,7 +10,7 @@ size = Vector2(80, 64)
 [node name="Monster" type="AnimatableBody2D" unique_id=1435944760 groups=["monster"]]
 collision_layer = 2
 script = ExtResource("1_okp8s")
-speed = 575.0
+speed = 475.0
 min_opaque_pixel_count = 130
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=140659944]

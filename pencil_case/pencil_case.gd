@@ -15,8 +15,13 @@ var opened : bool = false :
 		tween = create_tween()
 		
 		if opened:
+			if $"../CanvasLayer/PencilCaseTutorial1".visible:
+				$"../CanvasLayer/PencilCaseTutorial1".hide()
+				$"../CanvasLayer/PencilCaseTutorial2".show()
 			tween.tween_property(self, "global_position", opened_position, open_time).set_trans(transition_type).set_ease(ease_type)
 		else:
+			if $"../CanvasLayer/PencilCaseTutorial2".visible:
+				$"../CanvasLayer/PencilCaseTutorial2".hide()
 			tween.tween_property(self, "global_position", closed_position, open_time).set_trans(transition_type).set_ease(ease_type)
 
 var tween : Tween

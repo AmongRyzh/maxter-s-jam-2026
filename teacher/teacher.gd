@@ -43,6 +43,11 @@ func _ready():
 		tween.tween_property(self, "position", pos_up, walking_duration)
 		
 		gameplay.teacher_walk_timer.start(randf_range(min_stop_time, max_stop_time))
+		
+		if !gameplay.pencil_case_tutorial_shown:
+			await get_tree().create_timer(1.25)
+			create_tween().tween_property($"../CanvasLayer/PencilCaseTutorial1", "modulate", Color.WHITE, 0.15)
+			gameplay.pencil_case_tutorial_shown = true
 		)
 	
 	gameplay.teacher_walk_timer.timeout.connect(func():

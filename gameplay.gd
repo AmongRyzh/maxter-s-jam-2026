@@ -33,6 +33,8 @@ func get_eraser_slowdown_factor_object_z_index() -> int:
 
 @export var eraser_prefab: PackedScene
 
+@export var start_game_panel: Panel
+
 @export var game_finish_timer: Timer
 @export var game_finish_label: Label
 @export var game_finish_panel: Panel
@@ -49,7 +51,17 @@ func get_eraser_slowdown_factor_object_z_index() -> int:
 
 @export var dangers: Array[PackedScene]
 
+var pencil_case_tutorial_shown: bool = false
+
 func _ready():
+	Engine.time_scale = 0
+	
+	start_game_panel.show()
+	start_game_panel.get_node("StartButton").button_up.connect(func():
+		Engine.time_scale = 1
+		start_game_panel.hide()
+		)
+	
 	game_finish_panel.hide()
 	
 	game_finish_timer.timeout.connect(func():
@@ -73,7 +85,8 @@ func _ready():
 		)
 	
 	monster_spawn_timer.timeout.connect(func():
-		spawn_packed_at_random_pos(monster)
+		if !teacher_cooldown_timer.is_stopped():
+			spawn_packed_at_random_pos(monster)
 		)
 	
 	danger_spawn_timer.timeout.connect(func():

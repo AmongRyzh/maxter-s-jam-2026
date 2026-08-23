@@ -3,14 +3,17 @@
 [ext_resource type="PackedScene" uid="uid://bfbmr3mjgd1fs" path="res://dangers/danger.tscn" id="1_6ggbv"]
 [ext_resource type="Texture2D" uid="uid://biwwtv4ht1cgd" path="res://dangers/paper_ball/paper_ball.png" id="2_s7qe7"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_kbfkw"]
-radius = 24.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6ggbv"]
+radius = 15.0
+height = 62.0
 
 [node name="PaperBall" unique_id=1070415679 instance=ExtResource("1_6ggbv")]
 
-[node name="Projectile" parent="." index="1" unique_id=350462484]
-shape = SubResource("CircleShape2D_kbfkw")
-
-[node name="Sprite2D" parent="Projectile" index="0" unique_id=321822552]
+[node name="Projectile" parent="." index="1" unique_id=321822552]
 show_behind_parent = true
 texture = ExtResource("2_s7qe7")
+
+[node name="CollisionShape2D" parent="." index="2" unique_id=350462484]
+position = Vector2(0, 32)
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_6ggbv")
