@@ -112,7 +112,7 @@ func _ready():
 	
 	final_painter_image_timer.timeout.connect(func():
 		var img = final_painter_image.instantiate()
-		img.global_position = Vector2(get_viewport().get_visible_rect().size.x / 2, get_viewport().get_visible_rect().size.y / 2)
+		img.global_position = Vector2(537.0, get_viewport().get_visible_rect().size.y / 2)
 		painter_image_container.add_child(img)
 		)
 

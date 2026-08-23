@@ -14,6 +14,8 @@ var landed: bool = false
 
 var eraser : Eraser
 
+@export var time_multiplier : float = 6.0
+
 ### Called when the node enters the scene tree for the first time.
 #func _ready():
 	#body_entered.connect(_on_body_entered)
@@ -21,7 +23,7 @@ var eraser : Eraser
 	##launch_projectile(global_position, Vector2(1, 1), 400, 45)
 
 func _process(delta):
-	time += delta
+	time += delta * time_multiplier
 	
 	if is_launch:
 		z_axis = initial_speed * sin(deg_to_rad(throw_angle_degrees)) * time - 0.5 * get_gravity().y * pow(time, 2)

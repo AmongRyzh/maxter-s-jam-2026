@@ -5,22 +5,22 @@
 [ext_resource type="Texture2D" uid="uid://dclgstmi4mv7i" path="res://dangers/danger_shadow.png" id="2_ufjfl"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6ggbv"]
-radius = 15.0
-height = 62.0
+radius = 19.0
+height = 88.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s7qe7"]
-radius = 9.0
-height = 62.0
+radius = 14.0
+height = 76.0
 
 [node name="PaperBall" type="CharacterBody2D" unique_id=1344712094]
 script = ExtResource("1_s7qe7")
+time_multiplier = 1.5
 
 [node name="Shadow" type="Sprite2D" parent="." unique_id=1683475606]
 position = Vector2(0, 32)
 texture = ExtResource("2_ufjfl")
 
 [node name="Projectile" type="Sprite2D" parent="." unique_id=321822552]
-show_behind_parent = true
 texture = ExtResource("2_s7qe7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=350462484]
@@ -30,7 +30,7 @@ shape = SubResource("CapsuleShape2D_6ggbv")
 disabled = true
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="." unique_id=938490977]
-position = Vector2(0, 25)
+position = Vector2(0, 31)
 rotation = -1.5707964
 shape = SubResource("CapsuleShape2D_s7qe7")
 disabled = true

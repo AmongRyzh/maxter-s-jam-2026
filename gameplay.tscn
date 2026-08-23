@@ -26,7 +26,7 @@ top_level = true
 script = ExtResource("1_xuee5")
 painter_image_container = NodePath("PainterImages")
 bad_texts_dir = "res://bad_texts"
-eraser_size = 12
+eraser_size = 22
 eraser_prefab = ExtResource("5_cbffv")
 start_game_panel = NodePath("CanvasLayer/StartGamePanel")
 game_finish_timer = NodePath("Timers/GameFinishTimer")
@@ -118,7 +118,7 @@ one_shot = true
 autostart = true
 
 [node name="BadTextSpawnTimer" type="Timer" parent="Timers" unique_id=1770689058]
-wait_time = 1.65
+wait_time = 1.6999999999999997
 script = ExtResource("8_0m7cd")
 random_range = 0.2
 pick_random_wait_time_again_on_restart = true
@@ -129,7 +129,7 @@ one_shot = true
 autostart = true
 
 [node name="MonsterSpawnTimer" type="Timer" parent="Timers" unique_id=289492501]
-wait_time = 10.0
+wait_time = 9.0
 script = ExtResource("8_0m7cd")
 random_range = 3.0
 pick_random_wait_time_again_on_restart = true

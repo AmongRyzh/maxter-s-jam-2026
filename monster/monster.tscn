@@ -10,7 +10,7 @@ size = Vector2(80, 64)
 [node name="Monster" type="AnimatableBody2D" unique_id=1435944760 groups=["monster"]]
 collision_layer = 2
 script = ExtResource("1_okp8s")
-speed = 475.0
+speed = 450.0
 min_opaque_pixel_count = 130
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=140659944]
@@ -25,5 +25,5 @@ eraser_slowdown_factor = 6.667
 erase_color = Color(1, 1, 1, 0)
 
 [node name="CooldownTimer" type="Timer" parent="." unique_id=1794914289]
-wait_time = 0.325
+wait_time = 0.35
 one_shot = true
