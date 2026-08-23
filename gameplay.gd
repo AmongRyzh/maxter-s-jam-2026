@@ -42,12 +42,22 @@ func get_eraser_slowdown_factor_object_z_index() -> int:
 @export var game_finish_panel: Panel
 
 @export var bad_text_spawn_timer: RandomTimer
+
 @export var begin_random_event_timer: Timer
 @export var monster_spawn_timer: RandomTimer
 @export var danger_spawn_timer: RandomTimer
+
 @export var teacher_cooldown_timer: Timer
 @export var teacher_walk_timer: Timer
 @export var teacher_look_timer: Timer
+
+@export var begin_add_painter_image_spawn_timer: Timer
+@export var add_painter_image_spawn_timer: RandomTimer
+@export var final_painter_image_timer: Timer
+
+@export var painter_image_spawn_points: Node2D
+@export var additional_painter_image: PackedScene
+@export var final_painter_image: PackedScene
 
 @export var monster: PackedScene
 
@@ -91,8 +101,19 @@ func _ready():
 			spawn_packed_at_random_pos(monster)
 		)
 	
-	danger_spawn_timer.timeout.connect(func():
-		_spawn_danger()
+	danger_spawn_timer.timeout.connect(_spawn_danger)
+	
+	begin_add_painter_image_spawn_timer.timeout.connect(func():
+		add_painter_image_spawn_timer.timeout.emit()
+		add_painter_image_spawn_timer.random_start()
+		)
+	
+	add_painter_image_spawn_timer.timeout.connect(_spawn_painter_image)
+	
+	final_painter_image_timer.timeout.connect(func():
+		var img = final_painter_image.instantiate()
+		img.global_position = Vector2(get_viewport().get_visible_rect().size.x / 2, get_viewport().get_visible_rect().size.y / 2)
+		painter_image_container.add_child(img)
 		)
 
 func _spawn_bad_text():
@@ -229,6 +250,20 @@ func _spawn_danger():
 		danger.target_direction = initial_pos.direction_to(target_pos)
 	
 	add_child(danger)
+
+func _spawn_painter_image():
+	var img = additional_painter_image.instantiate()
+	var spawn_point = painter_image_spawn_points.get_children().pick_random()
+	
+	var initial_pos : Vector2
+	initial_pos.x = -100 if randi_range(0, 1) == 0 else get_viewport().get_visible_rect().size.x + 100
+	initial_pos.y = randf_range(0, get_viewport().get_visible_rect().size.y)
+	
+	img.global_position = initial_pos
+	
+	create_tween().tween_property(img, "global_position", spawn_point.global_position, 0.35).set_ease(Tween.EASE_OUT)
+	
+	painter_image_container.add_child(img)
 
 #func _draw():
 	#if eraser:

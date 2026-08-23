@@ -4,7 +4,9 @@
 [ext_resource type="Script" uid="uid://bydt01agaq46s" path="res://gameplay.gd" id="1_xuee5"]
 [ext_resource type="Texture2D" uid="uid://g8vti6go8x6g" path="res://icon.svg" id="2_ej4tk"]
 [ext_resource type="Script" uid="uid://bjgg4hau4g8qm" path="res://painter_image.gd" id="3_oe8ih"]
+[ext_resource type="PackedScene" uid="uid://bp1tvxflbw5eh" path="res://additional_painter_image.tscn" id="3_x2ust"]
 [ext_resource type="PackedScene" uid="uid://bgq7hkw7b1sxc" path="res://dangers/paper_ball/paper_ball.tscn" id="4_2ihbs"]
+[ext_resource type="PackedScene" uid="uid://dod0rw8n827ij" path="res://final_painter_image.tscn" id="4_7y1a3"]
 [ext_resource type="PackedScene" uid="uid://d013mvwu2oiqi" path="res://eraser/eraser.tscn" id="5_cbffv"]
 [ext_resource type="PackedScene" uid="uid://dx0sj2up1lxh1" path="res://monster/monster.tscn" id="7_0m7cd"]
 [ext_resource type="PackedScene" uid="uid://ckgtcmnk3ywpg" path="res://pencil_case/pencil_case.tscn" id="7_fbudy"]
@@ -18,10 +20,7 @@
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_eod45"]
 size = Vector2(684, 368)
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_nwk8b"]
-size = Vector2(128, 128)
-
-[node name="Gameplay" type="Node2D" unique_id=1976024019 node_paths=PackedStringArray("painter_image_container", "start_game_panel", "game_finish_timer", "game_finish_label", "game_finish_panel", "bad_text_spawn_timer", "begin_random_event_timer", "monster_spawn_timer", "danger_spawn_timer", "teacher_cooldown_timer", "teacher_walk_timer", "teacher_look_timer")]
+[node name="Gameplay" type="Node2D" unique_id=1976024019 node_paths=PackedStringArray("painter_image_container", "start_game_panel", "game_finish_timer", "game_finish_label", "game_finish_panel", "bad_text_spawn_timer", "begin_random_event_timer", "monster_spawn_timer", "danger_spawn_timer", "teacher_cooldown_timer", "teacher_walk_timer", "teacher_look_timer", "begin_add_painter_image_spawn_timer", "add_painter_image_spawn_timer", "final_painter_image_timer", "painter_image_spawn_points")]
 top_level = true
 script = ExtResource("1_xuee5")
 painter_image_container = NodePath("PainterImages")
@@ -39,6 +38,12 @@ danger_spawn_timer = NodePath("Timers/DangerSpawnTimer")
 teacher_cooldown_timer = NodePath("Timers/TeacherCooldownTimer")
 teacher_walk_timer = NodePath("Timers/TeacherWalkTimer")
 teacher_look_timer = NodePath("Timers/TeacherLookTimer")
+begin_add_painter_image_spawn_timer = NodePath("Timers/BeginAddPainterImageSpawnTimer")
+add_painter_image_spawn_timer = NodePath("Timers/AddPainterImageSpawnTimer")
+final_painter_image_timer = NodePath("Timers/FinalPainterImageSpawnTimer")
+painter_image_spawn_points = NodePath("PainterImageSpawnPoints")
+additional_painter_image = ExtResource("3_x2ust")
+final_painter_image = ExtResource("4_7y1a3")
 monster = ExtResource("7_0m7cd")
 dangers = Array[PackedScene]([ExtResource("4_2ihbs"), ExtResource("14_eod45")])
 
@@ -47,6 +52,62 @@ visible = false
 position = Vector2(527, 346)
 script = ExtResource("1_n4psk")
 stamp = ExtResource("2_ej4tk")
+
+[node name="PainterImageSpawnPoints" type="Node2D" parent="." unique_id=1477223276]
+
+[node name="SpawnPoint1" type="Node2D" parent="PainterImageSpawnPoints" unique_id=490041225]
+position = Vector2(140, 61)
+
+[node name="SpawnPoint2" type="Node2D" parent="PainterImageSpawnPoints" unique_id=362171382]
+position = Vector2(307, 61)
+
+[node name="SpawnPoint3" type="Node2D" parent="PainterImageSpawnPoints" unique_id=1752885046]
+position = Vector2(467, 61)
+
+[node name="SpawnPoint4" type="Node2D" parent="PainterImageSpawnPoints" unique_id=1406192071]
+position = Vector2(639, 61)
+
+[node name="SpawnPoint5" type="Node2D" parent="PainterImageSpawnPoints" unique_id=1593607214]
+position = Vector2(819, 61)
+
+[node name="SpawnPoint6" type="Node2D" parent="PainterImageSpawnPoints" unique_id=1486340094]
+position = Vector2(992, 61)
+
+[node name="SpawnPoint7" type="Node2D" parent="PainterImageSpawnPoints" unique_id=1264419762]
+position = Vector2(1037, 182)
+
+[node name="SpawnPoint8" type="Node2D" parent="PainterImageSpawnPoints" unique_id=773742878]
+position = Vector2(1029, 311)
+
+[node name="SpawnPoint9" type="Node2D" parent="PainterImageSpawnPoints" unique_id=557775869]
+position = Vector2(1017, 440)
+
+[node name="SpawnPoint10" type="Node2D" parent="PainterImageSpawnPoints" unique_id=283704472]
+position = Vector2(942, 562)
+
+[node name="SpawnPoint11" type="Node2D" parent="PainterImageSpawnPoints" unique_id=1141439447]
+position = Vector2(762, 575)
+
+[node name="SpawnPoint12" type="Node2D" parent="PainterImageSpawnPoints" unique_id=319830912]
+position = Vector2(591, 562)
+
+[node name="SpawnPoint13" type="Node2D" parent="PainterImageSpawnPoints" unique_id=2071547328]
+position = Vector2(435, 576)
+
+[node name="SpawnPoint14" type="Node2D" parent="PainterImageSpawnPoints" unique_id=1275750185]
+position = Vector2(291, 551)
+
+[node name="SpawnPoint15" type="Node2D" parent="PainterImageSpawnPoints" unique_id=1809039030]
+position = Vector2(115, 576)
+
+[node name="SpawnPoint16" type="Node2D" parent="PainterImageSpawnPoints" unique_id=138111107]
+position = Vector2(130, 440)
+
+[node name="SpawnPoint17" type="Node2D" parent="PainterImageSpawnPoints" unique_id=1773211580]
+position = Vector2(140, 311)
+
+[node name="SpawnPoint18" type="Node2D" parent="PainterImageSpawnPoints" unique_id=1942087128]
+position = Vector2(140, 182)
 
 [node name="PainterImages" type="Node2D" parent="." unique_id=30994068]
 show_behind_parent = true
@@ -57,15 +118,6 @@ texture = SubResource("PlaceholderTexture2D_eod45")
 script = ExtResource("3_oe8ih")
 generate_img_on_ready = true
 img_size = Vector2i(684, 368)
-gameplay = NodePath("../..")
-
-[node name="AdditionalPainterImage" type="Sprite2D" parent="PainterImages" unique_id=334236413 node_paths=PackedStringArray("gameplay")]
-position = Vector2(149, 515)
-rotation = 0.295698
-texture = SubResource("PlaceholderTexture2D_nwk8b")
-script = ExtResource("3_oe8ih")
-generate_img_on_ready = true
-img_size = Vector2i(128, 128)
 gameplay = NodePath("../..")
 
 [node name="Timers" type="Node2D" parent="." unique_id=1585624531]
@@ -110,6 +162,22 @@ one_shot = true
 [node name="TeacherLookTimer" type="Timer" parent="Timers" unique_id=27168194]
 one_shot = true
 
+[node name="BeginAddPainterImageSpawnTimer" type="Timer" parent="Timers" unique_id=1060226858]
+wait_time = 45.0
+one_shot = true
+autostart = true
+
+[node name="AddPainterImageSpawnTimer" type="Timer" parent="Timers" unique_id=403008713]
+wait_time = 22.5
+script = ExtResource("8_0m7cd")
+random_range = 5.0
+pick_random_wait_time_again_on_restart = true
+
+[node name="FinalPainterImageSpawnTimer" type="Timer" parent="Timers" unique_id=520314544]
+wait_time = 90.0
+one_shot = true
+autostart = true
+
 [node name="Eraser" parent="." unique_id=76445507 instance=ExtResource("5_cbffv")]
 durability_decrease_rate = 4.0
 
@@ -130,7 +198,7 @@ max_black_pixel_count = 150
 
 [node name="PencilCase" parent="." unique_id=653688394 instance=ExtResource("7_fbudy")]
 z_index = 1
-position = Vector2(971.0001, 504)
+position = Vector2(1269.0001, 745.0001)
 rotation = 0.6806784
 closed_position = Vector2(1269.0001, 745.0001)
 opened_position = Vector2(971.0001, 504)

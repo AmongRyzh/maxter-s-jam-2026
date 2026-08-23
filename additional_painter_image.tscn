@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://bp1tvxflbw5eh"]
+
+[ext_resource type="Script" uid="uid://bjgg4hau4g8qm" path="res://painter_image.gd" id="1_xm1sw"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_k8umi"]
+size = Vector2(128, 96)
+
+[node name="PainterImage" type="Sprite2D" unique_id=289728408 node_paths=PackedStringArray("gameplay")]
+texture = SubResource("PlaceholderTexture2D_k8umi")
+script = ExtResource("1_xm1sw")
+generate_img_on_ready = true
+img_size = Vector2i(128, 128)
+gameplay = NodePath("")
