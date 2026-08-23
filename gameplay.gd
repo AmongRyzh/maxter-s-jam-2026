@@ -136,19 +136,31 @@ func _process(delta):
 func get_all_bad_texts() -> Array[Image]:
 	var output : Array[Image]
  
-	var dir = DirAccess.open(bad_texts_dir)
-	if dir:
-		for file_name in dir.get_files():
-			if file_name.get_extension() == "remap":
-				file_name = file_name.replace(".remap", "")
-   
-			if file_name.get_extension() == "png":
-				var full_path = bad_texts_dir.path_join(file_name)
-				
-				var img : Image = load(full_path).get_image()
-				img.decompress()
-				
-				output.append(img)
+	var dir = ResourceLoader.list_directory(bad_texts_dir)
+	for file_name in dir:
+		if file_name.get_extension() == "remap":
+			file_name = file_name.replace(".remap", "")
+		
+		if file_name.get_extension() == "import":
+			file_name = file_name.replace(".import", "")
+
+		if file_name.get_extension() == "png":
+			var full_path = bad_texts_dir.path_join(file_name)
+			
+			var img : Image = Image.new()
+			#
+			#var error = img.load(full_path)
+			#
+			#print("Attempted loading image %s with result: %s" % [file_name, error])
+			
+			var texture = ResourceLoader.load(full_path)
+			img = texture.get_image()
+			
+			print(img)
+			
+			#img.decompress()
+			
+			output.append(img)
 	
 	return output
 
