@@ -1,7 +1,9 @@
 extends Node2D
 class_name Gameplay
 
-@export var painter_image: Sprite2D
+@export var painter_image_container : Node2D
+
+#var painter_images: Array[Sprite2D]
 
 @export_dir var bad_texts_dir : String
 var bad_texts : Array[Image]
@@ -99,6 +101,8 @@ func _spawn_bad_text():
 	
 	var bad_text = bad_texts.pick_random()
 	
+	var painter_image : PainterImage = painter_image_container.get_children().pick_random()
+	
 	painter_image.fill_texture(bad_text, Rect2i(Vector2.ZERO, bad_text.get_size()),
 		Vector2(randf_range(0, painter_image.img_size.x - bad_text.get_width()), randf_range(0, painter_image.img_size.y - bad_text.get_height())))
 
@@ -168,6 +172,14 @@ func get_pixel_count_of_color(texture: Texture, color: Color) -> int:
 		for x in range(used_rect.position.x, used_rect.end.x):
 			if img.get_pixel(x, y).is_equal_approx(color):
 				color_count += 1
+	
+	return color_count
+
+func get_pixel_count_of_color_in_all_painter_images(color: Color) -> int:
+	var color_count: int = 0
+	
+	for image in painter_image_container.get_children():
+		color_count += get_pixel_count_of_color(image.texture, color)
 	
 	return color_count
 

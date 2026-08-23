@@ -57,7 +57,7 @@ func _ready():
 		
 		is_looking = true
 		
-		var black_pixel_count = gameplay.get_pixel_count_of_color(gameplay.painter_image.texture, Color.BLACK)
+		var black_pixel_count = gameplay.get_pixel_count_of_color_in_all_painter_images(Color.BLACK)
 		print(black_pixel_count)
 		
 		var monster_count := get_tree().get_node_count_in_group('monster')

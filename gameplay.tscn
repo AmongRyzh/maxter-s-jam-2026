@@ -15,10 +15,16 @@
 [ext_resource type="AudioStream" uid="uid://6d62qaxhox2c" path="res://sfx/peremena.ogg" id="13_tyrfw"]
 [ext_resource type="PackedScene" uid="uid://dk7cjptcceqqb" path="res://dangers/paper_plane/paper_plane.tscn" id="14_eod45"]
 
-[node name="Gameplay" type="Node2D" unique_id=1976024019 node_paths=PackedStringArray("painter_image", "start_game_panel", "game_finish_timer", "game_finish_label", "game_finish_panel", "bad_text_spawn_timer", "begin_random_event_timer", "monster_spawn_timer", "danger_spawn_timer", "teacher_cooldown_timer", "teacher_walk_timer", "teacher_look_timer")]
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_eod45"]
+size = Vector2(684, 368)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_nwk8b"]
+size = Vector2(128, 128)
+
+[node name="Gameplay" type="Node2D" unique_id=1976024019 node_paths=PackedStringArray("painter_image_container", "start_game_panel", "game_finish_timer", "game_finish_label", "game_finish_panel", "bad_text_spawn_timer", "begin_random_event_timer", "monster_spawn_timer", "danger_spawn_timer", "teacher_cooldown_timer", "teacher_walk_timer", "teacher_look_timer")]
 top_level = true
 script = ExtResource("1_xuee5")
-painter_image = NodePath("PainterImage")
+painter_image_container = NodePath("PainterImages")
 bad_texts_dir = "res://bad_texts"
 eraser_size = 12
 eraser_prefab = ExtResource("5_cbffv")
@@ -42,13 +48,25 @@ position = Vector2(527, 346)
 script = ExtResource("1_n4psk")
 stamp = ExtResource("2_ej4tk")
 
-[node name="PainterImage" type="Sprite2D" parent="." unique_id=1908524790 node_paths=PackedStringArray("gameplay")]
+[node name="PainterImages" type="Node2D" parent="." unique_id=30994068]
 show_behind_parent = true
-position = Vector2(583, 292)
+
+[node name="PainterImage" type="Sprite2D" parent="PainterImages" unique_id=1908524790 node_paths=PackedStringArray("gameplay")]
+position = Vector2(584, 301)
+texture = SubResource("PlaceholderTexture2D_eod45")
 script = ExtResource("3_oe8ih")
 generate_img_on_ready = true
 img_size = Vector2i(684, 368)
-gameplay = NodePath("..")
+gameplay = NodePath("../..")
+
+[node name="AdditionalPainterImage" type="Sprite2D" parent="PainterImages" unique_id=334236413 node_paths=PackedStringArray("gameplay")]
+position = Vector2(149, 515)
+rotation = 0.295698
+texture = SubResource("PlaceholderTexture2D_nwk8b")
+script = ExtResource("3_oe8ih")
+generate_img_on_ready = true
+img_size = Vector2i(128, 128)
+gameplay = NodePath("../..")
 
 [node name="Timers" type="Node2D" parent="." unique_id=1585624531]
 
