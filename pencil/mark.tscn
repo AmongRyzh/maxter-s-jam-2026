@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://d4jtokmkbsvvk"]
+
+[ext_resource type="Texture2D" uid="uid://mpudb77jqp6k" path="res://pencil/mark.png" id="1_nteux"]
+[ext_resource type="Script" uid="uid://dix6ggp2uwx26" path="res://destroyable.gd" id="2_s3c1k"]
+
+[node name="Mark" type="Sprite2D" unique_id=454067265]
+texture = ExtResource("1_nteux")
+script = ExtResource("2_s3c1k")
+destroy_time = 0.4

@@ -3,10 +3,12 @@
 [ext_resource type="Script" uid="uid://ryjvkttdyuw0" path="res://image_example.gd" id="1_n4psk"]
 [ext_resource type="Script" uid="uid://bydt01agaq46s" path="res://gameplay.gd" id="1_xuee5"]
 [ext_resource type="Texture2D" uid="uid://g8vti6go8x6g" path="res://icon.svg" id="2_ej4tk"]
+[ext_resource type="PackedScene" uid="uid://dempqkihs7dxp" path="res://pencil/pencil.tscn" id="3_eglai"]
 [ext_resource type="Script" uid="uid://bjgg4hau4g8qm" path="res://painter_image.gd" id="3_oe8ih"]
 [ext_resource type="PackedScene" uid="uid://bp1tvxflbw5eh" path="res://additional_painter_image.tscn" id="3_x2ust"]
 [ext_resource type="PackedScene" uid="uid://bgq7hkw7b1sxc" path="res://dangers/paper_ball/paper_ball.tscn" id="4_2ihbs"]
 [ext_resource type="PackedScene" uid="uid://dod0rw8n827ij" path="res://final_painter_image.tscn" id="4_7y1a3"]
+[ext_resource type="PackedScene" uid="uid://d4jtokmkbsvvk" path="res://pencil/mark.tscn" id="4_m1ld8"]
 [ext_resource type="PackedScene" uid="uid://d013mvwu2oiqi" path="res://eraser/eraser.tscn" id="5_cbffv"]
 [ext_resource type="PackedScene" uid="uid://dx0sj2up1lxh1" path="res://monster/monster.tscn" id="7_0m7cd"]
 [ext_resource type="PackedScene" uid="uid://ckgtcmnk3ywpg" path="res://pencil_case/pencil_case.tscn" id="7_fbudy"]
@@ -33,6 +35,8 @@ game_finish_timer = NodePath("Timers/GameFinishTimer")
 game_finish_label = NodePath("CanvasLayer/GameFinishLabel")
 game_finish_panel = NodePath("CanvasLayer/GameFinishPanel")
 bad_text_spawn_timer = NodePath("Timers/BadTextSpawnTimer")
+pencil = ExtResource("3_eglai")
+mark = ExtResource("4_m1ld8")
 begin_random_event_timer = NodePath("Timers/BeginRandomEventTimer")
 monster_spawn_timer = NodePath("Timers/MonsterSpawnTimer")
 danger_spawn_timer = NodePath("Timers/DangerSpawnTimer")
@@ -118,10 +122,10 @@ one_shot = true
 autostart = true
 
 [node name="BadTextSpawnTimer" type="Timer" parent="Timers" unique_id=1770689058]
-wait_time = 1.6999999999999997
+wait_time = 1.2999999999999998
+one_shot = true
 script = ExtResource("8_0m7cd")
 random_range = 0.2
-pick_random_wait_time_again_on_restart = true
 
 [node name="BeginRandomEventTimer" type="Timer" parent="Timers" unique_id=649961357]
 wait_time = 22.5

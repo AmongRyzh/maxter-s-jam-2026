@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://dempqkihs7dxp"]
+
+[ext_resource type="Script" uid="uid://styxd6kudvfl" path="res://pencil/pencil.gd" id="1_pmwgo"]
+[ext_resource type="Texture2D" uid="uid://rqcftkekkexk" path="res://particles/circle_particle_tiny.png" id="2_u4rgo"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_grgbg"]
+size = Vector2(24, 96)
+
+[sub_resource type="Curve" id="Curve_grgbg"]
+_data = [Vector2(0, 0.6987952), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.1024094, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_grgbg"]
+colors = PackedColorArray(0.20511743, 0.20511743, 0.20511743, 1, 0.16078432, 0.16078432, 0.16078432, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6xr82"]
+size = Vector2(58, 22)
+
+[node name="Pencil" type="Area2D" unique_id=1710073798]
+position = Vector2(176, 201)
+script = ExtResource("1_pmwgo")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1303837049]
+texture = SubResource("PlaceholderTexture2D_grgbg")
+offset = Vector2(0, -48)
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=736317297]
+amount = 100
+texture = ExtResource("2_u4rgo")
+lifetime = 0.38
+emission_shape = 3
+emission_rect_extents = Vector2(32, 4)
+direction = Vector2(0, -1)
+spread = 10.0
+initial_velocity_min = 173.71
+initial_velocity_max = 173.71
+scale_amount_curve = SubResource("Curve_grgbg")
+color_ramp = SubResource("Gradient_grgbg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1288135089]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_6xr82")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

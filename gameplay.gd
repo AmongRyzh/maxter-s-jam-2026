@@ -42,6 +42,8 @@ func get_eraser_slowdown_factor_object_z_index() -> int:
 @export var game_finish_panel: Panel
 
 @export var bad_text_spawn_timer: RandomTimer
+@export var pencil: PackedScene
+@export var mark: PackedScene
 
 @export var begin_random_event_timer: Timer
 @export var monster_spawn_timer: RandomTimer
@@ -118,14 +120,28 @@ func _ready():
 
 func _spawn_bad_text():
 	if teacher_cooldown_timer.is_stopped():
+		bad_text_spawn_timer.random_start()
 		return
 	
 	var bad_text = bad_texts.pick_random()
 	
 	var painter_image : PainterImage = painter_image_container.get_children().pick_random()
 	
-	painter_image.fill_texture(bad_text, Rect2i(Vector2.ZERO, bad_text.get_size()),
-		Vector2(randf_range(0, painter_image.img_size.x - bad_text.get_width()), randf_range(0, painter_image.img_size.y - bad_text.get_height())))
+	var position = Vector2(
+		randf_range(0, painter_image.img_size.x - bad_text.get_width()), 
+		randf_range(0, painter_image.img_size.y - bad_text.get_height()))
+	
+	var globalised_position = painter_image.to_global(position - Vector2(painter_image.img_size / 2) + Vector2(bad_text.get_size() / 2))
+	
+	var new_mark = spawn_packed_at_pos(mark, globalised_position)
+	
+	await get_tree().create_timer(0.3).timeout
+	
+	bad_text_spawn_timer.random_start()
+	
+	spawn_packed_at_pos(pencil, globalised_position)
+	
+	painter_image.fill_texture(bad_text, Rect2i(Vector2.ZERO, bad_text.get_size()), position)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -239,17 +255,19 @@ func replace_color_to_color_in_all_painter_images(color_from: Color, color_to: C
 	for image in painter_image_container.get_children():
 		replace_color_to_color(image.texture, color_from, color_to)
 
-func spawn_packed_at_random_pos(packed: PackedScene):
+func spawn_packed_at_random_pos(packed: PackedScene) -> Node2D:
 	var pos = get_random_pos_in_viewport_with_offset(100)
-	spawn_packed_at_pos(packed, pos)
+	return spawn_packed_at_pos(packed, pos)
 
-func spawn_packed_at_pos(packed: PackedScene, pos: Vector2):
+func spawn_packed_at_pos(packed: PackedScene, pos: Vector2) -> Node2D:
 	if packed.can_instantiate():
 		var new_packed = packed.instantiate()
 		new_packed.global_position = pos
 		add_child(new_packed)
+		return new_packed
 	else:
 		print("failed to instantiate ", packed, "!")
+		return null
 
 func get_random_pos_in_viewport_with_offset(offset: float) -> Vector2:
 	return Vector2(randf_range(offset, get_viewport().get_visible_rect().size.x - offset), randf_range(offset, get_viewport().get_visible_rect().size.y - offset))
