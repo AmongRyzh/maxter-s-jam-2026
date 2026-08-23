@@ -6,7 +6,7 @@ class_name PaperPlane
 var target_direction : Vector2 :
 	set(value):
 		target_direction = value
-		rotation_degrees = rad_to_deg(target_direction.angle()) + 90
+		rotation_degrees = rad_to_deg(target_direction.angle()) - 90
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

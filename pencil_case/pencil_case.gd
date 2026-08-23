@@ -39,7 +39,7 @@ func _ready():
 		slot.slot_selected.connect(func():
 			if opened:
 				opened = false
-			$"..".on_pencil_case_eraser_slot_selected
+			$"..".on_pencil_case_eraser_slot_selected()
 			)
 
 func _input(event):

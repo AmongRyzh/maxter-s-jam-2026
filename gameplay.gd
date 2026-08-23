@@ -214,7 +214,8 @@ func replace_color_to_color(texture: ImageTexture, color_from: Color, color_to: 
 		img.decompress()
 		
 	# Gets a bounding box enclosing only the visible parts of the image
-	var used_rect: Rect2i = img.get_used_rect()
+	#var used_rect: Rect2i = img.get_used_rect()
+	var used_rect: Rect2i = Rect2i(0, 0, img.get_width(), img.get_height())
 	var color_count: int = 0
 	
 	# Only loop inside the bounding rectangle containing visible pixels

@@ -88,7 +88,12 @@ func _ready():
 		
 		tween.tween_callback(func():
 			position = pos_down
-			gameplay.teacher_cooldown_timer.start()
+			
+			print(gameplay.game_finish_timer.time_left)
+			var wait_time = -1 if gameplay.game_finish_timer.time_left > 35 else gameplay.game_finish_timer.time_left - walking_duration + gameplay.teacher_look_timer.wait_time
+			print(wait_time)
+			
+			gameplay.teacher_cooldown_timer.start(wait_time)
 			)
 		)
 

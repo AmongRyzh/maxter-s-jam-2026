@@ -5,9 +5,8 @@
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_k8umi"]
 size = Vector2(128, 96)
 
-[node name="PainterImage" type="Sprite2D" unique_id=289728408 node_paths=PackedStringArray("gameplay")]
+[node name="PainterImage" type="Sprite2D" unique_id=289728408]
 texture = SubResource("PlaceholderTexture2D_k8umi")
 script = ExtResource("1_xm1sw")
 generate_img_on_ready = true
 img_size = Vector2i(128, 128)
-gameplay = NodePath("")
