@@ -1,10 +1,8 @@
 [gd_scene format=3 uid="uid://dempqkihs7dxp"]
 
 [ext_resource type="Script" uid="uid://styxd6kudvfl" path="res://pencil/pencil.gd" id="1_pmwgo"]
+[ext_resource type="Texture2D" uid="uid://ciumf7juqykw1" path="res://pencil/pencil.png" id="2_q5st3"]
 [ext_resource type="Texture2D" uid="uid://rqcftkekkexk" path="res://particles/circle_particle_tiny.png" id="2_u4rgo"]
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_grgbg"]
-size = Vector2(24, 96)
 
 [sub_resource type="Curve" id="Curve_grgbg"]
 _data = [Vector2(0, 0.6987952), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.1024094, 0.0, 0, 0]
@@ -21,7 +19,7 @@ position = Vector2(176, 201)
 script = ExtResource("1_pmwgo")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1303837049]
-texture = SubResource("PlaceholderTexture2D_grgbg")
+texture = ExtResource("2_q5st3")
 offset = Vector2(0, -48)
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=736317297]
