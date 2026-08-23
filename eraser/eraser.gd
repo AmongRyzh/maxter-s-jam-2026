@@ -9,6 +9,7 @@ var current_eraser_durability: float = 1.0 :
 		current_eraser_durability = value
 		$TextureProgressBar.value = current_eraser_durability
 		if current_eraser_durability <= 0.0:
+			get_viewport().get_camera_2d().apply_shake(30, 1)
 			#get_tree().current_scene.eraser = null
 			queue_free()
 

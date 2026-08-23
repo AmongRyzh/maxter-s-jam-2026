@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://dx0sj2up1lxh1" path="res://monster/monster.tscn" id="7_0m7cd"]
 [ext_resource type="PackedScene" uid="uid://ckgtcmnk3ywpg" path="res://pencil_case/pencil_case.tscn" id="7_fbudy"]
 [ext_resource type="Script" uid="uid://dr86d7jfmead5" path="res://random_timer.gd" id="8_0m7cd"]
+[ext_resource type="Script" uid="uid://b2rn7gd713ohm" path="res://camera_2d.gd" id="8_7y1a3"]
 [ext_resource type="Texture2D" uid="uid://b3bj2a1schior" path="res://teacher/teacher_looking.png" id="10_1qy1k"]
 [ext_resource type="Script" uid="uid://syvtw10xqyxe" path="res://teacher/teacher.gd" id="11_3n40r"]
 [ext_resource type="Texture2D" uid="uid://b5ofoqnche52t" path="res://teacher/teacher_not_looking.png" id="12_45aep"]
@@ -46,6 +47,10 @@ additional_painter_image = ExtResource("3_x2ust")
 final_painter_image = ExtResource("4_7y1a3")
 monster = ExtResource("7_0m7cd")
 dangers = Array[PackedScene]([ExtResource("4_2ihbs"), ExtResource("14_eod45")])
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1336200204]
+anchor_mode = 0
+script = ExtResource("8_7y1a3")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1077234380]
 visible = false
