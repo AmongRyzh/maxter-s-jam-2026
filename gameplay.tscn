@@ -70,21 +70,6 @@ position = Vector2(639, 61)
 [node name="SpawnPoint5" type="Node2D" parent="PainterImageSpawnPoints" unique_id=1593607214]
 position = Vector2(819, 61)
 
-[node name="SpawnPoint6" type="Node2D" parent="PainterImageSpawnPoints" unique_id=1486340094]
-position = Vector2(992, 61)
-
-[node name="SpawnPoint7" type="Node2D" parent="PainterImageSpawnPoints" unique_id=1264419762]
-position = Vector2(1037, 182)
-
-[node name="SpawnPoint8" type="Node2D" parent="PainterImageSpawnPoints" unique_id=773742878]
-position = Vector2(1029, 311)
-
-[node name="SpawnPoint9" type="Node2D" parent="PainterImageSpawnPoints" unique_id=557775869]
-position = Vector2(1017, 440)
-
-[node name="SpawnPoint10" type="Node2D" parent="PainterImageSpawnPoints" unique_id=283704472]
-position = Vector2(942, 562)
-
 [node name="SpawnPoint11" type="Node2D" parent="PainterImageSpawnPoints" unique_id=1141439447]
 position = Vector2(762, 575)
 
@@ -204,6 +189,11 @@ closed_position = Vector2(1269.0001, 745.0001)
 opened_position = Vector2(971.0001, 504)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=974538232]
+
+[node name="BuildLabel" type="Label" parent="CanvasLayer" unique_id=353407264]
+offset_right = 53.0
+offset_bottom = 23.0
+text = "Build 1"
 
 [node name="GameFinishLabel" type="Label" parent="CanvasLayer" unique_id=1348736259]
 anchors_preset = 5
