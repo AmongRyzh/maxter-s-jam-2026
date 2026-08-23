@@ -135,7 +135,7 @@ func _spawn_bad_text():
 	
 	var new_mark = spawn_packed_at_pos(mark, globalised_position)
 	
-	await get_tree().create_timer(0.3).timeout
+	await get_tree().new_mark.destroy_time.timeout
 	
 	bad_text_spawn_timer.random_start()
 	
