@@ -118,7 +118,7 @@ one_shot = true
 autostart = true
 
 [node name="BadTextSpawnTimer" type="Timer" parent="Timers" unique_id=1770689058]
-wait_time = 1.6999999999999997
+wait_time = 1.65
 script = ExtResource("8_0m7cd")
 random_range = 0.2
 pick_random_wait_time_again_on_restart = true
@@ -169,7 +169,6 @@ one_shot = true
 autostart = true
 
 [node name="Eraser" parent="." unique_id=76445507 instance=ExtResource("5_cbffv")]
-durability_decrease_rate = 4.0
 
 [node name="Teacher" type="Sprite2D" parent="." unique_id=1773635809 node_paths=PackedStringArray("gameplay")]
 position = Vector2(1113, 866)
@@ -198,7 +197,7 @@ opened_position = Vector2(971.0001, 504)
 [node name="BuildLabel" type="Label" parent="CanvasLayer" unique_id=353407264]
 offset_right = 53.0
 offset_bottom = 23.0
-text = "Build 3"
+text = "Build 4"
 
 [node name="GameFinishLabel" type="Label" parent="CanvasLayer" unique_id=1348736259]
 anchors_preset = 5

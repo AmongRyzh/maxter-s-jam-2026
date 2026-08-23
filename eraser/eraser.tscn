@@ -12,7 +12,8 @@ size = Vector2(32, 32)
 show_behind_parent = true
 collision_mask = 3
 script = ExtResource("1_jwyhn")
-speed = 12.0
+speed = 14.0
+durability_decrease_rate = 4.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=935766602]
 visible = false
