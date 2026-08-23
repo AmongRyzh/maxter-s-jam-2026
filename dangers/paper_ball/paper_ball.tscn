@@ -1,19 +1,25 @@
 [gd_scene format=3 uid="uid://bgq7hkw7b1sxc"]
 
-[ext_resource type="PackedScene" uid="uid://bfbmr3mjgd1fs" path="res://dangers/danger.tscn" id="1_6ggbv"]
+[ext_resource type="Script" uid="uid://bm36orw1mffgd" path="res://dangers/paper_ball/paper_ball.gd" id="1_s7qe7"]
 [ext_resource type="Texture2D" uid="uid://biwwtv4ht1cgd" path="res://dangers/paper_ball/paper_ball.png" id="2_s7qe7"]
+[ext_resource type="Texture2D" uid="uid://dclgstmi4mv7i" path="res://dangers/danger_shadow.png" id="2_ufjfl"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6ggbv"]
 radius = 15.0
 height = 62.0
 
-[node name="PaperBall" unique_id=1070415679 instance=ExtResource("1_6ggbv")]
+[node name="PaperBall" type="Area2D" unique_id=1070415679]
+script = ExtResource("1_s7qe7")
 
-[node name="Projectile" parent="." index="1" unique_id=321822552]
+[node name="Shadow" type="Sprite2D" parent="." unique_id=1683475606]
+position = Vector2(0, 32)
+texture = ExtResource("2_ufjfl")
+
+[node name="Projectile" type="Sprite2D" parent="." unique_id=321822552]
 show_behind_parent = true
 texture = ExtResource("2_s7qe7")
 
-[node name="CollisionShape2D" parent="." index="2" unique_id=350462484]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=350462484]
 position = Vector2(0, 32)
 rotation = -1.5707964
 shape = SubResource("CapsuleShape2D_6ggbv")

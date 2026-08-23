@@ -65,11 +65,12 @@ func _ready():
 		
 		if black_pixel_count > max_black_pixel_count or monster_count != 0:
 			Engine.time_scale = 0
-			await get_tree().create_timer(0.3, true, false, true)
+			gameplay.replace_color_to_color_in_all_painter_images(Color.BLACK, Color.RED)
+			await get_tree().create_timer(0.7, true, false, true).timeout
 			Engine.time_scale = 1
 			get_tree().reload_current_scene()
-		
-		gameplay.teacher_look_timer.start()
+		else:
+			gameplay.teacher_look_timer.start()
 		)
 	
 	gameplay.teacher_look_timer.timeout.connect(func():

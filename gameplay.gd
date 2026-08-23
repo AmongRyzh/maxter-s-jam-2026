@@ -208,6 +208,23 @@ func get_pixel_count_of_color(texture: Texture, color: Color) -> int:
 	
 	return color_count
 
+func replace_color_to_color(texture: ImageTexture, color_from: Color, color_to: Color):
+	var img: Image = texture.get_image()
+	if img.is_compressed():
+		img.decompress()
+		
+	# Gets a bounding box enclosing only the visible parts of the image
+	var used_rect: Rect2i = img.get_used_rect()
+	var color_count: int = 0
+	
+	# Only loop inside the bounding rectangle containing visible pixels
+	for y in range(used_rect.position.y, used_rect.end.y):
+		for x in range(used_rect.position.x, used_rect.end.x):
+			if img.get_pixel(x, y).is_equal_approx(color_from):
+				img.set_pixel(x, y, color_to)
+	
+	texture.update(img)
+
 func get_pixel_count_of_color_in_all_painter_images(color: Color) -> int:
 	var color_count: int = 0
 	
@@ -215,6 +232,10 @@ func get_pixel_count_of_color_in_all_painter_images(color: Color) -> int:
 		color_count += get_pixel_count_of_color(image.texture, color)
 	
 	return color_count
+
+func replace_color_to_color_in_all_painter_images(color_from: Color, color_to: Color):
+	for image in painter_image_container.get_children():
+		replace_color_to_color(image.texture, color_from, color_to)
 
 func spawn_packed_at_random_pos(packed: PackedScene):
 	var pos = get_random_pos_in_viewport_with_offset(100)
