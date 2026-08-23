@@ -208,7 +208,7 @@ func get_pixel_count_of_color(texture: Texture, color: Color) -> int:
 	
 	return color_count
 
-func replace_color_to_color(texture: ImageTexture, color_from: Color, color_to: Color):
+func replace_color_to_color(texture: ImageTexture, color_from: Color, color_to: Color) -> Image:
 	var img: Image = texture.get_image()
 	if img.is_compressed():
 		img.decompress()
@@ -224,6 +224,7 @@ func replace_color_to_color(texture: ImageTexture, color_from: Color, color_to: 
 				img.set_pixel(x, y, color_to)
 	
 	texture.update(img)
+	return img
 
 func get_pixel_count_of_color_in_all_painter_images(color: Color) -> int:
 	var color_count: int = 0

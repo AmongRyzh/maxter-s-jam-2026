@@ -45,7 +45,7 @@ func _ready():
 		gameplay.teacher_walk_timer.start(randf_range(min_stop_time, max_stop_time))
 		
 		if !gameplay.pencil_case_tutorial_shown:
-			await get_tree().create_timer(1.25)
+			await get_tree().create_timer(1.25).timeout
 			create_tween().tween_property($"../CanvasLayer/PencilCaseTutorial1", "modulate", Color.WHITE, 0.15)
 			gameplay.pencil_case_tutorial_shown = true
 		)
@@ -60,12 +60,16 @@ func _ready():
 		var black_pixel_count = gameplay.get_pixel_count_of_color_in_all_painter_images(Color.BLACK)
 		print(black_pixel_count)
 		
-		var monster_count := get_tree().get_node_count_in_group('monster')
-		print(monster_count)
+		var monsters := get_tree().get_nodes_in_group('monster')
+		print(monsters)
 		
-		if black_pixel_count > max_black_pixel_count or monster_count != 0:
+		if black_pixel_count > max_black_pixel_count or monsters.size() != 0:
 			Engine.time_scale = 0
+			
 			gameplay.replace_color_to_color_in_all_painter_images(Color.BLACK, Color.RED)
+			for monster in monsters:
+				monster.modulate = Color.RED
+			
 			await get_tree().create_timer(0.7, true, false, true).timeout
 			Engine.time_scale = 1
 			get_tree().reload_current_scene()
