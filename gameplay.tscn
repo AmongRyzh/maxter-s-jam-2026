@@ -118,7 +118,7 @@ one_shot = true
 autostart = true
 
 [node name="BadTextSpawnTimer" type="Timer" parent="Timers" unique_id=1770689058]
-wait_time = 1.5999999999999999
+wait_time = 1.6999999999999997
 script = ExtResource("8_0m7cd")
 random_range = 0.2
 pick_random_wait_time_again_on_restart = true

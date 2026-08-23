@@ -17,11 +17,11 @@ var opened : bool = false :
 		if opened:
 			if $"../CanvasLayer/PencilCaseTutorial1".visible:
 				$"../CanvasLayer/PencilCaseTutorial1".hide()
-				$"../CanvasLayer/PencilCaseTutorial2".show()
+				#$"../CanvasLayer/PencilCaseTutorial2".show()
 			tween.tween_property(self, "global_position", opened_position, open_time).set_trans(transition_type).set_ease(ease_type)
 		else:
-			if $"../CanvasLayer/PencilCaseTutorial2".visible:
-				$"../CanvasLayer/PencilCaseTutorial2".hide()
+			#if $"../CanvasLayer/PencilCaseTutorial2".visible:
+				#$"../CanvasLayer/PencilCaseTutorial2".hide()
 			tween.tween_property(self, "global_position", closed_position, open_time).set_trans(transition_type).set_ease(ease_type)
 
 var tween : Tween
@@ -36,7 +36,11 @@ func _ready():
 	global_position = closed_position
 	
 	for slot in eraser_slots:
-		slot.slot_selected.connect($"..".on_pencil_case_eraser_slot_selected)
+		slot.slot_selected.connect(func():
+			if opened:
+				opened = false
+			$"..".on_pencil_case_eraser_slot_selected
+			)
 
 func _input(event):
 	if event is InputEventMouseButton:
