@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dnphby1ketpt4"]
 
 [ext_resource type="Script" uid="uid://ryjvkttdyuw0" path="res://image_example.gd" id="1_n4psk"]
-[ext_resource type="Script" uid="uid://db0hhb4dmtav6" path="res://gameplay.gd" id="1_xuee5"]
+[ext_resource type="Script" uid="uid://bydt01agaq46s" path="res://gameplay.gd" id="1_xuee5"]
 [ext_resource type="Texture2D" uid="uid://g8vti6go8x6g" path="res://icon.svg" id="2_ej4tk"]
 [ext_resource type="Script" uid="uid://bjgg4hau4g8qm" path="res://painter_image.gd" id="3_oe8ih"]
 [ext_resource type="PackedScene" uid="uid://bgq7hkw7b1sxc" path="res://dangers/paper_ball/paper_ball.tscn" id="4_2ihbs"]
@@ -47,8 +47,10 @@ gameplay = NodePath("..")
 [node name="Timers" type="Node2D" parent="." unique_id=1585624531]
 
 [node name="BadTextSpawnTimer" type="Timer" parent="Timers" unique_id=1770689058]
-wait_time = 1.5
-autostart = true
+wait_time = 1.5999999999999999
+script = ExtResource("8_0m7cd")
+random_range = 0.2
+pick_random_wait_time_again_on_restart = true
 
 [node name="BeginRandomEventTimer" type="Timer" parent="Timers" unique_id=649961357]
 wait_time = 22.5
@@ -65,7 +67,6 @@ pick_random_wait_time_again_on_restart = true
 wait_time = 7.0
 script = ExtResource("8_0m7cd")
 random_range = 4.0
-pick_random_wait_time_again_on_restart = true
 
 [node name="TeacherCooldownTimer" type="Timer" parent="Timers" unique_id=2019654275]
 wait_time = 15.0

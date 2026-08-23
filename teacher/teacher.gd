@@ -59,6 +59,9 @@ func _ready():
 		print(monster_count)
 		
 		if black_pixel_count > max_black_pixel_count and monster_count != 0:
+			Engine.time_scale = 0
+			await get_tree().create_timer(0.3, true, false, true)
+			Engine.time_scale = 1
 			get_tree().reload_current_scene()
 		
 		gameplay.teacher_look_timer.start()
