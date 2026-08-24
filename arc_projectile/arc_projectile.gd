@@ -16,6 +16,8 @@ var eraser : Eraser
 
 @export var time_multiplier : float = 1.5
 
+@export var rotation_speed : float = 0
+
 func _process(delta):
 	time += delta * time_multiplier
 	
@@ -28,13 +30,15 @@ func _process(delta):
 			global_position = initial_position + throw_direction * x_axis ## Move everything along the 'x-axis'
 			
 			$Projectile.position.y = -z_axis
+			
+			rotation_degrees += rotation_speed * delta * time_multiplier
 		else:
 			_z_axis_less_than_zero()
 	
 	move_and_slide()
 
 func _z_axis_less_than_zero():
-	pass
+	landed = true
 
 func launch_projectile(initial_pos: Vector2, direction: Vector2, desired_distance: float, desired_angle_deg: float):
 	initial_position = initial_pos
@@ -45,6 +49,8 @@ func launch_projectile(initial_pos: Vector2, direction: Vector2, desired_distanc
 	
 	global_position = initial_pos
 	time = 0.0
+	
+	rotation_speed = rotation_speed * -1 if randi_range(0, 1) == 0 else rotation_speed
 	
 	z_axis = 0
 	is_launch = true

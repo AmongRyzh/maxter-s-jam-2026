@@ -12,6 +12,7 @@ radius = 30.594116
 
 [node name="AdditionalPainterImage" type="CharacterBody2D" unique_id=1471186647]
 script = ExtResource("1_c5tyr")
+rotation_speed = 15.0
 metadata/_custom_type_script = "uid://dovx7dr28qsj"
 
 [node name="Shadow" type="Sprite2D" parent="." unique_id=1225539963]

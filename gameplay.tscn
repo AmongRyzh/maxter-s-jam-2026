@@ -19,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://b5ofoqnche52t" path="res://teacher/teacher_not_looking.png" id="12_45aep"]
 [ext_resource type="AudioStream" uid="uid://6d62qaxhox2c" path="res://sfx/peremena.ogg" id="13_tyrfw"]
 [ext_resource type="PackedScene" uid="uid://dk7cjptcceqqb" path="res://dangers/paper_plane/paper_plane.tscn" id="14_eod45"]
+[ext_resource type="Texture2D" uid="uid://c46cdh7174blm" path="res://desk.png" id="20_2em84"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_eod45"]
 size = Vector2(684, 368)
@@ -65,19 +66,13 @@ stamp = ExtResource("2_ej4tk")
 [node name="PainterImageSpawnPoints" type="Node2D" parent="." unique_id=1477223276]
 
 [node name="SpawnPoint1" type="Node2D" parent="PainterImageSpawnPoints" unique_id=490041225]
-position = Vector2(140, 61)
+position = Vector2(1036, 174)
 
 [node name="SpawnPoint2" type="Node2D" parent="PainterImageSpawnPoints" unique_id=362171382]
-position = Vector2(307, 61)
+position = Vector2(1036, 294)
 
 [node name="SpawnPoint3" type="Node2D" parent="PainterImageSpawnPoints" unique_id=1752885046]
-position = Vector2(467, 61)
-
-[node name="SpawnPoint4" type="Node2D" parent="PainterImageSpawnPoints" unique_id=1406192071]
-position = Vector2(639, 61)
-
-[node name="SpawnPoint5" type="Node2D" parent="PainterImageSpawnPoints" unique_id=1593607214]
-position = Vector2(819, 61)
+position = Vector2(1036, 432)
 
 [node name="SpawnPoint11" type="Node2D" parent="PainterImageSpawnPoints" unique_id=1141439447]
 position = Vector2(762, 575)
@@ -107,7 +102,7 @@ position = Vector2(140, 182)
 show_behind_parent = true
 
 [node name="PainterImage" type="Sprite2D" parent="PainterImages" unique_id=1908524790 node_paths=PackedStringArray("gameplay") groups=["painter_image"]]
-position = Vector2(584, 301)
+position = Vector2(591, 317)
 texture = SubResource("PlaceholderTexture2D_eod45")
 script = ExtResource("3_oe8ih")
 generate_img_on_ready = true
@@ -176,12 +171,13 @@ autostart = true
 [node name="Eraser" parent="." unique_id=76445507 instance=ExtResource("5_cbffv")]
 
 [node name="Teacher" type="Sprite2D" parent="." unique_id=1773635809 node_paths=PackedStringArray("gameplay")]
-position = Vector2(1113, 866)
-texture = ExtResource("12_45aep")
+z_index = -2
+position = Vector2(1252, 152)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("10_1qy1k")
 script = ExtResource("11_3n40r")
-pos_down = Vector2(1113, 980)
-pos_looking = Vector2(1113, 323)
-pos_up = Vector2(1113, -326)
+y_pos_up = 214.0
+y_pos_down = -101.0
 walking_duration = 6.0
 min_stop_time = 2.7
 max_stop_time = 4.1
@@ -398,3 +394,8 @@ theme_override_font_sizes/font_size = 25
 text = "Нажми сюда, чтобы закрыть пенал ->"
 horizontal_alignment = 2
 vertical_alignment = 1
+
+[node name="Desk" type="Sprite2D" parent="." unique_id=488843287]
+z_index = -1
+position = Vector2(576, 324)
+texture = ExtResource("20_2em84")

@@ -114,12 +114,13 @@ func _ready():
 	
 	final_painter_image_timer.timeout.connect(func():
 		var img = final_painter_image.instantiate()
-		img.global_position = Vector2(537.0, get_viewport().get_visible_rect().size.y / 2)
+		img.global_position = Vector2(576.0, 374.0)
 		painter_image_container.add_child(img)
 		)
 
 func _spawn_bad_text():
 	if teacher_cooldown_timer.is_stopped():
+		print(teacher_cooldown_timer.is_stopped())
 		bad_text_spawn_timer.random_start()
 		return
 	
@@ -329,7 +330,15 @@ func get_all_painter_images(include_monster: bool = false) -> Array[Node]:
 		painter_images = get_tree().get_nodes_in_group('painter_image').filter(
 			func(node):
 				prints(node, is_ancestor_of(painter_image_container))
-				return is_ancestor_of(painter_image_container) and !node.get_parent().is_in_group('monster')
+				
+				#var arc_projectile_condition : bool
+				#
+				#if node.get_parent() is ArcProjectile:
+					#arc_projectile_condition = node.get_parent().landed
+				#else:
+					#arc_projectile_condition = true
+				
+				return is_ancestor_of(painter_image_container) and !node.get_parent().is_in_group('monster') #and arc_projectile_condition
 		)
 	
 	return painter_images
@@ -381,7 +390,7 @@ func _spawn_painter_image():
 	
 	var direction : Vector2 = initial_pos.direction_to(target_pos)
 	var dist : float = initial_pos.distance_to(target_pos)
-		
+	
 	img.launch_projectile(initial_pos, direction, dist, 45)
 	
 	painter_image_container.add_child(img)

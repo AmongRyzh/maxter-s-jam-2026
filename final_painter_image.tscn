@@ -3,12 +3,12 @@
 [ext_resource type="Script" uid="uid://bjgg4hau4g8qm" path="res://painter_image.gd" id="1_xpipo"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_nwk8b"]
-size = Vector2(952, 548)
+size = Vector2(1052, 498)
 
 [node name="FinalPainterImage" type="Sprite2D" unique_id=1620588755 groups=["painter_image"]]
-position = Vector2(537, 324)
+position = Vector2(576, 374)
 texture = SubResource("PlaceholderTexture2D_nwk8b")
 script = ExtResource("1_xpipo")
 generate_img_on_ready = true
-img_size = Vector2i(952, 548)
+img_size = Vector2i(1052, 498)
 erase_color = Color(1, 1, 1, 0)

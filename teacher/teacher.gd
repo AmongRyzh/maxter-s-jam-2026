@@ -1,8 +1,11 @@
 extends Sprite2D
 
-@export var pos_down : Vector2
-@export var pos_looking : Vector2
-@export var pos_up : Vector2
+@export var x_pos_start : float = 1253.0
+@export var x_pos_end : float = -109.0
+
+@export var y_pos_up : float
+@export var y_pos_looking : float = 152.0
+@export var y_pos_down : float
 
 @export var walking_duration : float = 7
 
@@ -33,14 +36,15 @@ var blinking : bool
 func _ready():
 	is_looking = false
 	
-	position = pos_down
+	position = Vector2(x_pos_start, y_pos_down)
 	
 	gameplay.teacher_cooldown_timer.timeout.connect(func():
 		if tween:
 			tween.kill()
 		
 		tween = create_tween()
-		tween.tween_property(self, "position", pos_up, walking_duration)
+		tween.tween_property(self, "position:x", x_pos_end, walking_duration)
+		tween.parallel().tween_subtween(_up_down_subtween())
 		
 		gameplay.teacher_walk_timer.start(randf_range(min_stop_time, max_stop_time))
 		
@@ -54,6 +58,9 @@ func _ready():
 		tween_elapsed_time = tween.get_total_elapsed_time()
 		if tween:
 			tween.kill()
+		
+		tween = create_tween()
+		tween.tween_property(self, "position:y", y_pos_looking, 0.05)
 		
 		is_looking = true
 		
@@ -82,10 +89,11 @@ func _ready():
 		is_looking = false
 		
 		tween = create_tween()
-		tween.tween_property(self, "position", pos_up, walking_duration - tween_elapsed_time)
+		tween.tween_property(self, "position:x", x_pos_end, walking_duration - tween_elapsed_time)
+		tween.parallel().tween_subtween(_up_down_subtween(ceil((walking_duration - tween_elapsed_time) / 0.8)))
 		
 		tween.tween_callback(func():
-			position = pos_down
+			position = Vector2(x_pos_start, y_pos_down)
 			
 			print(gameplay.game_finish_timer.time_left)
 			var wait_time = -1 if gameplay.game_finish_timer.time_left > 35 else gameplay.game_finish_timer.time_left - walking_duration + gameplay.teacher_look_timer.wait_time
@@ -94,6 +102,13 @@ func _ready():
 			gameplay.teacher_cooldown_timer.start(wait_time)
 			)
 		)
+
+func _up_down_subtween(loops: int = 0) -> Tween:
+	var up_down_subtween := create_tween().set_loops(loops)
+	up_down_subtween.tween_property(self, "position:y", y_pos_up, 0.4)
+	up_down_subtween.tween_property(self, "position:y", y_pos_down, 0.4)
+	
+	return up_down_subtween
 
 func _process(delta):
 	if gameplay.teacher_walk_timer.time_left <= 0.5 and !gameplay.teacher_walk_timer.is_stopped() and !blinking:
