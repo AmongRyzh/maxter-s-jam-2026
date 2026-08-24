@@ -20,6 +20,10 @@ config/icon="res://icon.svg"
 
 buses/default_bus_layout="uid://6c4pgc7k7hl3"
 
+[autoload]
+
+BGMusic="*uid://bxe0etsjhfqjc"
+
 [display]
 
 window/stretch/mode="viewport"
@@ -27,6 +31,10 @@ window/stretch/mode="viewport"
 [global_group]
 
 painter_image=""
+
+[gui]
+
+theme/custom_font="uid://bp0arlkltaew7"
 
 [layer_names]
 

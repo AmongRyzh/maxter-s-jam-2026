@@ -13,7 +13,7 @@ point_count = 2
 colors = PackedColorArray(0.20511743, 0.20511743, 0.20511743, 1, 0.16078432, 0.16078432, 0.16078432, 0)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6xr82"]
-size = Vector2(58, 22)
+size = Vector2(40, 12)
 
 [node name="Pencil" type="Area2D" unique_id=1710073798]
 position = Vector2(176, 201)

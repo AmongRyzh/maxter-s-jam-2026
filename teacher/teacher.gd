@@ -89,6 +89,9 @@ func _ready():
 			gameplay.play_sfx_by_name('death_by_teacher')
 			await get_tree().create_timer(0.87, true, false, true).timeout
 			Engine.time_scale = 1
+			
+			BGMusic.record_time = gameplay.game_finish_timer.time_left
+			
 			get_tree().reload_current_scene()
 		else:
 			gameplay.teacher_look_timer.start()

@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://3sc80ri3h4f1" path="res://sfx/take_eraser.ogg" id="2_sa853"]
 [ext_resource type="AudioStream" uid="uid://ub0igbeiour1" path="res://sfx/case_close.ogg" id="2_v4d27"]
 [ext_resource type="AudioStream" uid="uid://dkf4oe2nus747" path="res://sfx/case_open.ogg" id="3_sa853"]
+[ext_resource type="Texture2D" uid="uid://bnvv583kqj08g" path="res://pencil_case/pencil_case_mask.png" id="7_rplbf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_njsjv"]
 size = Vector2(115, 204)
@@ -16,7 +17,7 @@ closed_position = Vector2(1230.0001, 713)
 opened_position = Vector2(979.0001, 510)
 transition_type = 9
 ease_type = 1
-eraser_slots = [NodePath("EraserSlot1"), NodePath("EraserSlot2"), NodePath("EraserSlot3")]
+eraser_slots = [NodePath("PencilCaseMask/EraserSlot1"), NodePath("PencilCaseMask/EraserSlot2"), NodePath("PencilCaseMask/EraserSlot3")]
 
 [node name="TakeEraser" type="AudioStreamPlayer" parent="." unique_id=408226653]
 stream = ExtResource("2_sa853")
@@ -43,14 +44,21 @@ position = Vector2(-254, 0)
 position = Vector2(-6.5, 0)
 shape = SubResource("RectangleShape2D_njsjv")
 
-[node name="EraserSlot1" parent="." unique_id=484270672 instance=ExtResource("2_6rdpm")]
+[node name="PencilCaseMask" type="Sprite2D" parent="." unique_id=222599129]
+clip_children = 2
+texture = ExtResource("7_rplbf")
+
+[node name="EraserSlot1" parent="PencilCaseMask" unique_id=484270672 node_paths=PackedStringArray("pencil_case") instance=ExtResource("2_6rdpm")]
 position = Vector2(-116, 0)
+pencil_case = NodePath("../..")
 
-[node name="EraserSlot2" parent="." unique_id=1594967973 instance=ExtResource("2_6rdpm")]
+[node name="EraserSlot2" parent="PencilCaseMask" unique_id=1594967973 node_paths=PackedStringArray("pencil_case") instance=ExtResource("2_6rdpm")]
 position = Vector2(28, 0)
+pencil_case = NodePath("../..")
 
-[node name="EraserSlot3" parent="." unique_id=829235173 instance=ExtResource("2_6rdpm")]
+[node name="EraserSlot3" parent="PencilCaseMask" unique_id=829235173 node_paths=PackedStringArray("pencil_case") instance=ExtResource("2_6rdpm")]
 position = Vector2(172, 0)
+pencil_case = NodePath("../..")
 
 [connection signal="mouse_entered" from="SwitcherArea2D" to="." method="_on_switcher_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="SwitcherArea2D" to="." method="_on_switcher_area_2d_mouse_exited"]

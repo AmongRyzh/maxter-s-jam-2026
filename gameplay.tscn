@@ -36,6 +36,8 @@
 [ext_resource type="AudioStream" uid="uid://cl5hu318ldurw" path="res://sfx/teacher_walking/neizvesten_-_zvuk_shagov-11.ogg" id="30_yyn0e"]
 [ext_resource type="AudioStream" uid="uid://duea8uumstfno" path="res://sfx/подготовка к лазеру.mp3" id="31_xvjhw"]
 [ext_resource type="Script" uid="uid://dhi8f6nmrbw0o" path="res://desk_area.gd" id="35_d3t05"]
+[ext_resource type="Script" uid="uid://uth6krii35mx" path="res://start_game_panel.gd" id="35_s35uu"]
+[ext_resource type="AudioStream" uid="uid://d07yr4kx6v2g1" path="res://sfx/sound_check.ogg" id="36_5a717"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_eod45"]
 size = Vector2(684, 368)
@@ -250,7 +252,7 @@ opened_position = Vector2(971.0001, 504)
 [node name="BuildLabel" type="Label" parent="CanvasLayer" unique_id=353407264]
 offset_right = 53.0
 offset_bottom = 23.0
-text = "Build 9"
+text = "Build 10"
 
 [node name="GameFinishLabel" type="Label" parent="CanvasLayer" unique_id=1348736259]
 anchors_preset = 5
@@ -261,7 +263,7 @@ offset_right = 118.0
 offset_bottom = 23.0
 grow_horizontal = 2
 theme_override_constants/outline_size = 10
-theme_override_font_sizes/font_size = 23
+theme_override_font_sizes/font_size = 29
 text = "ПЕРЕМЕНА ЧЕРЕЗ: 2 м. 00 сек."
 horizontal_alignment = 1
 
@@ -327,7 +329,7 @@ grow_vertical = 0
 theme_override_font_sizes/font_size = 32
 text = "Попробовать снова"
 
-[node name="StartGamePanel" type="Panel" parent="CanvasLayer" unique_id=1970112783]
+[node name="StartGamePanel" type="Panel" parent="CanvasLayer" unique_id=1970112783 node_paths=PackedStringArray("sfx_slider", "music_slider")]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -339,6 +341,14 @@ offset_right = 487.0
 offset_bottom = 252.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("35_s35uu")
+sfx_slider = NodePath("SFXSlider")
+music_slider = NodePath("MusicSlider")
+
+[node name="SoundCheck" type="AudioStreamPlayer" parent="CanvasLayer/StartGamePanel" unique_id=368520522]
+stream = ExtResource("36_5a717")
+volume_db = -10.0
+bus = &"SFX"
 
 [node name="GameName" type="Label" parent="CanvasLayer/StartGamePanel" unique_id=1995211278]
 layout_mode = 1
@@ -370,10 +380,78 @@ offset_right = 216.0
 offset_bottom = -82.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 22
+theme_override_font_sizes/font_size = 27
 text = "Твоя цель - дожить до перемены.
 Удачи."
 horizontal_alignment = 1
+
+[node name="SFXLabel" type="Label" parent="CanvasLayer/StartGamePanel" unique_id=1044157841]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -209.0
+offset_top = -40.0
+offset_right = 216.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 27
+text = "Громкость звуковых эффектов:"
+horizontal_alignment = 1
+
+[node name="SFXSlider" type="HSlider" parent="CanvasLayer/StartGamePanel" unique_id=1357406]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = -6.0
+offset_right = 181.0
+offset_bottom = 22.0
+grow_horizontal = 2
+grow_vertical = 2
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="MusicLabel" type="Label" parent="CanvasLayer/StartGamePanel" unique_id=1286328605]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -209.0
+offset_top = 33.0
+offset_right = 216.0
+offset_bottom = 98.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 27
+text = "Громкость музыки:"
+horizontal_alignment = 1
+
+[node name="MusicSlider" type="HSlider" parent="CanvasLayer/StartGamePanel" unique_id=1829805247]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = 65.0
+offset_right = 181.0
+offset_bottom = 93.0
+grow_horizontal = 2
+grow_vertical = 2
+max_value = 1.0
+step = 0.01
+value = 1.0
 
 [node name="SafeModeCheckButton" type="CheckButton" parent="CanvasLayer/StartGamePanel" unique_id=1637104094]
 visible = false
@@ -399,14 +477,15 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -141.0
-offset_top = 145.0
-offset_right = 142.0
-offset_bottom = 168.0
+offset_left = -195.0
+offset_top = 112.0
+offset_right = 196.0
+offset_bottom = 148.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 16
-text = "Здесь будут всякие настройки."
+theme_override_font_sizes/font_size = 26
+text = "Ваш рекорд: 2 м. 00 сек."
+horizontal_alignment = 1
 
 [node name="StartButton" type="Button" parent="CanvasLayer/StartGamePanel" unique_id=1847108589]
 layout_mode = 1
@@ -431,7 +510,7 @@ offset_top = 592.0
 offset_right = 957.0
 offset_bottom = 638.0
 theme_override_constants/outline_size = 15
-theme_override_font_sizes/font_size = 25
+theme_override_font_sizes/font_size = 26
 text = "Открой пенал, чтобы взять оттуда новый ластик ->"
 horizontal_alignment = 2
 vertical_alignment = 1

@@ -77,6 +77,8 @@ func _ready():
 	start_game_panel.get_node("StartButton").button_up.connect(func():
 		Engine.time_scale = 1
 		start_game_panel.hide()
+		if !BGMusic.playing:
+			BGMusic.play()
 		)
 	
 	game_finish_panel.hide()
@@ -91,6 +93,7 @@ func _ready():
 	
 	game_finish_timer.timeout.connect(func():
 		Engine.time_scale = 0
+		BGMusic.record_time = 0
 		game_finish_panel.show()
 		game_finish_panel.get_node("Peremena").play()
 		)

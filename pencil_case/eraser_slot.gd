@@ -5,6 +5,8 @@ var is_mouse_entered : bool
 
 signal slot_selected
 
+@export var pencil_case : PencilCase
+
 func _ready():
 	$TextureProgressBar.max_value = $Cooldown.wait_time
 
@@ -14,7 +16,7 @@ func _process(delta):
 func _input(event):
 	if event is InputEventMouseButton:
 		if event.pressed and is_mouse_entered:
-			if $Cooldown.is_stopped() and get_parent().opened:
+			if $Cooldown.is_stopped() and pencil_case.opened:
 				$Cooldown.start()
 				slot_selected.emit()
 
