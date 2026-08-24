@@ -20,15 +20,17 @@ eraser_slots = [NodePath("EraserSlot1"), NodePath("EraserSlot2"), NodePath("Eras
 
 [node name="TakeEraser" type="AudioStreamPlayer" parent="." unique_id=408226653]
 stream = ExtResource("2_sa853")
-volume_db = 10.0
+volume_db = 3.11
 bus = &"SFX"
 
 [node name="CaseClose" type="AudioStreamPlayer" parent="." unique_id=865994339]
 stream = ExtResource("2_v4d27")
+volume_db = -9.664
 bus = &"SFX"
 
 [node name="CaseOpen" type="AudioStreamPlayer" parent="." unique_id=84516875]
 stream = ExtResource("3_sa853")
+volume_db = -9.664
 bus = &"SFX"
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1772163185]

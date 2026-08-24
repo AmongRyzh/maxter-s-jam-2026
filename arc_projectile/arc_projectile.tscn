@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://dovx7dr28qsj" path="res://arc_projectile/arc_projectile.gd" id="1_16jrj"]
 [ext_resource type="Texture2D" uid="uid://dclgstmi4mv7i" path="res://dangers/danger_shadow.png" id="2_337u2"]
+[ext_resource type="AudioStream" uid="uid://pkukuho6imha" path="res://sfx/падение.ogg" id="3_302jx"]
+[ext_resource type="AudioStream" uid="uid://skjqs2qdav6v" path="res://sfx/untitled.ogg" id="4_7uta3"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_njsjv"]
 size = Vector2(64, 64)
@@ -21,3 +23,12 @@ texture = SubResource("PlaceholderTexture2D_njsjv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=350462484]
 shape = SubResource("RectangleShape2D_2gr5k")
+
+[node name="FallSFX" type="AudioStreamPlayer2D" parent="." unique_id=354948742]
+stream = ExtResource("3_302jx")
+autoplay = true
+bus = &"SFX"
+
+[node name="LandSFX" type="AudioStreamPlayer2D" parent="." unique_id=1801764865]
+stream = ExtResource("4_7uta3")
+bus = &"SFX"

@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://bm36orw1mffgd" path="res://dangers/paper_ball/paper_ball.gd" id="1_s7qe7"]
 [ext_resource type="Texture2D" uid="uid://biwwtv4ht1cgd" path="res://dangers/paper_ball/paper_ball.png" id="2_s7qe7"]
 [ext_resource type="Texture2D" uid="uid://dclgstmi4mv7i" path="res://dangers/danger_shadow.png" id="2_ufjfl"]
+[ext_resource type="AudioStream" uid="uid://pkukuho6imha" path="res://sfx/падение.ogg" id="4_p0cks"]
+[ext_resource type="AudioStream" uid="uid://skjqs2qdav6v" path="res://sfx/untitled.ogg" id="5_murr2"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6ggbv"]
 radius = 19.0
@@ -33,3 +35,12 @@ position = Vector2(0, 31)
 rotation = -1.5707964
 shape = SubResource("CapsuleShape2D_s7qe7")
 disabled = true
+
+[node name="FallSFX" type="AudioStreamPlayer2D" parent="." unique_id=1901561912]
+stream = ExtResource("4_p0cks")
+autoplay = true
+bus = &"SFX"
+
+[node name="LandSFX" type="AudioStreamPlayer2D" parent="." unique_id=633639982]
+stream = ExtResource("5_murr2")
+bus = &"SFX"

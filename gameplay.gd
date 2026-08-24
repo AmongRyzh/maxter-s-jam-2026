@@ -142,10 +142,13 @@ func _spawn_bad_text():
 	
 	var all_painter_images := get_all_painter_images()
 	
-	var painter_image : PainterImage = all_painter_images.pick_random()
+	var painter_image : PainterImage
 	
 	var position : Vector2
+	
 	for i in 10:
+		painter_image = all_painter_images.pick_random()
+		
 		position = Vector2(
 			randf_range(0, painter_image.img_size.x - bad_text.get_width()), 
 			randf_range(0, painter_image.img_size.y - bad_text.get_height()))
@@ -384,13 +387,16 @@ func _spawn_danger():
 		var rand_1 = randi_range(0, 1)
 		var rand_2 = randi_range(0, 1)
 		
+		var condition_x : bool = eraser.position.x > get_viewport().get_visible_rect().size.x / 2 if eraser else rand_2 == 0
+		var condition_y : bool = eraser.position.y > get_viewport().get_visible_rect().size.y / 2 if eraser else rand_2 == 0
+		
 		match rand_1:
 			0:
-				initial_pos.x = -100 if rand_2 == 0 else get_viewport().get_visible_rect().size.x + 100
+				initial_pos.x = -100 if condition_x else get_viewport().get_visible_rect().size.x + 100
 				initial_pos.y = randf_range(0, get_viewport().get_visible_rect().size.y)
 			1:
 				initial_pos.x = randf_range(0, get_viewport().get_visible_rect().size.x)
-				initial_pos.y = -100 if rand_2 == 0 else get_viewport().get_visible_rect().size.y + 100
+				initial_pos.y = -100 if condition_y else get_viewport().get_visible_rect().size.y + 100
 		
 		danger.global_position = initial_pos
 		danger.target_direction = initial_pos.direction_to(target_pos)

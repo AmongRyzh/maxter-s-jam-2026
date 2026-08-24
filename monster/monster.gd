@@ -25,6 +25,7 @@ func _physics_process(delta):
 	#print(get_tree().current_scene.get_opaque_pixel_count($Sprite2D.texture))
 	var opaque_pixel_count : int = get_tree().current_scene.get_opaque_pixel_count($Sprite2D.texture)
 	if opaque_pixel_count <= min_opaque_pixel_count:
+		get_tree().current_scene.play_sfx_by_name('monster_death')
 		queue_free()
 
 func _cooldown_timer_timeout():

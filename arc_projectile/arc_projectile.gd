@@ -36,6 +36,9 @@ func _process(delta):
 	move_and_slide()
 
 func _z_axis_less_than_zero():
+	if !landed:
+		$FallSFX.stop()
+		$LandSFX.play()
 	landed = true
 
 func launch_projectile(initial_pos: Vector2, direction: Vector2, desired_distance: float, desired_angle_deg: float):

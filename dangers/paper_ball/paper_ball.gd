@@ -34,6 +34,9 @@ func _process(delta):
 
 func _z_axis_less_than_zero():
 	if !landed:
+		$FallSFX.stop()
+		$LandSFX.play()
+		
 		$CollisionShape2D.disabled = false
 		landed = true
 		await get_tree().process_frame

@@ -4,6 +4,8 @@
 [ext_resource type="Script" uid="uid://bjgg4hau4g8qm" path="res://painter_image.gd" id="1_xm1sw"]
 [ext_resource type="Texture2D" uid="uid://dclgstmi4mv7i" path="res://dangers/danger_shadow.png" id="2_t1rr4"]
 [ext_resource type="Texture2D" uid="uid://bhwkir1c5lkxj" path="res://arc_projectile/additional_painter_image.png" id="3_o1q1y"]
+[ext_resource type="AudioStream" uid="uid://pkukuho6imha" path="res://sfx/падение.ogg" id="5_ar6na"]
+[ext_resource type="AudioStream" uid="uid://skjqs2qdav6v" path="res://sfx/untitled.ogg" id="6_46dwl"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_njsjv"]
 radius = 30.594116
@@ -25,3 +27,12 @@ erase_with_initial_texture_color = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1362487608]
 shape = SubResource("CircleShape2D_njsjv")
 disabled = true
+
+[node name="FallSFX" type="AudioStreamPlayer2D" parent="." unique_id=175246664]
+stream = ExtResource("5_ar6na")
+autoplay = true
+bus = &"SFX"
+
+[node name="LandSFX" type="AudioStreamPlayer2D" parent="." unique_id=257787428]
+stream = ExtResource("6_46dwl")
+bus = &"SFX"

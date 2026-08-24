@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://chlht28lxh4qk" path="res://dangers/paper_plane/paper_plane.gd" id="1_mgh1e"]
 [ext_resource type="Texture2D" uid="uid://bytbsnsowauqw" path="res://dangers/paper_plane/paper_plane.png" id="2_c7bj2"]
+[ext_resource type="AudioStream" uid="uid://pkukuho6imha" path="res://sfx/падение.ogg" id="2_tldxh"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mgh1e"]
 radius = 58.00862
@@ -9,6 +10,10 @@ radius = 58.00862
 [node name="PaperPlane" type="Area2D" unique_id=150558746]
 script = ExtResource("1_mgh1e")
 speed = 700.0
+
+[node name="Падение" type="AudioStreamPlayer2D" parent="." unique_id=2005800165]
+stream = ExtResource("2_tldxh")
+autoplay = true
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=344651925]
 texture = ExtResource("2_c7bj2")
