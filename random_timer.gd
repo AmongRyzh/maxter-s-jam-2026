@@ -5,6 +5,9 @@ class_name RandomTimer
 
 @export var pick_random_wait_time_again_on_restart : bool
 
+@export var decrease_wait_time_by : float
+@export var report : bool
+
 var initial_wait_time : float
 
 func _ready():
@@ -23,3 +26,8 @@ func random_start(time := -1.0, range := -1.0) -> void:
 		timeout.connect(random_start)
 	
 	start(actual_wait_time)
+
+func _physics_process(delta):
+	if report:
+		prints(delta, decrease_wait_time_by * delta, initial_wait_time)
+	initial_wait_time -= decrease_wait_time_by * delta * 0.001

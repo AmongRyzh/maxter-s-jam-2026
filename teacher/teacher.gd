@@ -21,6 +21,7 @@ var tween_elapsed_time : float
 @export var teacher_not_looking: CompressedTexture2D
 
 @export var max_black_pixel_count: int
+@export var enable_checking: bool = true
 
 @export var walking_sounds : Array[AudioStream]
 
@@ -36,6 +37,9 @@ var blinking : bool
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if !OS.has_feature('editor'):
+		enable_checking = true
+	
 	is_looking = false
 	
 	position = Vector2(x_pos_start, y_pos_down)
@@ -77,7 +81,7 @@ func _ready():
 		var monsters := get_tree().get_nodes_in_group('monster')
 		print(monsters)
 		
-		if black_pixel_count > max_black_pixel_count or monsters.size() != 0:
+		if (black_pixel_count > max_black_pixel_count or monsters.size() != 0) and enable_checking:
 			Engine.time_scale = 0
 			
 			gameplay.replace_color_to_color_in_all_painter_images(Color.BLACK, Color.RED)

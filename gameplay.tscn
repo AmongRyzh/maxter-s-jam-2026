@@ -34,11 +34,15 @@
 [ext_resource type="AudioStream" uid="uid://chc33ww874068" path="res://sfx/teacher_walking/neizvesten_-_zvuk_shagov-10.ogg" id="29_xmqtf"]
 [ext_resource type="AudioStream" uid="uid://cl5hu318ldurw" path="res://sfx/teacher_walking/neizvesten_-_zvuk_shagov-11.ogg" id="30_yyn0e"]
 [ext_resource type="AudioStream" uid="uid://duea8uumstfno" path="res://sfx/подготовка к лазеру.mp3" id="31_xvjhw"]
+[ext_resource type="Script" uid="uid://dhi8f6nmrbw0o" path="res://desk_area.gd" id="35_d3t05"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_eod45"]
 size = Vector2(684, 368)
 
-[node name="Gameplay" type="Node2D" unique_id=1976024019 node_paths=PackedStringArray("painter_image_container", "start_game_panel", "game_finish_timer", "game_finish_label", "game_finish_panel", "bad_text_spawn_timer", "begin_random_event_timer", "monster_spawn_timer", "danger_spawn_timer", "teacher_cooldown_timer", "teacher_walk_timer", "teacher_look_timer", "begin_add_painter_image_spawn_timer", "add_painter_image_spawn_timer", "final_painter_image_timer", "painter_image_spawn_points", "sfx")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_njsjv"]
+size = Vector2(1152, 534)
+
+[node name="Gameplay" type="Node2D" unique_id=1976024019 node_paths=PackedStringArray("painter_image_container", "start_game_panel", "game_finish_timer", "game_finish_label", "game_finish_panel", "bad_text_spawn_timer", "mark_destroy_time", "begin_random_event_timer", "monster_spawn_timer", "danger_spawn_timer", "teacher_cooldown_timer", "teacher_walk_timer", "teacher_look_timer", "begin_add_painter_image_spawn_timer", "add_painter_image_spawn_timer", "final_painter_image_timer", "painter_image_spawn_points", "sfx")]
 top_level = true
 script = ExtResource("1_xuee5")
 painter_image_container = NodePath("PainterImages")
@@ -52,6 +56,7 @@ game_finish_panel = NodePath("CanvasLayer/GameFinishPanel")
 bad_text_spawn_timer = NodePath("Timers/BadTextSpawnTimer")
 pencil = ExtResource("3_eglai")
 mark = ExtResource("4_m1ld8")
+mark_destroy_time = NodePath("Timers/MarkDestroyTime")
 begin_random_event_timer = NodePath("Timers/BeginRandomEventTimer")
 monster_spawn_timer = NodePath("Timers/MonsterSpawnTimer")
 danger_spawn_timer = NodePath("Timers/DangerSpawnTimer")
@@ -146,6 +151,8 @@ wait_time = 1.2999999999999998
 one_shot = true
 script = ExtResource("8_0m7cd")
 random_range = 0.2
+decrease_wait_time_by = 1.25
+report = true
 
 [node name="BeginRandomEventTimer" type="Timer" parent="Timers" unique_id=649961357]
 wait_time = 22.5
@@ -157,12 +164,14 @@ wait_time = 9.0
 script = ExtResource("8_0m7cd")
 random_range = 3.0
 pick_random_wait_time_again_on_restart = true
+decrease_wait_time_by = 4.3
 
 [node name="DangerSpawnTimer" type="Timer" parent="Timers" unique_id=811568700]
 wait_time = 5.0
 script = ExtResource("8_0m7cd")
 random_range = 3.0
 pick_random_wait_time_again_on_restart = true
+decrease_wait_time_by = 3.3
 
 [node name="TeacherCooldownTimer" type="Timer" parent="Timers" unique_id=2019654275]
 wait_time = 15.0
@@ -192,6 +201,11 @@ pick_random_wait_time_again_on_restart = true
 wait_time = 90.0
 one_shot = true
 autostart = true
+
+[node name="MarkDestroyTime" type="Timer" parent="Timers" unique_id=473446164]
+wait_time = 0.5
+script = ExtResource("8_0m7cd")
+decrease_wait_time_by = 1.3
 
 [node name="Eraser" parent="." unique_id=76445507 instance=ExtResource("5_cbffv")]
 
@@ -435,3 +449,12 @@ vertical_alignment = 1
 z_index = -1
 position = Vector2(576, 324)
 texture = ExtResource("20_2em84")
+
+[node name="DeskArea2D" type="Area2D" parent="." unique_id=672968727]
+script = ExtResource("35_d3t05")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeskArea2D" unique_id=1104911247]
+position = Vector2(576, 382)
+shape = SubResource("RectangleShape2D_njsjv")
+
+[connection signal="body_exited" from="DeskArea2D" to="DeskArea2D" method="_on_body_exited"]

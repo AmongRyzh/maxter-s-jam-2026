@@ -3,6 +3,11 @@ class_name PaperBall
 
 var eraser : Eraser
 
+var out_of_desk_area : bool = false :
+	set(value):
+		out_of_desk_area = value
+		print(name, "out_of_desk_area = ", value)
+
 ### Called when the node enters the scene tree for the first time.
 #func _ready():
 	#body_entered.connect(_on_body_entered)
@@ -12,14 +17,20 @@ var eraser : Eraser
 func _process(delta):
 	super(delta)
 	
-	for i in get_slide_collision_count():
-		var c = get_slide_collision(i)
-		eraser = null
-		if c.get_collider() is CharacterBody2D:
-			if c.get_collider() is Eraser:
-				eraser = c.get_collider()
-			var push_force = (15 * c.get_collider_velocity().length() / 100) + 10
-			velocity += (-c.get_normal() * push_force)
+	if !out_of_desk_area:
+		for i in get_slide_collision_count():
+			var c = get_slide_collision(i)
+			eraser = null
+			if c.get_collider() is CharacterBody2D:
+				if c.get_collider() is Eraser:
+					eraser = c.get_collider()
+				var push_force = (15 * c.get_collider_velocity().length() / 100) + 10
+				velocity += (-c.get_normal() * push_force)
+	else:
+		if velocity.y < -500:
+			velocity.y += -velocity.y
+		velocity += get_gravity() * delta
+		z_index = -2
 
 func _z_axis_less_than_zero():
 	if !landed:

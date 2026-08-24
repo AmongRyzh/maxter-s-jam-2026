@@ -44,6 +44,7 @@ func get_eraser_slowdown_factor_object_z_index() -> int:
 @export var bad_text_spawn_timer: RandomTimer
 @export var pencil: PackedScene
 @export var mark: PackedScene
+@export var mark_destroy_time: RandomTimer
 
 @export var begin_random_event_timer: Timer
 @export var monster_spawn_timer: RandomTimer
@@ -79,6 +80,14 @@ func _ready():
 		)
 	
 	game_finish_panel.hide()
+	
+	if OS.get_name() == "Web":
+		game_finish_panel.get_node("QuitButton").hide()
+	
+	game_finish_panel.get_node("QuitButton").button_up.connect(func():
+		get_tree().quit())
+	game_finish_panel.get_node("TryAgainButton").button_up.connect(func():
+		get_tree().reload_current_scene())
 	
 	game_finish_timer.timeout.connect(func():
 		Engine.time_scale = 0
@@ -160,6 +169,7 @@ func _spawn_bad_text():
 
 func _spawn_mark(pos: Vector2):
 	var new_mark = spawn_packed_at_pos(mark, pos)
+	new_mark.destroy_time = mark_destroy_time.initial_wait_time
 	
 	await get_tree().create_timer(new_mark.destroy_time).timeout
 	return
