@@ -57,7 +57,7 @@ func _ready():
 		
 		is_looking = true
 		
-		var black_pixel_count = gameplay.get_pixel_count_of_color_in_all_painter_images(Color.BLACK)
+		var black_pixel_count = gameplay.get_pixel_count_of_color_in_all_painter_images(Color.BLACK, false)
 		print(black_pixel_count)
 		
 		var monsters := get_tree().get_nodes_in_group('monster')
@@ -66,7 +66,7 @@ func _ready():
 		if black_pixel_count > max_black_pixel_count or monsters.size() != 0:
 			Engine.time_scale = 0
 			
-			gameplay.replace_color_to_color_in_all_painter_images(Color.BLACK, Color.RED, true)
+			gameplay.replace_color_to_color_in_all_painter_images(Color.BLACK, Color.RED)
 			
 			await get_tree().create_timer(0.7, true, false, true).timeout
 			Engine.time_scale = 1

@@ -42,6 +42,9 @@ func _process(_delta):
 
 func _paint_tex(pos):
 	#print(Rect2i(pos, Vector2i(1, 1)).grow(eraser_size))
+	if !gameplay.teacher_look_timer.is_stopped() or (!gameplay.teacher_walk_timer.is_stopped() and gameplay.teacher_walk_timer.time_left < 0.1) or Engine.time_scale == 0:
+		return
+	
 	img.fill_rect(Rect2i(pos, Vector2i(1, 1)).grow(gameplay.eraser_size).grow_side(SIDE_TOP, gameplay.durability_shrink), erase_color)
 	texture.update(img)
 

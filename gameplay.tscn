@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dnphby1ketpt4"]
 
 [ext_resource type="Script" uid="uid://ryjvkttdyuw0" path="res://image_example.gd" id="1_n4psk"]
-[ext_resource type="Script" uid="uid://bydt01agaq46s" path="res://gameplay.gd" id="1_xuee5"]
+[ext_resource type="Script" uid="uid://cai04peodvjvh" path="res://gameplay.gd" id="1_xuee5"]
 [ext_resource type="Texture2D" uid="uid://g8vti6go8x6g" path="res://icon.svg" id="2_ej4tk"]
 [ext_resource type="PackedScene" uid="uid://dempqkihs7dxp" path="res://pencil/pencil.tscn" id="3_eglai"]
 [ext_resource type="Script" uid="uid://bjgg4hau4g8qm" path="res://painter_image.gd" id="3_oe8ih"]
@@ -145,7 +145,7 @@ random_range = 3.0
 pick_random_wait_time_again_on_restart = true
 
 [node name="TeacherCooldownTimer" type="Timer" parent="Timers" unique_id=2019654275]
-wait_time = 15.0
+wait_time = 6.0
 one_shot = true
 autostart = true
 
@@ -155,6 +155,7 @@ one_shot = true
 
 [node name="TeacherLookTimer" type="Timer" parent="Timers" unique_id=27168194]
 one_shot = true
+ignore_time_scale = true
 
 [node name="BeginAddPainterImageSpawnTimer" type="Timer" parent="Timers" unique_id=1060226858]
 wait_time = 45.0

@@ -129,9 +129,15 @@ func _spawn_bad_text():
 	
 	var painter_image : PainterImage = all_painter_images.pick_random()
 	
-	var position = Vector2(
-		randf_range(0, painter_image.img_size.x - bad_text.get_width()), 
-		randf_range(0, painter_image.img_size.y - bad_text.get_height()))
+	var position : Vector2
+	for i in 10:
+		position = Vector2(
+			randf_range(0, painter_image.img_size.x - bad_text.get_width()), 
+			randf_range(0, painter_image.img_size.y - bad_text.get_height()))
+		
+		var rect : Rect2i = Rect2i(Vector2i(position) - bad_text.get_size() / 2, bad_text.get_size())
+		if get_pixel_count_of_color_in_rect(painter_image.texture, Color.BLACK, rect) < 150 or get_pixel_count_of_color_in_all_painter_images(Color.WHITE) < 1000:
+			break
 	
 	var globalised_position = painter_image.to_global(position - Vector2(painter_image.img_size / 2) + Vector2(bad_text.get_size() / 2))
 	
@@ -144,6 +150,9 @@ func _spawn_bad_text():
 	spawn_packed_at_pos(pencil, globalised_position)
 	
 	painter_image.fill_texture(bad_text, Rect2i(Vector2.ZERO, bad_text.get_size()), position)
+#
+#func reposition_mark(mark: Node2D, position: Vector2):
+	#mark
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -216,6 +225,7 @@ func get_pixel_count_of_color(texture: Texture, color: Color) -> int:
 		
 	# Gets a bounding box enclosing only the visible parts of the image
 	var used_rect: Rect2i = img.get_used_rect()
+	print(used_rect)
 	var color_count: int = 0
 	
 	# Only loop inside the bounding rectangle containing visible pixels
@@ -223,6 +233,34 @@ func get_pixel_count_of_color(texture: Texture, color: Color) -> int:
 		for x in range(used_rect.position.x, used_rect.end.x):
 			if img.get_pixel(x, y).is_equal_approx(color):
 				color_count += 1
+	
+	return color_count
+
+func get_pixel_count_of_color_in_rect_in_decompressed_img(img: Image, color: Color, rect: Rect2i) -> int:
+	var color_count: int = 0
+	
+	# Only loop inside the bounding rectangle containing visible pixels
+	for y in range(rect.position.y, rect.end.y):
+		for x in range(rect.position.x, rect.end.x):
+			if x in range(0, img.get_size().x) and y in range(0, img.get_size().y):
+				if img.get_pixel(x, y).is_equal_approx(color):
+					color_count += 1
+	
+	return color_count
+
+func get_pixel_count_of_color_in_rect(texture: Texture, color: Color, rect: Rect2i) -> int:
+	var img: Image = texture.get_image()
+	if img.is_compressed():
+		img.decompress()
+	
+	var color_count: int = 0
+	
+	# Only loop inside the bounding rectangle containing visible pixels
+	for y in range(rect.position.y, rect.end.y):
+		for x in range(rect.position.x, rect.end.x):
+			if x in range(0, img.get_size().x) and y in range(0, img.get_size().y):
+				if img.get_pixel(x, y).is_equal_approx(color):
+					color_count += 1
 	
 	return color_count
 
