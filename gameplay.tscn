@@ -305,7 +305,7 @@ offset_bottom = -150.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 54
-text = "СИМУЛЯТОР ОГУЗКА 2"
+text = "НА ЗАДНЕЙ ПАРТЕ"
 horizontal_alignment = 1
 
 [node name="Label" type="Label" parent="CanvasLayer/StartGamePanel" unique_id=206175305]

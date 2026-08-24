@@ -317,6 +317,8 @@ func _spawn_painter_image():
 	create_tween().tween_property(img, "global_position", spawn_point.global_position, 0.35).set_ease(Tween.EASE_OUT)
 	
 	painter_image_container.add_child(img)
+	
+	spawn_point.queue_free()
 
 #func _draw():
 	#if eraser:

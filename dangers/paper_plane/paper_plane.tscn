@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bytbsnsowauqw" path="res://dangers/paper_plane/paper_plane.png" id="2_c7bj2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mgh1e"]
-radius = 42.0119
+radius = 58.00862
 
 [node name="PaperPlane" type="Area2D" unique_id=150558746]
 script = ExtResource("1_mgh1e")
