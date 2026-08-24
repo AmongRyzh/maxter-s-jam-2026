@@ -15,6 +15,7 @@ var current_eraser_durability: float = 1.0 :
 		
 		if current_eraser_durability <= 0.0:
 			get_viewport().get_camera_2d().apply_shake(30, 1)
+			get_tree().current_scene.play_sfx_by_name('death')
 			#get_tree().current_scene.eraser = null
 			queue_free()
 
@@ -22,6 +23,11 @@ var current_eraser_durability: float = 1.0 :
 
 var pixels_moved_last_frame: float = 0.0 
 var last_position: Vector2
+
+var last_direction: Vector2
+
+@export var eraser_sounds : Array[AudioStream]
+@export var velocity_to_pitch : Curve
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -36,10 +42,29 @@ func _physics_process(delta):
 	
 	global_position = global_position.lerp(target_pos, (speed - get_tree().current_scene.get_eraser_slowdown_factor()) * delta)
 	
-	pixels_moved_last_frame = global_position.distance_to(last_position)
+	var current_direction := global_position.direction_to(last_position)
 	
-	last_position = global_position
+	var direction_changed := current_direction.sign() != last_direction.sign()
+	#print(direction_changed)
+	
+	pixels_moved_last_frame = global_position.distance_to(last_position)
+	#print(pixels_moved_last_frame)
 	
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and !get_tree().current_scene.is_pencil_case_opened():
+		last_direction = global_position.direction_to(last_position)
+		if direction_changed:
+			play_random_sfx()
+		
 		var durability : float = (durability_decrease_rate + get_tree().current_scene.get_additional_durability_decrease_rate())
 		current_eraser_durability -= durability * delta * (pixels_moved_last_frame / 15)
+	
+	last_position = global_position
+
+func play_random_sfx():
+	print("random sfx!")
+	var sound = eraser_sounds.pick_random()
+	#if !$AudioStreamPlayer2D.playing:
+	$AudioStreamPlayer2D.stream = sound
+	$AudioStreamPlayer2D.pitch_scale = velocity_to_pitch.sample(pixels_moved_last_frame)
+	$AudioStreamPlayer2D.play()
+	pass

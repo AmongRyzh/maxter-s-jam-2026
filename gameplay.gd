@@ -67,6 +67,8 @@ func get_eraser_slowdown_factor_object_z_index() -> int:
 
 var pencil_case_tutorial_shown: bool = false
 
+@export var sfx: Node2D
+
 func _ready():
 	Engine.time_scale = 0
 	
@@ -396,6 +398,9 @@ func _spawn_painter_image():
 	painter_image_container.add_child(img)
 	
 	spawn_point.queue_free()
+
+func play_sfx_by_name(name: String):
+	sfx.get_node(name).play()
 
 #func _draw():
 	#if eraser:

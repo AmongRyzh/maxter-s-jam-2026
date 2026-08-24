@@ -14,17 +14,31 @@
 [ext_resource type="PackedScene" uid="uid://ckgtcmnk3ywpg" path="res://pencil_case/pencil_case.tscn" id="7_fbudy"]
 [ext_resource type="Script" uid="uid://dr86d7jfmead5" path="res://random_timer.gd" id="8_0m7cd"]
 [ext_resource type="Script" uid="uid://b2rn7gd713ohm" path="res://camera_2d.gd" id="8_7y1a3"]
+[ext_resource type="AudioStream" uid="uid://cc58id33lp8fw" path="res://sfx/получение урона.ogg" id="10_0kugc"]
 [ext_resource type="Texture2D" uid="uid://b3bj2a1schior" path="res://teacher/teacher_looking.png" id="10_1qy1k"]
+[ext_resource type="AudioStream" uid="uid://ye84bmrxn5ps" path="res://sfx/death_by_teacher.ogg" id="10_hwi80"]
 [ext_resource type="Script" uid="uid://syvtw10xqyxe" path="res://teacher/teacher.gd" id="11_3n40r"]
 [ext_resource type="Texture2D" uid="uid://b5ofoqnche52t" path="res://teacher/teacher_not_looking.png" id="12_45aep"]
 [ext_resource type="AudioStream" uid="uid://6d62qaxhox2c" path="res://sfx/peremena.ogg" id="13_tyrfw"]
 [ext_resource type="PackedScene" uid="uid://dk7cjptcceqqb" path="res://dangers/paper_plane/paper_plane.tscn" id="14_eod45"]
+[ext_resource type="AudioStream" uid="uid://cytm2cfklela2" path="res://sfx/teacher_walking/neizvesten_-_zvuk_shagov-1.ogg" id="20_1ni6y"]
 [ext_resource type="Texture2D" uid="uid://c46cdh7174blm" path="res://desk.png" id="20_2em84"]
+[ext_resource type="AudioStream" uid="uid://ilhwu20b4u42" path="res://sfx/teacher_walking/neizvesten_-_zvuk_shagov-2.ogg" id="21_xvjhw"]
+[ext_resource type="AudioStream" uid="uid://b6or5miyjohei" path="res://sfx/teacher_walking/neizvesten_-_zvuk_shagov-3.ogg" id="22_d3t05"]
+[ext_resource type="AudioStream" uid="uid://c4cs3jewtusvm" path="res://sfx/teacher_walking/neizvesten_-_zvuk_shagov-4.ogg" id="23_j6kuv"]
+[ext_resource type="AudioStream" uid="uid://b50b28t8iiej" path="res://sfx/teacher_walking/neizvesten_-_zvuk_shagov-5.ogg" id="24_s35uu"]
+[ext_resource type="AudioStream" uid="uid://5v2cha08fgpo" path="res://sfx/teacher_walking/neizvesten_-_zvuk_shagov-6.ogg" id="25_5a717"]
+[ext_resource type="AudioStream" uid="uid://dugpeefk17jy2" path="res://sfx/teacher_walking/neizvesten_-_zvuk_shagov-7.ogg" id="26_dsr22"]
+[ext_resource type="AudioStream" uid="uid://ucrrygwb5aee" path="res://sfx/teacher_walking/neizvesten_-_zvuk_shagov-8.ogg" id="27_d8yap"]
+[ext_resource type="AudioStream" uid="uid://tss18ctdxsfe" path="res://sfx/teacher_walking/neizvesten_-_zvuk_shagov-9.ogg" id="28_nm2fk"]
+[ext_resource type="AudioStream" uid="uid://chc33ww874068" path="res://sfx/teacher_walking/neizvesten_-_zvuk_shagov-10.ogg" id="29_xmqtf"]
+[ext_resource type="AudioStream" uid="uid://cl5hu318ldurw" path="res://sfx/teacher_walking/neizvesten_-_zvuk_shagov-11.ogg" id="30_yyn0e"]
+[ext_resource type="AudioStream" uid="uid://duea8uumstfno" path="res://sfx/подготовка к лазеру.mp3" id="31_xvjhw"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_eod45"]
 size = Vector2(684, 368)
 
-[node name="Gameplay" type="Node2D" unique_id=1976024019 node_paths=PackedStringArray("painter_image_container", "start_game_panel", "game_finish_timer", "game_finish_label", "game_finish_panel", "bad_text_spawn_timer", "begin_random_event_timer", "monster_spawn_timer", "danger_spawn_timer", "teacher_cooldown_timer", "teacher_walk_timer", "teacher_look_timer", "begin_add_painter_image_spawn_timer", "add_painter_image_spawn_timer", "final_painter_image_timer", "painter_image_spawn_points")]
+[node name="Gameplay" type="Node2D" unique_id=1976024019 node_paths=PackedStringArray("painter_image_container", "start_game_panel", "game_finish_timer", "game_finish_label", "game_finish_panel", "bad_text_spawn_timer", "begin_random_event_timer", "monster_spawn_timer", "danger_spawn_timer", "teacher_cooldown_timer", "teacher_walk_timer", "teacher_look_timer", "begin_add_painter_image_spawn_timer", "add_painter_image_spawn_timer", "final_painter_image_timer", "painter_image_spawn_points", "sfx")]
 top_level = true
 script = ExtResource("1_xuee5")
 painter_image_container = NodePath("PainterImages")
@@ -52,6 +66,17 @@ additional_painter_image = ExtResource("3_x2ust")
 final_painter_image = ExtResource("4_7y1a3")
 monster = ExtResource("7_0m7cd")
 dangers = Array[PackedScene]([ExtResource("4_2ihbs"), ExtResource("14_eod45")])
+sfx = NodePath("SFX")
+
+[node name="SFX" type="Node2D" parent="." unique_id=1207665058]
+
+[node name="death_by_teacher" type="AudioStreamPlayer" parent="SFX" unique_id=303859406]
+stream = ExtResource("10_hwi80")
+bus = &"SFX"
+
+[node name="death" type="AudioStreamPlayer" parent="SFX" unique_id=794524902]
+stream = ExtResource("10_0kugc")
+bus = &"SFX"
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1336200204]
 anchor_mode = 0
@@ -153,7 +178,7 @@ one_shot = true
 ignore_time_scale = true
 
 [node name="BeginAddPainterImageSpawnTimer" type="Timer" parent="Timers" unique_id=1060226858]
-wait_time = 2.0
+wait_time = 45.0
 one_shot = true
 autostart = true
 
@@ -185,6 +210,16 @@ gameplay = NodePath("..")
 teacher_looking = ExtResource("10_1qy1k")
 teacher_not_looking = ExtResource("12_45aep")
 max_black_pixel_count = 150
+walking_sounds = Array[AudioStream]([ExtResource("20_1ni6y"), ExtResource("21_xvjhw"), ExtResource("22_d3t05"), ExtResource("23_j6kuv"), ExtResource("24_s35uu"), ExtResource("25_5a717"), ExtResource("26_dsr22"), ExtResource("27_d8yap"), ExtResource("28_nm2fk"), ExtResource("29_xmqtf"), ExtResource("30_yyn0e")])
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Teacher" unique_id=1418086904]
+bus = &"SFX"
+
+[node name="AudioStreamPlayer2D2" type="AudioStreamPlayer2D" parent="Teacher" unique_id=856793339]
+stream = ExtResource("31_xvjhw")
+bus = &"SFX"
+
+[node name="PlaySoundTimer" type="Timer" parent="Teacher" unique_id=922525434]
 
 [node name="PencilCase" parent="." unique_id=653688394 instance=ExtResource("7_fbudy")]
 z_index = 1

@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cc58id33lp8fw"
+path="res://.godot/imported/получение урона.ogg-7fe1d46d3cbee41d64533f683b05d95e.oggvorbisstr"
+
+[deps]
+
+source_file="res://sfx/получение урона.ogg"
+dest_files=["res://.godot/imported/получение урона.ogg-7fe1d46d3cbee41d64533f683b05d95e.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

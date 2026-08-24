@@ -22,6 +22,8 @@ var tween_elapsed_time : float
 
 @export var max_black_pixel_count: int
 
+@export var walking_sounds : Array[AudioStream]
+
 var is_looking : bool = false :
 	set(value):
 		is_looking = value
@@ -38,9 +40,17 @@ func _ready():
 	
 	position = Vector2(x_pos_start, y_pos_down)
 	
+	$PlaySoundTimer.timeout.connect(func():
+		$AudioStreamPlayer2D.stream = walking_sounds.pick_random()
+		$AudioStreamPlayer2D.play()
+		)
+	
 	gameplay.teacher_cooldown_timer.timeout.connect(func():
 		if tween:
 			tween.kill()
+		
+		$PlaySoundTimer.timeout.emit()
+		$PlaySoundTimer.start()
 		
 		tween = create_tween()
 		tween.tween_property(self, "position:x", x_pos_end, walking_duration)
@@ -54,10 +64,12 @@ func _ready():
 		if tween:
 			tween.kill()
 		
-		tween = create_tween()
+		tween = create_tween().set_ignore_time_scale()
 		tween.tween_property(self, "position:y", y_pos_looking, 0.05)
 		
 		is_looking = true
+		
+		$PlaySoundTimer.stop()
 		
 		var black_pixel_count = gameplay.get_pixel_count_of_color_in_all_painter_images(Color.BLACK, false)
 		print(black_pixel_count)
@@ -70,7 +82,8 @@ func _ready():
 			
 			gameplay.replace_color_to_color_in_all_painter_images(Color.BLACK, Color.RED)
 			
-			await get_tree().create_timer(0.7, true, false, true).timeout
+			gameplay.play_sfx_by_name('death_by_teacher')
+			await get_tree().create_timer(0.87, true, false, true).timeout
 			Engine.time_scale = 1
 			get_tree().reload_current_scene()
 		else:
@@ -95,7 +108,12 @@ func _ready():
 			print(wait_time)
 			
 			gameplay.teacher_cooldown_timer.start(wait_time)
+			$PlaySoundTimer.stop()
 			)
+		
+		await get_tree().create_timer(0.4).timeout
+		$PlaySoundTimer.timeout.emit()
+		$PlaySoundTimer.start()
 		)
 
 func _up_down_subtween(loops: int = 0) -> Tween:
@@ -111,6 +129,9 @@ func _process(delta):
 
 func _blink():
 	blinking = true
+	
+	$AudioStreamPlayer2D2.play()
+	
 	var tween := create_tween()
 	tween.set_parallel(false)
 	for i in 5:
