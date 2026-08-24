@@ -152,7 +152,6 @@ one_shot = true
 script = ExtResource("8_0m7cd")
 random_range = 0.2
 decrease_wait_time_by = 1.25
-report = true
 
 [node name="BeginRandomEventTimer" type="Timer" parent="Timers" unique_id=649961357]
 wait_time = 22.5
@@ -247,7 +246,7 @@ opened_position = Vector2(971.0001, 504)
 [node name="BuildLabel" type="Label" parent="CanvasLayer" unique_id=353407264]
 offset_right = 53.0
 offset_bottom = 23.0
-text = "Build 8"
+text = "Build 9"
 
 [node name="GameFinishLabel" type="Label" parent="CanvasLayer" unique_id=1348736259]
 anchors_preset = 5

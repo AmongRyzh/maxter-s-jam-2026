@@ -4,9 +4,12 @@ class_name Eraser
 @export var speed: float = 5.0
 
 @export var eraser_durability: float = 100.0
-var current_eraser_durability: float = 1.0 :
+var current_eraser_durability: float = 100.0 :
 	set(value):
-		if !$InvincibilityTimer.is_stopped() or get_tree().current_scene.is_pencil_case_opened():
+		if !$InvincibilityTimer.is_stopped():
+			current_eraser_durability = eraser_durability
+			return
+		if get_tree().current_scene.is_pencil_case_opened():
 			current_eraser_durability = current_eraser_durability
 			return
 		
