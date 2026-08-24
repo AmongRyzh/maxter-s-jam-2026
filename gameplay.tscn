@@ -153,7 +153,7 @@ one_shot = true
 ignore_time_scale = true
 
 [node name="BeginAddPainterImageSpawnTimer" type="Timer" parent="Timers" unique_id=1060226858]
-wait_time = 45.0
+wait_time = 2.0
 one_shot = true
 autostart = true
 

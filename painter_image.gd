@@ -14,10 +14,15 @@ var img : Image
 
 @export var erase_color : Color = Color.WHITE
 
+@export var erase_with_initial_texture_color : bool = false
+var initial_texture : Texture2D
+
 var is_hovered : bool
 
 func _ready():
 	gameplay = get_tree().current_scene
+	
+	initial_texture = texture
 	
 	if generate_img_on_ready:
 		img = Image.create_empty(img_size.x, img_size.y, false, Image.FORMAT_RGBA8)
@@ -45,11 +50,21 @@ func _paint_tex(pos):
 	if !gameplay.teacher_look_timer.is_stopped() or (!gameplay.teacher_walk_timer.is_stopped() and gameplay.teacher_walk_timer.time_left < 0.1) or Engine.time_scale == 0:
 		return
 	
-	img.fill_rect(Rect2i(pos, Vector2i(1, 1)).grow(gameplay.eraser_size).grow_side(SIDE_TOP, gameplay.durability_shrink), erase_color)
-	texture.update(img)
+	if erase_with_initial_texture_color:
+		var rect: Rect2i = Rect2i(pos, Vector2i(1, 1)).grow(gameplay.eraser_size)
+		var initial_img := initial_texture.get_image()
+		var initial_img_under_rect = initial_img.get_region(rect)
+		
+		fill_texture(initial_img, rect, pos - Vector2(rect.size / 2), false)
+	else:
+		img.fill_rect(Rect2i(pos, Vector2i(1, 1)).grow(gameplay.eraser_size).grow_side(SIDE_TOP, gameplay.durability_shrink), erase_color)
+		texture.update(img)
 
-func fill_texture(src: Image, src_rect: Rect2i, dst: Vector2i):
-	img.blend_rect(src, src_rect, dst)
+func fill_texture(src: Image, src_rect: Rect2i, dst: Vector2i, use_blend_rect: bool = true):
+	if use_blend_rect:
+		img.blend_rect(src, src_rect, dst)
+	else:
+		img.blit_rect(src, src_rect, dst)
 	texture.update(img)
 
 func _input(event: InputEvent):
