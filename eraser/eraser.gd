@@ -6,6 +6,10 @@ class_name Eraser
 @export var eraser_durability: float = 100.0
 var current_eraser_durability: float = 1.0 :
 	set(value):
+		if !$InvincibilityTimer.is_stopped() or get_tree().current_scene.is_pencil_case_opened():
+			current_eraser_durability = current_eraser_durability
+			return
+		
 		current_eraser_durability = value
 		$TextureProgressBar.value = current_eraser_durability
 		

@@ -55,3 +55,8 @@ shape = SubResource("RectangleShape2D_jwyhn")
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=331165866]
 volume_db = -1.38
 bus = &"SFX"
+
+[node name="InvincibilityTimer" type="Timer" parent="." unique_id=116634408]
+wait_time = 0.15
+one_shot = true
+autostart = true

@@ -3,9 +3,12 @@
 [ext_resource type="Script" uid="uid://bkryo51qjb7og" path="res://pencil_case/pencil_case.gd" id="1_x7jfl"]
 [ext_resource type="PackedScene" uid="uid://wws4a5y1njr4" path="res://pencil_case/eraser_slot.tscn" id="2_6rdpm"]
 [ext_resource type="Texture2D" uid="uid://rayqfi7y1hpk" path="res://pencil_case/pencil_case.png" id="2_orb0r"]
+[ext_resource type="AudioStream" uid="uid://3sc80ri3h4f1" path="res://sfx/take_eraser.ogg" id="2_sa853"]
+[ext_resource type="AudioStream" uid="uid://ub0igbeiour1" path="res://sfx/case_close.ogg" id="2_v4d27"]
+[ext_resource type="AudioStream" uid="uid://dkf4oe2nus747" path="res://sfx/case_open.ogg" id="3_sa853"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_njsjv"]
-size = Vector2(68.159, 192.611)
+size = Vector2(115, 204)
 
 [node name="PencilCase" type="Node2D" unique_id=653688394 node_paths=PackedStringArray("eraser_slots")]
 script = ExtResource("1_x7jfl")
@@ -15,6 +18,19 @@ transition_type = 9
 ease_type = 1
 eraser_slots = [NodePath("EraserSlot1"), NodePath("EraserSlot2"), NodePath("EraserSlot3")]
 
+[node name="TakeEraser" type="AudioStreamPlayer" parent="." unique_id=408226653]
+stream = ExtResource("2_sa853")
+volume_db = 10.0
+bus = &"SFX"
+
+[node name="CaseClose" type="AudioStreamPlayer" parent="." unique_id=865994339]
+stream = ExtResource("2_v4d27")
+bus = &"SFX"
+
+[node name="CaseOpen" type="AudioStreamPlayer" parent="." unique_id=84516875]
+stream = ExtResource("3_sa853")
+bus = &"SFX"
+
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1772163185]
 texture = ExtResource("2_orb0r")
 
@@ -22,6 +38,7 @@ texture = ExtResource("2_orb0r")
 position = Vector2(-254, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SwitcherArea2D" unique_id=1083909687]
+position = Vector2(-6.5, 0)
 shape = SubResource("RectangleShape2D_njsjv")
 
 [node name="EraserSlot1" parent="." unique_id=484270672 instance=ExtResource("2_6rdpm")]

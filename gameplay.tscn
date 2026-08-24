@@ -247,7 +247,7 @@ opened_position = Vector2(971.0001, 504)
 [node name="BuildLabel" type="Label" parent="CanvasLayer" unique_id=353407264]
 offset_right = 53.0
 offset_bottom = 23.0
-text = "Build 7"
+text = "Build 8"
 
 [node name="GameFinishLabel" type="Label" parent="CanvasLayer" unique_id=1348736259]
 anchors_preset = 5
