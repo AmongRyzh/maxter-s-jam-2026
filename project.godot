@@ -13,12 +13,12 @@ config_version=5
 config/name="maxter's jam 2026"
 run/main_scene="uid://dnphby1ketpt4"
 config/features=PackedStringArray("4.7", "GL Compatibility")
+boot_splash/image="res://maxters_jam_logo.png"
 config/icon="res://icon.svg"
 
 [display]
 
-window/stretch/mode="canvas_items"
-window/stretch/aspect="expand"
+window/stretch/mode="viewport"
 
 [global_group]
 
