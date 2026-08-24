@@ -255,12 +255,23 @@ func get_pixel_count_of_color_in_rect(texture: Texture, color: Color, rect: Rect
 	
 	var color_count: int = 0
 	
+	var end_x := rect.end.x
+	var end_y := rect.end.y
+	
+	print("get_pixel_count_of_color_in_rect: ", rect)
 	# Only loop inside the bounding rectangle containing visible pixels
-	for y in range(rect.position.y, rect.end.y):
-		for x in range(rect.position.x, rect.end.x):
-			if x in range(0, img.get_size().x) and y in range(0, img.get_size().y):
-				if img.get_pixel(x, y).is_equal_approx(color):
-					color_count += 1
+	for y in range(rect.position.y, end_y):
+		if y in range(0, img.get_size().y):
+			for x in range(rect.position.x, end_x):
+				if x in range(0, img.get_size().x):
+					if img.get_pixel(x, y).is_equal_approx(color):
+						color_count += 1
+				else:
+					end_x = x - 1
+					continue
+		else:
+			end_y = y - 1
+			continue
 	
 	return color_count
 
