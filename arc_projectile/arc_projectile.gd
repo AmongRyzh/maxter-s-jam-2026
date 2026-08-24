@@ -12,8 +12,6 @@ var z_axis = 0.0 # simulate throwing the projectile on the z-axis by adding that
 var is_launch: bool = false
 var landed: bool = false
 
-var eraser : Eraser
-
 @export var time_multiplier : float = 1.5
 
 @export var rotation_speed : float = 0

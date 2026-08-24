@@ -1,6 +1,8 @@
 extends ArcProjectile
 class_name PaperBall
 
+var eraser : Eraser
+
 ### Called when the node enters the scene tree for the first time.
 #func _ready():
 	#body_entered.connect(_on_body_entered)
@@ -12,7 +14,10 @@ func _process(delta):
 	
 	for i in get_slide_collision_count():
 		var c = get_slide_collision(i)
+		eraser = null
 		if c.get_collider() is CharacterBody2D:
+			if c.get_collider() is Eraser:
+				eraser = c.get_collider()
 			var push_force = (15 * c.get_collider_velocity().length() / 100) + 10
 			velocity += (-c.get_normal() * push_force)
 
@@ -20,6 +25,7 @@ func _z_axis_less_than_zero():
 	if !landed:
 		$CollisionShape2D.disabled = false
 		landed = true
+		await get_tree().process_frame
 		if eraser and !get_tree().current_scene.is_pencil_case_opened():
 			eraser.current_eraser_durability = 0
 	else:
