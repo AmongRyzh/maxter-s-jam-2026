@@ -14,7 +14,6 @@ height = 76.0
 
 [node name="PaperBall" type="CharacterBody2D" unique_id=1344712094]
 script = ExtResource("1_s7qe7")
-time_multiplier = 1.5
 
 [node name="Shadow" type="Sprite2D" parent="." unique_id=1683475606]
 position = Vector2(0, 32)

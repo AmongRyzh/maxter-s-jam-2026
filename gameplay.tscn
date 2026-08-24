@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://g8vti6go8x6g" path="res://icon.svg" id="2_ej4tk"]
 [ext_resource type="PackedScene" uid="uid://dempqkihs7dxp" path="res://pencil/pencil.tscn" id="3_eglai"]
 [ext_resource type="Script" uid="uid://bjgg4hau4g8qm" path="res://painter_image.gd" id="3_oe8ih"]
-[ext_resource type="PackedScene" uid="uid://bp1tvxflbw5eh" path="res://additional_painter_image.tscn" id="3_x2ust"]
+[ext_resource type="PackedScene" uid="uid://bp1tvxflbw5eh" path="res://arc_projectile/additional_painter_image.tscn" id="3_x2ust"]
 [ext_resource type="PackedScene" uid="uid://bgq7hkw7b1sxc" path="res://dangers/paper_ball/paper_ball.tscn" id="4_2ihbs"]
 [ext_resource type="PackedScene" uid="uid://dod0rw8n827ij" path="res://final_painter_image.tscn" id="4_7y1a3"]
 [ext_resource type="PackedScene" uid="uid://d4jtokmkbsvvk" path="res://pencil/mark.tscn" id="4_m1ld8"]
@@ -106,7 +106,7 @@ position = Vector2(140, 182)
 [node name="PainterImages" type="Node2D" parent="." unique_id=30994068]
 show_behind_parent = true
 
-[node name="PainterImage" type="Sprite2D" parent="PainterImages" unique_id=1908524790 node_paths=PackedStringArray("gameplay")]
+[node name="PainterImage" type="Sprite2D" parent="PainterImages" unique_id=1908524790 node_paths=PackedStringArray("gameplay") groups=["painter_image"]]
 position = Vector2(584, 301)
 texture = SubResource("PlaceholderTexture2D_eod45")
 script = ExtResource("3_oe8ih")

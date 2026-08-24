@@ -125,7 +125,9 @@ func _spawn_bad_text():
 	
 	var bad_text = bad_texts.pick_random()
 	
-	var painter_image : PainterImage = painter_image_container.get_children().pick_random()
+	var all_painter_images := get_all_painter_images()
+	
+	var painter_image : PainterImage = all_painter_images.pick_random()
 	
 	var position = Vector2(
 		randf_range(0, painter_image.img_size.x - bad_text.get_width()), 
@@ -243,16 +245,16 @@ func replace_color_to_color(texture: ImageTexture, color_from: Color, color_to: 
 	texture.update(img)
 	return img
 
-func get_pixel_count_of_color_in_all_painter_images(color: Color) -> int:
+func get_pixel_count_of_color_in_all_painter_images(color: Color, include_monster: bool = false) -> int:
 	var color_count: int = 0
 	
-	for image in painter_image_container.get_children():
+	for image in get_all_painter_images(include_monster):
 		color_count += get_pixel_count_of_color(image.texture, color)
 	
 	return color_count
 
-func replace_color_to_color_in_all_painter_images(color_from: Color, color_to: Color):
-	for image in painter_image_container.get_children():
+func replace_color_to_color_in_all_painter_images(color_from: Color, color_to: Color, include_monster: bool = false):
+	for image in get_all_painter_images(include_monster):
 		replace_color_to_color(image.texture, color_from, color_to)
 
 func spawn_packed_at_random_pos(packed: PackedScene) -> Node2D:
@@ -268,6 +270,20 @@ func spawn_packed_at_pos(packed: PackedScene, pos: Vector2) -> Node2D:
 	else:
 		print("failed to instantiate ", packed, "!")
 		return null
+
+func get_all_painter_images(include_monster: bool = false) -> Array[Node]:
+	var painter_images : Array[Node]
+	
+	if include_monster:
+		painter_images = get_tree().get_nodes_in_group('painter_image')
+	else:
+		painter_images = get_tree().get_nodes_in_group('painter_image').filter(
+			func(node):
+				prints(node, is_ancestor_of(painter_image_container))
+				return is_ancestor_of(painter_image_container) and !node.get_parent().is_in_group('monster')
+		)
+	
+	return painter_images
 
 func get_random_pos_in_viewport_with_offset(offset: float) -> Vector2:
 	return Vector2(randf_range(offset, get_viewport().get_visible_rect().size.x - offset), randf_range(offset, get_viewport().get_visible_rect().size.y - offset))
@@ -312,9 +328,12 @@ func _spawn_painter_image():
 	initial_pos.x = -100 if randi_range(0, 1) == 0 else get_viewport().get_visible_rect().size.x + 100
 	initial_pos.y = randf_range(0, get_viewport().get_visible_rect().size.y)
 	
-	img.global_position = initial_pos
+	var target_pos : Vector2 = spawn_point.global_position
 	
-	create_tween().tween_property(img, "global_position", spawn_point.global_position, 0.35).set_ease(Tween.EASE_OUT)
+	var direction : Vector2 = initial_pos.direction_to(target_pos)
+	var dist : float = initial_pos.distance_to(target_pos)
+		
+	img.launch_projectile(initial_pos, direction, dist, 45)
 	
 	painter_image_container.add_child(img)
 	

@@ -66,9 +66,7 @@ func _ready():
 		if black_pixel_count > max_black_pixel_count or monsters.size() != 0:
 			Engine.time_scale = 0
 			
-			gameplay.replace_color_to_color_in_all_painter_images(Color.BLACK, Color.RED)
-			for monster in monsters:
-				monster.modulate = Color.RED
+			gameplay.replace_color_to_color_in_all_painter_images(Color.BLACK, Color.RED, true)
 			
 			await get_tree().create_timer(0.7, true, false, true).timeout
 			Engine.time_scale = 1

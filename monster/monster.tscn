@@ -16,7 +16,7 @@ min_opaque_pixel_count = 130
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=140659944]
 shape = SubResource("RectangleShape2D_0g571")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1358224525]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1358224525 groups=["painter_image"]]
 z_index = 1
 texture = ExtResource("2_2k2s0")
 script = ExtResource("2_gsx7y")
