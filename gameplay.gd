@@ -102,7 +102,10 @@ func _ready():
 	
 	monster_spawn_timer.timeout.connect(func():
 		if !teacher_cooldown_timer.is_stopped():
-			spawn_packed_at_random_pos(monster)
+			var pos = get_random_pos_in_viewport_with_offset(100)
+			await _spawn_mark(pos)
+			spawn_packed_at_pos(monster, pos)
+			spawn_packed_at_pos(pencil, pos)
 		)
 	
 	danger_spawn_timer.timeout.connect(_spawn_danger)
@@ -144,9 +147,7 @@ func _spawn_bad_text():
 	
 	var globalised_position = painter_image.to_global(position - Vector2(painter_image.img_size / 2) + Vector2(bad_text.get_size() / 2))
 	
-	var new_mark = spawn_packed_at_pos(mark, globalised_position)
-	
-	await get_tree().create_timer(new_mark.destroy_time).timeout
+	await _spawn_mark(globalised_position)
 	
 	bad_text_spawn_timer.random_start()
 	
@@ -156,6 +157,12 @@ func _spawn_bad_text():
 #
 #func reposition_mark(mark: Node2D, position: Vector2):
 	#mark
+
+func _spawn_mark(pos: Vector2):
+	var new_mark = spawn_packed_at_pos(mark, pos)
+	
+	await get_tree().create_timer(new_mark.destroy_time).timeout
+	return
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
