@@ -22,6 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://b5ofoqnche52t" path="res://teacher/teacher_not_looking.png" id="12_45aep"]
 [ext_resource type="AudioStream" uid="uid://6d62qaxhox2c" path="res://sfx/peremena.ogg" id="13_tyrfw"]
 [ext_resource type="PackedScene" uid="uid://dk7cjptcceqqb" path="res://dangers/paper_plane/paper_plane.tscn" id="14_eod45"]
+[ext_resource type="Texture2D" uid="uid://tdooes53a5po" path="res://notebook.png" id="16_dsr22"]
 [ext_resource type="AudioStream" uid="uid://cytm2cfklela2" path="res://sfx/teacher_walking/neizvesten_-_zvuk_shagov-1.ogg" id="20_1ni6y"]
 [ext_resource type="Texture2D" uid="uid://c46cdh7174blm" path="res://desk.png" id="20_2em84"]
 [ext_resource type="AudioStream" uid="uid://ilhwu20b4u42" path="res://sfx/teacher_walking/neizvesten_-_zvuk_shagov-2.ogg" id="21_xvjhw"]
@@ -38,9 +39,6 @@
 [ext_resource type="Script" uid="uid://dhi8f6nmrbw0o" path="res://desk_area.gd" id="35_d3t05"]
 [ext_resource type="Script" uid="uid://uth6krii35mx" path="res://start_game_panel.gd" id="35_s35uu"]
 [ext_resource type="AudioStream" uid="uid://d07yr4kx6v2g1" path="res://sfx/sound_check.ogg" id="36_5a717"]
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_eod45"]
-size = Vector2(684, 368)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_njsjv"]
 size = Vector2(1152, 534)
@@ -139,11 +137,11 @@ show_behind_parent = true
 
 [node name="PainterImage" type="Sprite2D" parent="PainterImages" unique_id=1908524790 node_paths=PackedStringArray("gameplay") groups=["painter_image"]]
 position = Vector2(591, 317)
-texture = SubResource("PlaceholderTexture2D_eod45")
+texture = ExtResource("16_dsr22")
 script = ExtResource("3_oe8ih")
-generate_img_on_ready = true
 img_size = Vector2i(684, 368)
 gameplay = NodePath("../..")
+erase_with_initial_texture_color = true
 
 [node name="Timers" type="Node2D" parent="." unique_id=1585624531]
 
@@ -216,10 +214,12 @@ decrease_wait_time_by = 1.3
 
 [node name="Teacher" type="Sprite2D" parent="." unique_id=1773635809 node_paths=PackedStringArray("gameplay")]
 z_index = -2
-position = Vector2(1252, 152)
+position = Vector2(1291, 152)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("10_1qy1k")
 script = ExtResource("11_3n40r")
+x_pos_start = 1291.0
+x_pos_end = -225.0
 y_pos_up = 214.0
 y_pos_down = -101.0
 walking_duration = 6.0
@@ -250,9 +250,9 @@ opened_position = Vector2(971.0001, 504)
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=974538232]
 
 [node name="BuildLabel" type="Label" parent="CanvasLayer" unique_id=353407264]
-offset_right = 53.0
+offset_right = 56.0
 offset_bottom = 23.0
-text = "Build 10"
+text = "Build 11"
 
 [node name="GameFinishLabel" type="Label" parent="CanvasLayer" unique_id=1348736259]
 anchors_preset = 5
@@ -486,6 +486,25 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 26
 text = "Ваш рекорд: 2 м. 00 сек."
 horizontal_alignment = 1
+
+[node name="SafeModeLabel2" type="Label" parent="CanvasLayer/StartGamePanel" unique_id=89405814]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -487.0
+offset_top = 155.0
+offset_right = -107.0
+offset_bottom = 252.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 15
+text = "Разработчики:
+AmongRyzh - программирование, подбор звуков, чуть-чуть геймдизайн, чуть-чуть спрайты
+GaMMa - автор идеи, геймдизайн, спрайты"
+autowrap_mode = 2
 
 [node name="StartButton" type="Button" parent="CanvasLayer/StartGamePanel" unique_id=1847108589]
 layout_mode = 1
