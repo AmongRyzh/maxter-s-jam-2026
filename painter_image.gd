@@ -15,14 +15,17 @@ var img : Image
 @export var erase_color : Color = Color.WHITE
 
 @export var erase_with_initial_texture_color : bool = false
-var initial_texture : Texture2D
+var initial_image : Image
 
 var is_hovered : bool
+
+var black_pixel_count : int
 
 func _ready():
 	gameplay = get_tree().current_scene
 	
-	initial_texture = texture
+	if texture:
+		initial_image = texture.get_image()
 	
 	if generate_img_on_ready:
 		img = Image.create_empty(img_size.x, img_size.y, false, Image.FORMAT_RGBA8)
@@ -52,7 +55,7 @@ func _paint_tex(pos):
 	
 	if erase_with_initial_texture_color:
 		var rect: Rect2i = Rect2i(pos, Vector2i(1, 1)).grow(gameplay.eraser_size)
-		var initial_img := initial_texture.get_image()
+		var initial_img := initial_image
 		var initial_img_under_rect = initial_img.get_region(rect)
 		
 		fill_texture(initial_img, rect, pos - Vector2(rect.size / 2), false)
@@ -86,7 +89,6 @@ func _input(event: InputEvent):
 				gameplay.object_with_durability_decrease = self
 			
 			_paint_tex(local_image_pos)
-			texture.update(img)
 		else:
 			if gameplay.object_with_durability_decrease == self:
 				gameplay.object_with_durability_decrease = null
@@ -114,3 +116,16 @@ func _input(event: InputEvent):
 				gameplay.object_with_durability_decrease = self
 			
 			_paint_tex(local_image_pos)
+
+#func _update_texture():
+	#texture.update(img)
+	#
+	#var used_rect: Rect2i = img.get_used_rect()
+	#print(used_rect)
+	#black_pixel_count = 0
+	#
+	## Only loop inside the bounding rectangle containing visible pixels
+	#for y in range(used_rect.position.y, used_rect.end.y):
+		#for x in range(used_rect.position.x, used_rect.end.x):
+			#if img.get_pixel(x, y).is_equal_approx(Color.BLACK):
+				#black_pixel_count += 1

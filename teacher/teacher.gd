@@ -12,6 +12,8 @@ extends Sprite2D
 @export var min_stop_time : float = 3
 @export var max_stop_time : float = 5
 
+@export var stop_time_curve : Curve
+
 @export var gameplay: Gameplay
 
 var tween : Tween
@@ -56,11 +58,21 @@ func _ready():
 		$PlaySoundTimer.timeout.emit()
 		$PlaySoundTimer.start()
 		
+		#var black_pixel_count = gameplay.get_pixel_count_of_color_in_all_painter_images(Color.BLACK, true)
+		#prints(black_pixel_count, stop_time_curve.sample(black_pixel_count))
+		
 		tween = create_tween()
 		tween.tween_property(self, "position:x", x_pos_end, walking_duration)
 		tween.parallel().tween_subtween(_up_down_subtween())
 		
-		gameplay.teacher_walk_timer.start(randf_range(min_stop_time, max_stop_time))
+		gameplay.teacher_walk_timer.start(
+			randf_range(min_stop_time, max_stop_time) if gameplay.game_finish_timer.time_left > 10 else max_stop_time)
+		#gameplay.teacher_walk_timer.start(stop_time_curve.sample(black_pixel_count))
+		
+		if !get_tree().current_scene.pencil_case_tutorial_shown:
+			await get_tree().create_timer(1.25).timeout
+			create_tween().tween_property($"../CanvasLayer/PencilCaseTutorial1", "modulate", Color.WHITE, 0.15)
+			get_tree().current_scene.pencil_case_tutorial_shown = true
 		)
 	
 	gameplay.teacher_walk_timer.timeout.connect(func():
@@ -75,7 +87,7 @@ func _ready():
 		
 		$PlaySoundTimer.stop()
 		
-		var black_pixel_count = gameplay.get_pixel_count_of_color_in_all_painter_images(Color.BLACK, false)
+		var black_pixel_count = gameplay.get_pixel_count_of_color_in_all_painter_images(Color.BLACK, true)
 		print(black_pixel_count)
 		
 		var monsters := get_tree().get_nodes_in_group('monster')
@@ -84,7 +96,7 @@ func _ready():
 		if (black_pixel_count > max_black_pixel_count or monsters.size() != 0) and enable_checking:
 			Engine.time_scale = 0
 			
-			gameplay.replace_color_to_color_in_all_painter_images(Color.BLACK, Color.RED)
+			gameplay.replace_color_to_color_in_all_painter_images(Color.BLACK, Color.RED, true)
 			
 			gameplay.play_sfx_by_name('death_by_teacher')
 			await get_tree().create_timer(0.87, true, false, true).timeout
@@ -111,8 +123,8 @@ func _ready():
 			position = Vector2(x_pos_start, y_pos_down)
 			
 			print(gameplay.game_finish_timer.time_left)
-			var wait_time = -1 if gameplay.game_finish_timer.time_left > 35 else gameplay.game_finish_timer.time_left - walking_duration + gameplay.teacher_look_timer.wait_time
-			print(wait_time)
+			var wait_time = -1 if gameplay.game_finish_timer.time_left > 35 else gameplay.game_finish_timer.time_left - walking_duration - gameplay.teacher_look_timer.wait_time - 1.4
+			print("teacher_cooldown.time = ", wait_time)
 			
 			gameplay.teacher_cooldown_timer.start(wait_time)
 			$PlaySoundTimer.stop()
@@ -131,7 +143,7 @@ func _up_down_subtween(loops: int = 0) -> Tween:
 	return up_down_subtween
 
 func _process(delta):
-	if gameplay.teacher_walk_timer.time_left <= 0.5 and !gameplay.teacher_walk_timer.is_stopped() and !blinking:
+	if gameplay.teacher_walk_timer.time_left <= 0.7 and !gameplay.teacher_walk_timer.is_stopped() and !blinking:
 		_blink()
 
 func _blink():
@@ -141,7 +153,7 @@ func _blink():
 	
 	var tween := create_tween()
 	tween.set_parallel(false)
-	for i in 5:
+	for i in 7:
 		tween.tween_property(self, "modulate", Color.RED, 0.05)
 		tween.tween_property(self, "modulate", Color.WHITE, 0.05)
 	tween.tween_callback(func(): blinking = false)

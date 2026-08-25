@@ -11,8 +11,8 @@ size = Vector2(80, 64)
 [node name="Monster" type="AnimatableBody2D" unique_id=1435944760 groups=["monster"]]
 collision_layer = 2
 script = ExtResource("1_okp8s")
-speed = 450.0
-min_opaque_pixel_count = 130
+speed = 430.0
+min_opaque_pixel_count = 150
 
 [node name="Monster" type="AudioStreamPlayer2D" parent="." unique_id=1553668331]
 stream = ExtResource("2_ck3l0")
@@ -27,9 +27,13 @@ z_index = 1
 texture = ExtResource("2_2k2s0")
 script = ExtResource("2_gsx7y")
 additional_durability_decrease = 4.0
-eraser_slowdown_factor = 6.667
+eraser_slowdown_factor = 6.0
 erase_color = Color(1, 1, 1, 0)
 
 [node name="CooldownTimer" type="Timer" parent="." unique_id=1794914289]
-wait_time = 0.35
+wait_time = 0.4
 one_shot = true
+
+[node name="CheckOpaquePixelTimer" type="Timer" parent="." unique_id=1480624929]
+wait_time = 0.009999999999999998
+autostart = true

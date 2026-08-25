@@ -5,7 +5,7 @@
 [ext_resource type="AudioStream" uid="uid://pkukuho6imha" path="res://sfx/падение.ogg" id="2_tldxh"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mgh1e"]
-radius = 58.00862
+radius = 42.0119
 
 [node name="PaperPlane" type="Area2D" unique_id=150558746]
 script = ExtResource("1_mgh1e")

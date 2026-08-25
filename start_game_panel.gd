@@ -16,8 +16,8 @@ func _ready():
 		AudioServer.set_bus_volume_linear(AudioServer.get_bus_index("SFX"), value)
 		)
 	music_slider.value_changed.connect(func(value):
-		if (!$SoundCheck.playing or $SoundCheck.get_playback_position() > 0.1) and !BGMusic.playing:
-			$SoundCheck.play()
+		if (!$MusicCheck.playing or $MusicCheck.get_playback_position() > 0.1) and !BGMusic.playing:
+			$MusicCheck.play()
 		AudioServer.set_bus_volume_linear(AudioServer.get_bus_index("Music"), value)
 		)
 

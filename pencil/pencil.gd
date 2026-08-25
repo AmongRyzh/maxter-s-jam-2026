@@ -1,5 +1,7 @@
 extends Area2D
 
+var annihilated: bool = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var tween := create_tween()
@@ -36,3 +38,4 @@ func _ready():
 func _on_body_entered(body):
 	if body is Eraser:
 		body.current_eraser_durability = 0
+		annihilated = true

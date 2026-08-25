@@ -49,11 +49,13 @@ clip_children = 2
 texture = ExtResource("7_rplbf")
 
 [node name="EraserSlot1" parent="PencilCaseMask" unique_id=484270672 node_paths=PackedStringArray("pencil_case") instance=ExtResource("2_6rdpm")]
-position = Vector2(-116, 0)
+position = Vector2(-116, -4.9999995)
+scale = Vector2(0.7, 0.7)
 pencil_case = NodePath("../..")
 
 [node name="EraserSlot2" parent="PencilCaseMask" unique_id=1594967973 node_paths=PackedStringArray("pencil_case") instance=ExtResource("2_6rdpm")]
-position = Vector2(28, 0)
+position = Vector2(28, -7.9999995)
+scale = Vector2(0.8, 0.8)
 pencil_case = NodePath("../..")
 
 [node name="EraserSlot3" parent="PencilCaseMask" unique_id=829235173 node_paths=PackedStringArray("pencil_case") instance=ExtResource("2_6rdpm")]

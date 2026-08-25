@@ -40,11 +40,6 @@
 [ext_resource type="Script" uid="uid://uth6krii35mx" path="res://start_game_panel.gd" id="35_s35uu"]
 [ext_resource type="AudioStream" uid="uid://d07yr4kx6v2g1" path="res://sfx/sound_check.ogg" id="36_5a717"]
 
-[sub_resource type="Curve" id="Curve_d8yap"]
-_limits = [2.0, 5.0, 0.0, 100000.0]
-_data = [Vector2(0, 2), 0.0, 0.0, 0, 0, Vector2(5188.679, 3.7192981), 0.0, 0.0, 0, 0, Vector2(100000, 4.9649124), 0.0, 0.0, 0, 0]
-point_count = 3
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_njsjv"]
 size = Vector2(1152, 534)
 
@@ -140,16 +135,13 @@ position = Vector2(140, 182)
 [node name="PainterImages" type="Node2D" parent="." unique_id=30994068]
 show_behind_parent = true
 
-[node name="Notebook" type="Sprite2D" parent="PainterImages" unique_id=160068459]
+[node name="PainterImage" type="Sprite2D" parent="PainterImages" unique_id=1908524790 node_paths=PackedStringArray("gameplay") groups=["painter_image"]]
 position = Vector2(591, 317)
 texture = ExtResource("16_dsr22")
-
-[node name="PainterImage" type="Sprite2D" parent="PainterImages/Notebook" unique_id=1908524790 node_paths=PackedStringArray("gameplay") groups=["painter_image"]]
 script = ExtResource("3_oe8ih")
-generate_img_on_ready = true
 img_size = Vector2i(684, 368)
-gameplay = NodePath("../../..")
-erase_color = Color(1, 1, 1, 0)
+gameplay = NodePath("../..")
+erase_with_initial_texture_color = true
 
 [node name="Timers" type="Node2D" parent="." unique_id=1585624531]
 
@@ -166,7 +158,7 @@ random_range = 0.2
 decrease_wait_time_by = 1.1
 
 [node name="BeginRandomEventTimer" type="Timer" parent="Timers" unique_id=649961357]
-wait_time = 22.5
+wait_time = 6.0
 one_shot = true
 autostart = true
 
@@ -211,6 +203,7 @@ pick_random_wait_time_again_on_restart = true
 [node name="FinalPainterImageSpawnTimer" type="Timer" parent="Timers" unique_id=520314544]
 wait_time = 90.0
 one_shot = true
+autostart = true
 
 [node name="MarkDestroyTime" type="Timer" parent="Timers" unique_id=473446164]
 wait_time = 0.5
@@ -230,9 +223,8 @@ x_pos_end = -225.0
 y_pos_up = 214.0
 y_pos_down = -101.0
 walking_duration = 6.0
-min_stop_time = 3.4
-max_stop_time = 4.6
-stop_time_curve = SubResource("Curve_d8yap")
+min_stop_time = 2.7
+max_stop_time = 4.1
 gameplay = NodePath("..")
 teacher_looking = ExtResource("10_1qy1k")
 teacher_not_looking = ExtResource("12_45aep")
@@ -254,14 +246,13 @@ position = Vector2(1269.0001, 745.0001)
 rotation = 0.6806784
 closed_position = Vector2(1269.0001, 745.0001)
 opened_position = Vector2(971.0001, 504)
-open_time = 0.15
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=974538232]
 
 [node name="BuildLabel" type="Label" parent="CanvasLayer" unique_id=353407264]
 offset_right = 56.0
 offset_bottom = 23.0
-text = "Build 14"
+text = "Build 11"
 
 [node name="GameFinishLabel" type="Label" parent="CanvasLayer" unique_id=1348736259]
 anchors_preset = 5

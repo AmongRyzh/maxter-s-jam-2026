@@ -70,6 +70,8 @@ var pencil_case_tutorial_shown: bool = false
 
 @export var sfx: Node2D
 
+var compressed_image_cache : Dictionary[Image, Image]
+
 func _ready():
 	Engine.time_scale = 0
 	
@@ -149,35 +151,50 @@ func _spawn_bad_text():
 	
 	var position : Vector2
 	
-	for i in 10:
-		painter_image = all_painter_images.pick_random()
+	painter_image = all_painter_images.pick_random()
 		
-		position = Vector2(
-			randf_range(0, painter_image.img_size.x - bad_text.get_width()), 
-			randf_range(0, painter_image.img_size.y - bad_text.get_height()))
-		
-		var rect : Rect2i = Rect2i(Vector2i(position) - bad_text.get_size() / 2, bad_text.get_size())
-		if get_pixel_count_of_color_in_rect(painter_image.texture, Color.BLACK, rect) < 150 or get_pixel_count_of_color_in_all_painter_images(Color.WHITE) < 1000:
-			break
+	position = Vector2(
+		randf_range(0, painter_image.img_size.x - bad_text.get_width()), 
+		randf_range(0, painter_image.img_size.y - bad_text.get_height())) if bad_text.get_width() == 128 else Vector2(
+		randf_range(80, painter_image.img_size.x - bad_text.get_width() - 80), 
+		randf_range(80, painter_image.img_size.y - bad_text.get_height() - 80))
+	
+	#for i in 10:
+		#painter_image = all_painter_images.pick_random()
+		#
+		#position = Vector2(
+			#randf_range(0, painter_image.img_size.x - bad_text.get_width()), 
+			#randf_range(0, painter_image.img_size.y - bad_text.get_height())) if bad_text.get_width() == 128 else Vector2(
+			#randf_range(80, painter_image.img_size.x - bad_text.get_width() - 80), 
+			#randf_range(80, painter_image.img_size.y - bad_text.get_height() - 80))
+		#
+		#var rect : Rect2i = Rect2i(Vector2i(position) - bad_text.get_size() / 2, bad_text.get_size())
+		#if get_pixel_count_of_color_in_rect(painter_image.texture, Color.BLACK, rect) < 150 or get_pixel_count_of_color_in_all_painter_images(Color.WHITE) < 1000:
+			#break
 	
 	var globalised_position = painter_image.to_global(position - Vector2(painter_image.img_size / 2) + Vector2(bad_text.get_size() / 2))
 	
-	await _spawn_mark(globalised_position)
+	await _spawn_mark(globalised_position, 0.05)
 	
 	bad_text_spawn_timer.random_start()
 	
-	spawn_packed_at_pos(pencil, globalised_position)
+	var pencil = spawn_packed_at_pos(pencil, globalised_position)
+	
+	await get_tree().create_timer(0.05).timeout
+	
+	if pencil.annihilated:
+		return
 	
 	painter_image.fill_texture(bad_text, Rect2i(Vector2.ZERO, bad_text.get_size()), position)
 #
 #func reposition_mark(mark: Node2D, position: Vector2):
 	#mark
 
-func _spawn_mark(pos: Vector2):
+func _spawn_mark(pos: Vector2, offset: float = 0):
 	var new_mark = spawn_packed_at_pos(mark, pos)
 	new_mark.destroy_time = mark_destroy_time.initial_wait_time
 	
-	await get_tree().create_timer(new_mark.destroy_time).timeout
+	await get_tree().create_timer(new_mark.destroy_time - offset).timeout
 	return
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -246,18 +263,20 @@ func get_opaque_pixel_count(texture: Texture2D) -> int:
 
 func get_pixel_count_of_color(texture: Texture, color: Color) -> int:
 	var img: Image = texture.get_image()
-	if img.is_compressed():
-		img.decompress()
-		
+	if img not in compressed_image_cache.keys():
+		var decomp_img = img
+		decomp_img.decompress()
+		compressed_image_cache[img] = decomp_img
+	
 	# Gets a bounding box enclosing only the visible parts of the image
-	var used_rect: Rect2i = img.get_used_rect()
+	var used_rect: Rect2i = compressed_image_cache[img].get_used_rect()
 	print(used_rect)
 	var color_count: int = 0
 	
 	# Only loop inside the bounding rectangle containing visible pixels
 	for y in range(used_rect.position.y, used_rect.end.y):
 		for x in range(used_rect.position.x, used_rect.end.x):
-			if img.get_pixel(x, y).is_equal_approx(color):
+			if compressed_image_cache[img].get_pixel(x, y).is_equal_approx(color):
 				color_count += 1
 	
 	return color_count
@@ -276,8 +295,12 @@ func get_pixel_count_of_color_in_rect_in_decompressed_img(img: Image, color: Col
 
 func get_pixel_count_of_color_in_rect(texture: Texture, color: Color, rect: Rect2i) -> int:
 	var img: Image = texture.get_image()
-	if img.is_compressed():
-		img.decompress()
+	
+	print(img.is_compressed())
+	#if img not in compressed_image_cache.keys():
+		#var decomp_img = img
+		#decomp_img.decompress()
+		#compressed_image_cache[img] = decomp_img
 	
 	var color_count: int = 0
 	
@@ -303,8 +326,10 @@ func get_pixel_count_of_color_in_rect(texture: Texture, color: Color, rect: Rect
 
 func replace_color_to_color(texture: ImageTexture, color_from: Color, color_to: Color) -> Image:
 	var img: Image = texture.get_image()
-	if img.is_compressed():
-		img.decompress()
+	if img not in compressed_image_cache.keys():
+		var decomp_img = img
+		decomp_img.decompress()
+		compressed_image_cache[img] = decomp_img
 		
 	# Gets a bounding box enclosing only the visible parts of the image
 	#var used_rect: Rect2i = img.get_used_rect()
@@ -314,10 +339,10 @@ func replace_color_to_color(texture: ImageTexture, color_from: Color, color_to: 
 	# Only loop inside the bounding rectangle containing visible pixels
 	for y in range(used_rect.position.y, used_rect.end.y):
 		for x in range(used_rect.position.x, used_rect.end.x):
-			if img.get_pixel(x, y).is_equal_approx(color_from):
-				img.set_pixel(x, y, color_to)
+			if compressed_image_cache[img].get_pixel(x, y).is_equal_approx(color_from):
+				compressed_image_cache[img].set_pixel(x, y, color_to)
 	
-	texture.update(img)
+	texture.update(compressed_image_cache[img])
 	return img
 
 func get_pixel_count_of_color_in_all_painter_images(color: Color, include_monster: bool = false) -> int:
